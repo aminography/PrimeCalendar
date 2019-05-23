@@ -1,6 +1,6 @@
 # `PrimeCalendar` :zap:
   
-**`PrimeCalendar`** makes working with dates easier.
+**`PrimeCalendar`** makes working with Persian/Hijri/Civil dates also their conversion to each other easier.
   
 ![](static/prime_logo.png)
   
