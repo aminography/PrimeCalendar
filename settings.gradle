@@ -1,1 +1,1 @@
-include ':sample-app', ':primecalendar', ':java-sample-app'
+include ':sample-app', ':library', ':java-sample-app'
