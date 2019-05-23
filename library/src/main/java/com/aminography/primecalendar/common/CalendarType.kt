@@ -6,5 +6,5 @@ package com.aminography.primecalendar.common
 enum class CalendarType {
     CIVIL,
     PERSIAN,
-    ARABIAN
+    HIJRI
 }

@@ -16,7 +16,7 @@ object CalendarFactory {
         return when (type) {
             CalendarType.CIVIL -> CivilCalendar()
             CalendarType.PERSIAN -> PersianCalendar()
-            CalendarType.ARABIAN -> HijriCalendar()
+            CalendarType.HIJRI -> HijriCalendar()
         }
     }
 
