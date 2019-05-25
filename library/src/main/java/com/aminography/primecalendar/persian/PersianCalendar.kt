@@ -53,7 +53,7 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
         }
 
     override val monthLength: Int
-        get() = PersianCalendarUtils.getMonthLength(year, month)
+        get() = PersianCalendarUtils.monthLength(year, month)
 
     override val isLeapYear: Boolean
         get() = PersianCalendarUtils.isPersianLeapYear(year)

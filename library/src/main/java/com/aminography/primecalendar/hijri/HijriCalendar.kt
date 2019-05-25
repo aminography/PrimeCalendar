@@ -39,7 +39,7 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
         }
 
     override val monthName: String
-        get() = HijriCalendarUtils.monthNames[hijriMonth]
+        get() = HijriCalendarUtils.hijriMonthNames[hijriMonth]
 
     override val weekDayName: String
         get() = when (get(DAY_OF_WEEK)) {
@@ -53,7 +53,7 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
         }
 
     override val monthLength: Int
-        get() = HijriCalendarUtils.getMonthLength(year, month)
+        get() = HijriCalendarUtils.monthLength(year, month)
 
     override val isLeapYear: Boolean
         get() = HijriCalendarUtils.isHijriLeapYear(year)

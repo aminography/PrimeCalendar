@@ -5,10 +5,10 @@ import com.aminography.primecalendar.common.DateHolder
 /**
  * @author aminography
  */
-internal object PersianCalendarUtils {
+object PersianCalendarUtils {
 
     @Suppress("ReplaceWithOperatorAssignment", "JoinDeclarationAndAssignment")
-    fun gregorianToPersian(gregorian: DateHolder): DateHolder {
+    internal fun gregorianToPersian(gregorian: DateHolder): DateHolder {
 
         if (gregorian.month > 11 || gregorian.month < -11) {
             throw IllegalArgumentException()
@@ -64,7 +64,7 @@ internal object PersianCalendarUtils {
     }
 
     @Suppress("ReplaceWithOperatorAssignment", "JoinDeclarationAndAssignment")
-    fun persianToGregorian(persian: DateHolder): DateHolder {
+    internal fun persianToGregorian(persian: DateHolder): DateHolder {
 
         if (persian.month > 11 || persian.month < -11) {
             throw IllegalArgumentException()
@@ -140,7 +140,7 @@ internal object PersianCalendarUtils {
     private val normalMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29)
     private val leapYearMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30)
 
-    val persianMonthNames = arrayOf(
+    internal val persianMonthNames = arrayOf(
             "\u0641\u0631\u0648\u0631\u062f\u06cc\u0646", // Farvardin
             "\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a", // Ordibehesht
             "\u062e\u0631\u062f\u0627\u062f", // Khordad
@@ -155,7 +155,7 @@ internal object PersianCalendarUtils {
             "\u0627\u0633\u0641\u0646\u062f" // Esfand
     )
 
-    val persianWeekDays = arrayOf(
+    internal val persianWeekDays = arrayOf(
             "\u0634\u0646\u0628\u0647", // Shanbeh
             "\u06cc\u06a9\u200c\u0634\u0646\u0628\u0647", // Yekshanbeh
             "\u062f\u0648\u0634\u0646\u0628\u0647", // Doshanbeh
@@ -165,7 +165,7 @@ internal object PersianCalendarUtils {
             "\u062c\u0645\u0639\u0647" // jom'e
     )
 
-    fun getMonthLength(year: Int, month: Int): Int {
+    fun monthLength(year: Int, month: Int): Int {
         return if (isPersianLeapYear(year)) {
             leapYearMonthLength[month]
         } else {
@@ -173,6 +173,11 @@ internal object PersianCalendarUtils {
         }
     }
 
-    fun isPersianLeapYear(persianYear: Int): Boolean = ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
+    fun monthName(month: Int): String = persianMonthNames[month]
+
+    fun weekDayName(dayOfWeek: Int): String = persianWeekDays[dayOfWeek]
+
+    internal fun isPersianLeapYear(persianYear: Int): Boolean =
+            ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
 
 }

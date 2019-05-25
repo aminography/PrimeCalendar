@@ -40,7 +40,7 @@ class CivilCalendar : BaseCalendar() {
         get() = getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH)
 
     override val monthLength: Int
-        get() = CivilCalendarUtils.getMonthLength(year, month)
+        get() = CivilCalendarUtils.monthLength(year, month)
 
     override val isLeapYear: Boolean
         get() = CivilCalendarUtils.isGregorianLeapYear(year)
