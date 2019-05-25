@@ -4,7 +4,7 @@ import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 
-interface IConverter {
+internal interface IConverter {
 
     fun toCivil(): CivilCalendar
 
