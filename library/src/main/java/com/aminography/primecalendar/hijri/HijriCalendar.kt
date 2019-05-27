@@ -13,7 +13,7 @@ import java.util.*
  */
 class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
 
-    private var fromSuper: Boolean = false
+    private var isInternalChange: Boolean = false
 
     private var hijriYear: Int = 0
     private var hijriMonth: Int = 0
@@ -23,21 +23,21 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
         get() = hijriYear
         set(value) {
             field = value
-            if (!fromSuper) setDate(value, month, dayOfMonth)
+            if (!isInternalChange) setDate(value, month, dayOfMonth)
         }
 
     override var month: Int = hijriMonth
         get() = hijriMonth
         set(value) {
             field = value
-            if (!fromSuper) setDate(year, value, dayOfMonth)
+            if (!isInternalChange) setDate(year, value, dayOfMonth)
         }
 
     override var dayOfMonth: Int = hijriDayOfMonth
         get() = hijriDayOfMonth
         set(value) {
             field = value
-            if (!fromSuper) setDate(year, month, value)
+            if (!isInternalChange) setDate(year, month, value)
         }
 
     override val monthName: String
@@ -125,11 +125,11 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
                 )
         )
 
-        fromSuper = true
+        isInternalChange = true
         hijriYear = hijriYearMonthDay.year
         hijriMonth = hijriYearMonthDay.month
         hijriDayOfMonth = hijriYearMonthDay.day
-        fromSuper = false
+        isInternalChange = false
     }
 
     // ---------------------------------------------------------------------------------------------

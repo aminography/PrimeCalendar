@@ -12,27 +12,27 @@ import java.util.*
  */
 class CivilCalendar : BaseCalendar() {
 
-    private var fromSuper: Boolean = false
+    private var isInternalChange: Boolean = false
 
     override var year: Int = get(Calendar.YEAR)
         get() = get(Calendar.YEAR)
         set(value) {
             field = value
-            if (!fromSuper) set(Calendar.YEAR, value)
+            if (!isInternalChange) set(Calendar.YEAR, value)
         }
 
     override var month: Int = get(Calendar.MONTH)
         get() = get(Calendar.MONTH)
         set(value) {
             field = value
-            if (!fromSuper) set(Calendar.MONTH, value)
+            if (!isInternalChange) set(Calendar.MONTH, value)
         }
 
     override var dayOfMonth: Int = get(Calendar.DAY_OF_MONTH)
         get() = get(Calendar.DAY_OF_MONTH)
         set(value) {
             field = value
-            if (!fromSuper) set(Calendar.DAY_OF_MONTH, value)
+            if (!isInternalChange) set(Calendar.DAY_OF_MONTH, value)
         }
 
     override val monthName: String
@@ -68,11 +68,11 @@ class CivilCalendar : BaseCalendar() {
     }
 
     private fun recalculate() {
-        fromSuper = true
+        isInternalChange = true
         year = get(Calendar.YEAR)
         month = get(Calendar.MONTH)
         dayOfMonth = get(Calendar.DAY_OF_MONTH)
-        fromSuper = false
+        isInternalChange = false
     }
 
     // ---------------------------------------------------------------------------------------------
