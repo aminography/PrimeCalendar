@@ -12,25 +12,27 @@ import java.util.*
  */
 class CivilCalendar : BaseCalendar() {
 
+    private var fromSuper: Boolean = false
+
     override var year: Int = get(Calendar.YEAR)
         get() = get(Calendar.YEAR)
         set(value) {
             field = value
-            set(Calendar.YEAR, value)
+            if (!fromSuper) set(Calendar.YEAR, value)
         }
 
     override var month: Int = get(Calendar.MONTH)
         get() = get(Calendar.MONTH)
         set(value) {
             field = value
-            set(Calendar.MONTH, value)
+            if (!fromSuper) set(Calendar.MONTH, value)
         }
 
     override var dayOfMonth: Int = get(Calendar.DAY_OF_MONTH)
         get() = get(Calendar.DAY_OF_MONTH)
         set(value) {
             field = value
-            set(Calendar.DAY_OF_MONTH, value)
+            if (!fromSuper) set(Calendar.DAY_OF_MONTH, value)
         }
 
     override val monthName: String
@@ -44,6 +46,34 @@ class CivilCalendar : BaseCalendar() {
 
     override val isLeapYear: Boolean
         get() = CivilCalendarUtils.isGregorianLeapYear(year)
+
+    override fun add(field: Int, amount: Int) {
+        super.add(field, amount)
+        recalculate()
+    }
+
+    override fun set(field: Int, value: Int) {
+        super.set(field, value)
+        recalculate()
+    }
+
+    override fun setTimeInMillis(millis: Long) {
+        super.setTimeInMillis(millis)
+        recalculate()
+    }
+
+    override fun setTimeZone(zone: TimeZone) {
+        super.setTimeZone(zone)
+        recalculate()
+    }
+
+    private fun recalculate() {
+        fromSuper = true
+        year = get(Calendar.YEAR)
+        month = get(Calendar.MONTH)
+        dayOfMonth = get(Calendar.DAY_OF_MONTH)
+        fromSuper = false
+    }
 
     // ---------------------------------------------------------------------------------------------
 

@@ -13,6 +13,8 @@ import java.util.*
  */
 class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
 
+    private var fromSuper: Boolean = false
+
     private var persianYear: Int = 0
     private var persianMonth: Int = 0
     private var persianDayOfMonth: Int = 0
@@ -21,21 +23,21 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
         get() = persianYear
         set(value) {
             field = value
-            setDate(value, month, dayOfMonth)
+            if (!fromSuper) setDate(value, month, dayOfMonth)
         }
 
     override var month: Int = persianMonth
         get() = persianMonth
         set(value) {
             field = value
-            setDate(year, value, dayOfMonth)
+            if (!fromSuper) setDate(year, value, dayOfMonth)
         }
 
     override var dayOfMonth: Int = persianDayOfMonth
         get() = persianDayOfMonth
         set(value) {
             field = value
-            setDate(year, month, value)
+            if (!fromSuper) setDate(year, month, value)
         }
 
     override val monthName: String
@@ -122,9 +124,12 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
                         super.get(DAY_OF_MONTH)
                 )
         )
+
+        fromSuper = true
         persianYear = persianYearMonthDay.year
         persianMonth = persianYearMonthDay.month
         persianDayOfMonth = persianYearMonthDay.day
+        fromSuper = false
     }
 
     // ---------------------------------------------------------------------------------------------
