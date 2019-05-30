@@ -23,6 +23,10 @@ abstract class BaseCalendar : GregorianCalendar, IConverter {
 
     abstract val isLeapYear: Boolean
 
+    abstract val weekStartDay: Int
+
+    abstract val calendarType: CalendarType
+
     val longDateString: String
         get() = "$weekDayName,  $dayOfMonth  $monthName  $year"
 
@@ -37,8 +41,6 @@ abstract class BaseCalendar : GregorianCalendar, IConverter {
     open fun setDate(year: Int, month: Int, dayOfMonth: Int) {
         set(year, month, dayOfMonth)
     }
-
-    abstract fun calendarType(): CalendarType
 
     override fun toString(): String {
         val s = super.toString()

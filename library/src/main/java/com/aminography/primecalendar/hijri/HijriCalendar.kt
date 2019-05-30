@@ -61,6 +61,12 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
     override val isLeapYear: Boolean
         get() = HijriCalendarUtils.isHijriLeapYear(year)
 
+    override val weekStartDay: Int
+        get() = Calendar.SATURDAY
+
+    override val calendarType: CalendarType
+        get() = CalendarType.HIJRI
+
     // ---------------------------------------------------------------------------------------------
 
     override fun setDate(year: Int, month: Int, dayOfMonth: Int) {
@@ -134,8 +140,6 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
     }
 
     // ---------------------------------------------------------------------------------------------
-
-    override fun calendarType(): CalendarType = CalendarType.HIJRI
 
     override fun toCivil(): CivilCalendar = convertHijriToCivil(this)
 

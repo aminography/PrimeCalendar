@@ -48,6 +48,14 @@ class CivilCalendar : BaseCalendar() {
     override val isLeapYear: Boolean
         get() = CivilCalendarUtils.isGregorianLeapYear(year)
 
+    override val weekStartDay: Int
+        get() = Calendar.SUNDAY
+
+    override val calendarType: CalendarType
+        get() = CalendarType.CIVIL
+
+    //----------------------------------------------------------------------------------------------
+
     override fun add(field: Int, amount: Int) {
         super.add(field, amount)
         recalculate()
@@ -77,8 +85,6 @@ class CivilCalendar : BaseCalendar() {
     }
 
     // ---------------------------------------------------------------------------------------------
-
-    override fun calendarType(): CalendarType = CalendarType.CIVIL
 
     override fun toCivil(): CivilCalendar = this
 

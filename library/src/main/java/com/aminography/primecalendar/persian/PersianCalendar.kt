@@ -61,6 +61,12 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
     override val isLeapYear: Boolean
         get() = PersianCalendarUtils.isPersianLeapYear(year)
 
+    override val weekStartDay: Int
+        get() = Calendar.SATURDAY
+
+    override val calendarType: CalendarType
+        get() = CalendarType.PERSIAN
+
     // ---------------------------------------------------------------------------------------------
 
     override fun setDate(year: Int, month: Int, dayOfMonth: Int) {
@@ -134,8 +140,6 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
     }
 
     // ---------------------------------------------------------------------------------------------
-
-    override fun calendarType(): CalendarType = CalendarType.PERSIAN
 
     override fun toCivil(): CivilCalendar = convertPersianToCivil(this)
 
