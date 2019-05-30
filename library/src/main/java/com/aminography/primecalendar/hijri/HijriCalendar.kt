@@ -2,6 +2,7 @@ package com.aminography.primecalendar.hijri
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertHijriToCivil
 import com.aminography.primecalendar.common.convertHijriToPersian
@@ -133,6 +134,8 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    override fun calendarType(): CalendarType = CalendarType.HIJRI
 
     override fun toCivil(): CivilCalendar = convertHijriToCivil(this)
 

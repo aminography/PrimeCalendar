@@ -1,6 +1,7 @@
 package com.aminography.primecalendar.civil
 
 import com.aminography.primecalendar.base.BaseCalendar
+import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.convertCivilToHijri
 import com.aminography.primecalendar.common.convertCivilToPersian
 import com.aminography.primecalendar.hijri.HijriCalendar
@@ -76,6 +77,8 @@ class CivilCalendar : BaseCalendar() {
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    override fun calendarType(): CalendarType = CalendarType.CIVIL
 
     override fun toCivil(): CivilCalendar = this
 

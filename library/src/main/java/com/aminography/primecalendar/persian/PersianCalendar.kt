@@ -2,6 +2,7 @@ package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertPersianToCivil
 import com.aminography.primecalendar.common.convertPersianToHijri
@@ -133,6 +134,8 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    override fun calendarType(): CalendarType = CalendarType.PERSIAN
 
     override fun toCivil(): CivilCalendar = convertPersianToCivil(this)
 

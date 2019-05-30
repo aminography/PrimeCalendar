@@ -1,5 +1,6 @@
 package com.aminography.primecalendar.base
 
+import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.IConverter
 import java.util.*
 
@@ -36,6 +37,8 @@ abstract class BaseCalendar : GregorianCalendar, IConverter {
     open fun setDate(year: Int, month: Int, dayOfMonth: Int) {
         set(year, month, dayOfMonth)
     }
+
+    abstract fun calendarType(): CalendarType
 
     override fun toString(): String {
         val s = super.toString()
