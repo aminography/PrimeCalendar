@@ -1,8 +1,10 @@
 package com.aminography.primecalendar.sample
 
+import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -37,6 +39,19 @@ class ExampleUnitTest {
         assertEquals(hijri.year, 1411)
         assertEquals(hijri.month, 11)
         assertEquals(hijri.dayOfMonth, 23)
+    }
+
+    @Test
+    fun May31Test() {
+        val calendar = CivilCalendar()
+        print(calendar.longDateString)
+
+        calendar.setDate(2019, 5, 1)
+        print(calendar.longDateString)
+
+        assertEquals(calendar.year, 2019)
+        assertEquals(calendar.month, 5)
+        assertEquals(calendar.dayOfMonth, 1)
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.*
  */
 class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
 
-    private var isInternalChange: Boolean = false
+    private var calculatingLevel = 0
 
     private var hijriYear: Int = 0
     private var hijriMonth: Int = 0
@@ -24,21 +24,21 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
         get() = hijriYear
         set(value) {
             field = value
-            if (!isInternalChange) setDate(value, month, dayOfMonth)
+            setDate(value, month, dayOfMonth)
         }
 
     override var month: Int = hijriMonth
         get() = hijriMonth
         set(value) {
             field = value
-            if (!isInternalChange) setDate(year, value, dayOfMonth)
+            setDate(year, value, dayOfMonth)
         }
 
     override var dayOfMonth: Int = hijriDayOfMonth
         get() = hijriDayOfMonth
         set(value) {
             field = value
-            if (!isInternalChange) setDate(year, month, value)
+            setDate(year, month, value)
         }
 
     override val monthName: String
@@ -74,7 +74,9 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
         hijriMonth = month
         hijriDayOfMonth = dayOfMonth
         val gregorianYearMonthDay = HijriCalendarUtils.hijriToGregorian(DateHolder(hijriYear, hijriMonth, hijriDayOfMonth))
+        calculatingLevel++
         super.setDate(gregorianYearMonthDay.year, gregorianYearMonthDay.month, gregorianYearMonthDay.day)
+        calculatingLevel--
     }
 
     override fun add(field: Int, amount: Int) {
@@ -89,7 +91,9 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
             YEAR -> setDate(hijriYear + amount, hijriMonth, hijriDayOfMonth)
             MONTH -> setDate(hijriYear + (hijriMonth + amount) / 12, (hijriMonth + amount) % 12, hijriDayOfMonth)
             else -> {
+                calculatingLevel++
                 super.add(field, amount)
+                calculatingLevel--
                 recalculate()
             }
         }
@@ -109,34 +113,39 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
     }*/
 
     override fun set(field: Int, value: Int) {
+        calculatingLevel++
         super.set(field, value)
+        calculatingLevel--
         recalculate()
     }
 
     override fun setTimeInMillis(millis: Long) {
+        calculatingLevel++
         super.setTimeInMillis(millis)
+        calculatingLevel--
         recalculate()
     }
 
     override fun setTimeZone(zone: TimeZone) {
+        calculatingLevel++
         super.setTimeZone(zone)
+        calculatingLevel--
         recalculate()
     }
 
     private fun recalculate() {
-        val hijriYearMonthDay = HijriCalendarUtils.gregorianToHijri(
-                DateHolder(
-                        super.get(YEAR),
-                        super.get(MONTH),
-                        super.get(DAY_OF_MONTH)
-                )
-        )
-
-        isInternalChange = true
-        hijriYear = hijriYearMonthDay.year
-        hijriMonth = hijriYearMonthDay.month
-        hijriDayOfMonth = hijriYearMonthDay.day
-        isInternalChange = false
+        if (calculatingLevel == 0) {
+            val hijriYearMonthDay = HijriCalendarUtils.gregorianToHijri(
+                    DateHolder(
+                            super.get(YEAR),
+                            super.get(MONTH),
+                            super.get(DAY_OF_MONTH)
+                    )
+            )
+            hijriYear = hijriYearMonthDay.year
+            hijriMonth = hijriYearMonthDay.month
+            hijriDayOfMonth = hijriYearMonthDay.day
+        }
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -39,7 +39,7 @@ abstract class BaseCalendar : GregorianCalendar, IConverter {
         get() = monthName + " " + normalize(dayOfMonth)
 
     open fun setDate(year: Int, month: Int, dayOfMonth: Int) {
-        set(year, month, dayOfMonth)
+        super.set(year, month, dayOfMonth)
     }
 
     override fun toString(): String {

@@ -14,7 +14,7 @@ import java.util.*
  */
 class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
 
-    private var isInternalChange: Boolean = false
+    private var calculatingLevel = 0
 
     private var persianYear: Int = 0
     private var persianMonth: Int = 0
@@ -24,21 +24,21 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
         get() = persianYear
         set(value) {
             field = value
-            if (!isInternalChange) setDate(value, month, dayOfMonth)
+            setDate(value, month, dayOfMonth)
         }
 
     override var month: Int = persianMonth
         get() = persianMonth
         set(value) {
             field = value
-            if (!isInternalChange) setDate(year, value, dayOfMonth)
+            setDate(year, value, dayOfMonth)
         }
 
     override var dayOfMonth: Int = persianDayOfMonth
         get() = persianDayOfMonth
         set(value) {
             field = value
-            if (!isInternalChange) setDate(year, month, value)
+            setDate(year, month, value)
         }
 
     override val monthName: String
@@ -74,7 +74,9 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
         persianMonth = month
         persianDayOfMonth = dayOfMonth
         val gregorianYearMonthDay = PersianCalendarUtils.persianToGregorian(DateHolder(persianYear, persianMonth, persianDayOfMonth))
+        calculatingLevel++
         super.setDate(gregorianYearMonthDay.year, gregorianYearMonthDay.month, gregorianYearMonthDay.day)
+        calculatingLevel--
     }
 
     override fun add(field: Int, amount: Int) {
@@ -89,7 +91,9 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
             YEAR -> setDate(persianYear + amount, persianMonth, persianDayOfMonth)
             MONTH -> setDate(persianYear + (persianMonth + amount) / 12, (persianMonth + amount) % 12, persianDayOfMonth)
             else -> {
+                calculatingLevel++
                 super.add(field, amount)
+                calculatingLevel--
                 recalculate()
             }
         }
@@ -109,34 +113,39 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
     }*/
 
     override fun set(field: Int, value: Int) {
+        calculatingLevel++
         super.set(field, value)
+        calculatingLevel--
         recalculate()
     }
 
     override fun setTimeInMillis(millis: Long) {
+        calculatingLevel++
         super.setTimeInMillis(millis)
+        calculatingLevel--
         recalculate()
     }
 
     override fun setTimeZone(zone: TimeZone) {
+        calculatingLevel++
         super.setTimeZone(zone)
+        calculatingLevel--
         recalculate()
     }
 
     private fun recalculate() {
-        val persianYearMonthDay = PersianCalendarUtils.gregorianToPersian(
-                DateHolder(
-                        super.get(YEAR),
-                        super.get(MONTH),
-                        super.get(DAY_OF_MONTH)
-                )
-        )
-
-        isInternalChange = true
-        persianYear = persianYearMonthDay.year
-        persianMonth = persianYearMonthDay.month
-        persianDayOfMonth = persianYearMonthDay.day
-        isInternalChange = false
+        if (calculatingLevel == 0) {
+            val persianYearMonthDay = PersianCalendarUtils.gregorianToPersian(
+                    DateHolder(
+                            super.get(YEAR),
+                            super.get(MONTH),
+                            super.get(DAY_OF_MONTH)
+                    )
+            )
+            persianYear = persianYearMonthDay.year
+            persianMonth = persianYearMonthDay.month
+            persianDayOfMonth = persianYearMonthDay.day
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
