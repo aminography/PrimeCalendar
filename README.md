@@ -7,7 +7,7 @@
 .  
 .  
   
-**`PrimeCalendar`** makes working with Persian/Hijri/Civil dates also their conversion to each other easier.
+**`PrimeCalendar`** makes working with Civil /Persian/Hijri dates easier as well as their conversion to each other.
   
 ![](static/prime_logo.png)
   
