@@ -2,6 +2,7 @@ package com.aminography.primecalendar.sample
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.civil.CivilCalendarUtils
 import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.persian.PersianCalendar
 import org.junit.Assert.assertEquals
@@ -36,23 +37,26 @@ class ExampleUnitTest {
     @Test
     fun weekOfYear() {
         val calendar = CivilCalendar()
-        calendar.month = 1
-        calendar.dayOfMonth = 11
+//        calendar.year = 1994
+//        calendar.month = 7
+//        calendar.dayOfMonth = 11
 
         println(calendar.longDateString)
         println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+        println("WEEK_OF_YEAR: ${calendar.weekOfYear}")
     }
 
     @Test
     fun weekOfMonth() {
-//        val calendar = CivilCalendar()
-        val calendar = PersianCalendar()
-        calendar.month = 0
-        calendar.dayOfMonth = 31
+        val calendar = CivilCalendar()
+//        val calendar = PersianCalendar()
+        calendar.month = 10
+        calendar.dayOfMonth = 14
 
         println(calendar.longDateString)
         println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
         println("WEEK_OF_MONTH: ${weekOfMonth(calendar)}")
+        println("WEEK_OF_MONTH: ${calendar.weekOfMonth}")
     }
 
     @Test

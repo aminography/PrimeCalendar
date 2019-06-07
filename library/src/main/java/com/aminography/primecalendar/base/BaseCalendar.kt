@@ -1,5 +1,6 @@
 package com.aminography.primecalendar.base
 
+import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.IConverter
 import java.util.*
@@ -46,6 +47,39 @@ abstract class BaseCalendar : GregorianCalendar, IConverter {
         val s = super.toString()
         return "${s.substring(0, s.length - 1)}, Date=$shortDateString]"
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private fun weekOffset(dayOfWeek: Int): Int {
+        val day = if (dayOfWeek < weekStartDay) dayOfWeek + 7 else dayOfWeek
+        return (day - weekStartDay) % 7
+    }
+
+    val weekOfMonth: Int
+        get() {
+            val firstDayOfMonthDayOfWeek =
+                    CalendarFactory.newInstance(calendarType).let {
+                        it.setDate(year, month, 1)
+                        it.get(Calendar.DAY_OF_WEEK)
+                    }
+            val offset = weekOffset(firstDayOfMonthDayOfWeek)
+            val dividend = (offset + dayOfMonth) / 7
+            val remainder = (offset + dayOfMonth) % 7
+            return dividend + if (remainder > 0) 1 else 0
+        }
+
+    val weekOfYear: Int
+        get() {
+            val firstDayOfYearDayOfWeek =
+                    CalendarFactory.newInstance(calendarType).let {
+                        it.setDate(year, 0, 1)
+                        it.get(Calendar.DAY_OF_WEEK)
+                    }
+            val offset = weekOffset(firstDayOfYearDayOfWeek)
+            val dividend = (offset + dayOfYear) / 7 // TODO
+            val remainder = (offset + dayOfYear) % 7
+            return dividend + if (remainder > 0) 1 else 0
+        }
 
     // ---------------------------------------------------------------------------------------------
 
