@@ -32,7 +32,7 @@ abstract class BaseCalendar : GregorianCalendar, IConverter {
 
     @Suppress("MemberVisibilityCanBePrivate")
     val shortDateString: String
-        get() = normalize(year) + delimiter + normalize(month) + delimiter + normalize(dayOfMonth)
+        get() = normalize(year) + delimiter + normalize(month + 1) + delimiter + normalize(dayOfMonth)
 
     @Suppress("unused")
     val monthDayString: String
