@@ -89,7 +89,13 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
 
         when (field) {
             YEAR -> setDate(hijriYear + amount, hijriMonth, hijriDayOfMonth)
-            MONTH -> setDate(hijriYear + (hijriMonth + amount) / 12, (hijriMonth + amount) % 12, hijriDayOfMonth)
+            MONTH -> {
+                if (amount > 0) {
+                    setDate(hijriYear + (hijriMonth + amount) / 12, (hijriMonth + amount) % 12, hijriDayOfMonth)
+                } else {
+                    setDate(hijriYear - (12 - (hijriMonth + amount + 1)) / 12, (12 + (hijriMonth + amount)) % 12, hijriDayOfMonth)
+                }
+            }
             else -> {
                 calculatingLevel++
                 super.add(field, amount)

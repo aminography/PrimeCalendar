@@ -89,7 +89,13 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
 
         when (field) {
             YEAR -> setDate(persianYear + amount, persianMonth, persianDayOfMonth)
-            MONTH -> setDate(persianYear + (persianMonth + amount) / 12, (persianMonth + amount) % 12, persianDayOfMonth)
+            MONTH -> {
+                if (amount > 0) {
+                    setDate(persianYear + (persianMonth + amount) / 12, (persianMonth + amount) % 12, persianDayOfMonth)
+                } else {
+                    setDate(persianYear - (12 - (persianMonth + amount + 1)) / 12, (12 + (persianMonth + amount)) % 12, persianDayOfMonth)
+                }
+            }
             else -> {
                 calculatingLevel++
                 super.add(field, amount)
