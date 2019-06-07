@@ -1,6 +1,8 @@
 package com.aminography.primecalendar.sample
 
+import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.persian.PersianCalendar
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -12,6 +14,46 @@ import java.util.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
+    private fun weekOffset(dayOfWeek: Int, weekStartDay: Int): Int {
+        val day = if (dayOfWeek < weekStartDay) dayOfWeek + 7 else dayOfWeek
+        return (day - weekStartDay) % 7
+    }
+
+    private fun weekOfMonth(calendar: BaseCalendar): Int {
+        val day = calendar.dayOfMonth
+        var firstDayOfMonthDayOfWeek: Int
+        CalendarFactory.newInstance(calendar.calendarType).apply {
+            setDate(calendar.year, calendar.month, 1)
+            firstDayOfMonthDayOfWeek = get(Calendar.DAY_OF_WEEK)
+        }
+        val offset = weekOffset(firstDayOfMonthDayOfWeek, calendar.weekStartDay)
+        val dividend = (offset + day) / 7
+        val remainder = (offset + day) % 7
+        return dividend + if (remainder > 0) 1 else 0
+    }
+
+    @Test
+    fun weekOfYear() {
+        val calendar = CivilCalendar()
+        calendar.month = 1
+        calendar.dayOfMonth = 11
+
+        println(calendar.longDateString)
+        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+    }
+
+    @Test
+    fun weekOfMonth() {
+//        val calendar = CivilCalendar()
+        val calendar = PersianCalendar()
+        calendar.month = 0
+        calendar.dayOfMonth = 31
+
+        println(calendar.longDateString)
+        println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        println("WEEK_OF_MONTH: ${weekOfMonth(calendar)}")
+    }
 
     @Test
     fun persianToCivilConversion() {
