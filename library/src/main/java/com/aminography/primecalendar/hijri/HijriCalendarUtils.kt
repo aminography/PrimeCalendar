@@ -25,6 +25,9 @@ object HijriCalendarUtils {
     private val normalMonthLength = intArrayOf(30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29)
     private val leapYearMonthLength = intArrayOf(30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 30)
 
+    private val normalMonthLengthAggregated = intArrayOf(0, 30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325, 354)
+    private val leapYearMonthLengthAggregated = intArrayOf(0, 30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325, 355)
+
     internal val hijriMonthNames = arrayOf(
             "\u0645\u062D\u0631\u0645",
             "\u0635\u0641\u0631",
@@ -50,13 +53,15 @@ object HijriCalendarUtils {
             "\u0627\u0644\u062c\u0645\u0639\u0629"
     )
 
-    fun monthLength(year: Int, month: Int): Int {
-        return if (isHijriLeapYear(year)) {
-            leapYearMonthLength[month]
-        } else {
-            normalMonthLength[month]
-        }
-    }
+    fun monthLength(year: Int, month: Int): Int =
+            if (isHijriLeapYear(year))
+                leapYearMonthLength[month]
+            else normalMonthLength[month]
+
+    fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
+            if (isHijriLeapYear(year))
+                leapYearMonthLengthAggregated[month] + dayOfMonth
+            else normalMonthLengthAggregated[month] + dayOfMonth
 
     fun monthName(month: Int): String = hijriMonthNames[month]
 

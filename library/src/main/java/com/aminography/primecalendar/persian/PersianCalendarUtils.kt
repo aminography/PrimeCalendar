@@ -140,6 +140,9 @@ object PersianCalendarUtils {
     private val normalMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29)
     private val leapYearMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30)
 
+    private val normalMonthLengthAggregated = intArrayOf(0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 365)
+    private val leapYearMonthLengthAggregated = intArrayOf(0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 366)
+
     internal val persianMonthNames = arrayOf(
             "\u0641\u0631\u0648\u0631\u062f\u06cc\u0646", // Farvardin
             "\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a", // Ordibehesht
@@ -165,13 +168,15 @@ object PersianCalendarUtils {
             "\u062c\u0645\u0639\u0647" // jom'e
     )
 
-    fun monthLength(year: Int, month: Int): Int {
-        return if (isPersianLeapYear(year)) {
-            leapYearMonthLength[month]
-        } else {
-            normalMonthLength[month]
-        }
-    }
+    fun monthLength(year: Int, month: Int): Int =
+            if (isPersianLeapYear(year))
+                leapYearMonthLength[month]
+            else normalMonthLength[month]
+
+    fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
+            if (isPersianLeapYear(year))
+                leapYearMonthLengthAggregated[month] + dayOfMonth
+            else normalMonthLengthAggregated[month] + dayOfMonth
 
     fun monthName(month: Int): String = persianMonthNames[month]
 
