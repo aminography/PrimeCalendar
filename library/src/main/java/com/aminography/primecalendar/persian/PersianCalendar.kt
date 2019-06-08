@@ -74,7 +74,7 @@ class PersianCalendar : BaseCalendar() {
 
     override fun get(field: Int): Int {
         return when (field) {
-            ERA -> throw NotImplementedError("ERA is not implemented yet!")
+            ERA -> super.get(ERA)
             YEAR -> year
             MONTH -> month
             WEEK_OF_YEAR -> calculateWeekOfYear()
