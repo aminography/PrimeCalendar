@@ -7,38 +7,34 @@ import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertHijriToCivil
 import com.aminography.primecalendar.common.convertHijriToPersian
 import com.aminography.primecalendar.persian.PersianCalendar
-import java.util.*
+import java.util.Calendar.*
+
 
 /**
  * @author aminography
  */
-class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
-
-    private var calculatingLevel = 0
+class HijriCalendar : BaseCalendar() {
 
     private var hijriYear: Int = 0
     private var hijriMonth: Int = 0
     private var hijriDayOfMonth: Int = 0
 
-    override var year: Int = hijriYear
+    override var year: Int
         get() = hijriYear
         set(value) {
-            field = value
-            setDate(value, month, dayOfMonth)
+            set(value, hijriMonth, hijriDayOfMonth)
         }
 
-    override var month: Int = hijriMonth
+    override var month: Int
         get() = hijriMonth
         set(value) {
-            field = value
-            setDate(year, value, dayOfMonth)
+            set(hijriYear, value, hijriDayOfMonth)
         }
 
-    override var dayOfMonth: Int = hijriDayOfMonth
+    override var dayOfMonth: Int
         get() = hijriDayOfMonth
         set(value) {
-            field = value
-            setDate(year, month, value)
+            set(hijriYear, hijriMonth, value)
         }
 
     override val monthName: String
@@ -61,22 +57,35 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
     override val isLeapYear: Boolean
         get() = HijriCalendarUtils.isHijriLeapYear(year)
 
-    override val weekStartDay: Int
-        get() = Calendar.SATURDAY
+    override var firstDayOfWeek: Int = SATURDAY
+        set(value) {
+            field = value
+            setInternalFirstDayOfWeek(value)
+        }
 
     override val calendarType: CalendarType
         get() = CalendarType.HIJRI
 
+    init {
+        invalidate()
+        setInternalFirstDayOfWeek(firstDayOfWeek)
+    }
+
     // ---------------------------------------------------------------------------------------------
 
-    override fun setDate(year: Int, month: Int, dayOfMonth: Int) {
-        hijriYear = year
-        hijriMonth = month
-        hijriDayOfMonth = dayOfMonth
-        val gregorianYearMonthDay = HijriCalendarUtils.hijriToGregorian(DateHolder(hijriYear, hijriMonth, hijriDayOfMonth))
-        calculatingLevel++
-        super.setDate(gregorianYearMonthDay.year, gregorianYearMonthDay.month, gregorianYearMonthDay.day)
-        calculatingLevel--
+    override fun get(field: Int): Int {
+        return when (field) {
+            ERA -> throw NotImplementedError("ERA is not implemented yet!")
+            YEAR -> year
+            MONTH -> month
+            WEEK_OF_YEAR -> calculateWeekOfYear()
+            WEEK_OF_MONTH -> calculateWeekOfMonth()
+            DAY_OF_MONTH -> dayOfMonth // also DATE
+            DAY_OF_YEAR -> calculateDayOfYear()
+            DAY_OF_WEEK -> super.get(DAY_OF_WEEK)
+            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            else -> super.get(field)
+        }
     }
 
     override fun add(field: Int, amount: Int) {
@@ -88,71 +97,131 @@ class HijriCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
         }
 
         when (field) {
-            YEAR -> setDate(hijriYear + amount, hijriMonth, hijriDayOfMonth)
+            YEAR -> set(hijriYear + amount, hijriMonth, hijriDayOfMonth)
             MONTH -> {
                 if (amount > 0) {
-                    setDate(hijriYear + (hijriMonth + amount) / 12, (hijriMonth + amount) % 12, hijriDayOfMonth)
+                    set(hijriYear + (hijriMonth + amount) / 12, (hijriMonth + amount) % 12, hijriDayOfMonth)
                 } else {
-                    setDate(hijriYear - (12 - (hijriMonth + amount + 1)) / 12, (12 + (hijriMonth + amount)) % 12, hijriDayOfMonth)
+                    set(hijriYear - (12 - (hijriMonth + amount + 1)) / 12, (12 + (hijriMonth + amount)) % 12, hijriDayOfMonth)
                 }
             }
             else -> {
-                calculatingLevel++
                 super.add(field, amount)
-                calculatingLevel--
-                recalculate()
+                invalidate()
             }
         }
     }
 
-/*    override fun get(field: Int): Int {
-        return when (field) {
-            YEAR -> hijriYear
-            MONTH -> hijriMonth
-            DAY_OF_MONTH -> dayOfMonth
-            WEEK_OF_YEAR -> throw NotImplementedError("WEEK_OF_YEAR is not implemented yet!")
-            DAY_OF_YEAR -> throw NotImplementedError("DAY_OF_YEAR is not implemented yet!")
-            DAY_OF_WEEK -> throw NotImplementedError("DAY_OF_WEEK is not implemented yet!")
-            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
-            else -> super.get(field)
-        }
-    }*/
-
     override fun set(field: Int, value: Int) {
-        calculatingLevel++
-        super.set(field, value)
-        calculatingLevel--
-        recalculate()
-    }
+        if (value < 0) {
+            throw IllegalArgumentException()
+        }
+        if (field < 0 || field >= ZONE_OFFSET) {
+            throw IllegalArgumentException()
+        }
+        when (field) {
+            ERA -> {
+                super.set(field, value)
+                invalidate()
+            }
+            YEAR -> {
+                year = value
+            }
+            MONTH -> {
+                month = value
+            }
+            DAY_OF_MONTH -> {
+                dayOfMonth = value
+            } // also DATE
+            WEEK_OF_YEAR -> {
+                val firstDayOfYear = HijriCalendar().also {
+                    it.set(year, 0, 1)
+                }
+                val firstDayOfYearDayOfWeek = firstDayOfYear.get(DAY_OF_WEEK)
+                val currentDayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
 
-    override fun setTimeInMillis(millis: Long) {
-        calculatingLevel++
-        super.setTimeInMillis(millis)
-        calculatingLevel--
-        recalculate()
-    }
+                val move = (value - 1) * 7 + (currentDayOfWeek - firstDayOfYearDayOfWeek)
+                firstDayOfYear.add(DAY_OF_YEAR, move)
+                firstDayOfYear.let {
+                    set(it.year, it.month, it.dayOfMonth)
+                }
+            }
+            WEEK_OF_MONTH -> {
+                val firstDayOfMonth = HijriCalendar().also {
+                    it.set(year, month, 1)
+                }
+                val firstDayOfMonthDayOfWeek = firstDayOfMonth.get(DAY_OF_WEEK)
+                val currentDayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
 
-    override fun setTimeZone(zone: TimeZone) {
-        calculatingLevel++
-        super.setTimeZone(zone)
-        calculatingLevel--
-        recalculate()
-    }
-
-    private fun recalculate() {
-        if (calculatingLevel == 0) {
-            val hijriYearMonthDay = HijriCalendarUtils.gregorianToHijri(
-                    DateHolder(
-                            super.get(YEAR),
-                            super.get(MONTH),
-                            super.get(DAY_OF_MONTH)
-                    )
-            )
-            hijriYear = hijriYearMonthDay.year
-            hijriMonth = hijriYearMonthDay.month
-            hijriDayOfMonth = hijriYearMonthDay.day
+                val move = (value - 1) * 7 + (currentDayOfWeek - firstDayOfMonthDayOfWeek)
+                firstDayOfMonth.add(DAY_OF_YEAR, move)
+                firstDayOfMonth.let {
+                    set(it.year, it.month, it.dayOfMonth)
+                }
+            }
+            DAY_OF_YEAR -> {
+                if (value > HijriCalendarUtils.yearLength(year)) {
+                    throw IllegalArgumentException()
+                } else {
+                    HijriCalendarUtils.dayOfYear(year, value).let {
+                        set(it.year, it.month, it.dayOfMonth)
+                    }
+                }
+            }
+            DAY_OF_WEEK -> {
+                super.set(field, value)
+                invalidate()
+            }
+            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            else -> {
+                super.set(field, value)
+                invalidate()
+            }
         }
     }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int) {
+        hijriYear = year
+        hijriMonth = month
+        hijriDayOfMonth = dayOfMonth
+
+        HijriCalendarUtils.hijriToGregorian(
+                DateHolder(hijriYear, hijriMonth, hijriDayOfMonth)
+        ).let {
+            super.set(it.year, it.month, it.dayOfMonth)
+        }
+    }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
+        set(year, month, dayOfMonth)
+        super.set(HOUR_OF_DAY, hourOfDay)
+        super.set(MINUTE, minute)
+    }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
+        set(year, month, dayOfMonth)
+        super.set(HOUR_OF_DAY, hourOfDay)
+        super.set(MINUTE, minute)
+        super.set(SECOND, second)
+    }
+
+    override fun invalidate() {
+        HijriCalendarUtils.gregorianToHijri(
+                DateHolder(
+                        super.get(YEAR),
+                        super.get(MONTH),
+                        super.get(DAY_OF_MONTH)
+                )
+        ).let {
+            hijriYear = it.year
+            hijriMonth = it.month
+            hijriDayOfMonth = it.dayOfMonth
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    override fun calculateDayOfYear(): Int = HijriCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     // ---------------------------------------------------------------------------------------------
 

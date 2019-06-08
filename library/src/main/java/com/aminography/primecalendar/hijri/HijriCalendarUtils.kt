@@ -11,13 +11,13 @@ import org.threeten.bp.temporal.ChronoField
 object HijriCalendarUtils {
 
     internal fun gregorianToHijri(gregorian: DateHolder): DateHolder {
-        val gregorianDate = LocalDate.of(gregorian.year, gregorian.month + 1, gregorian.day)
+        val gregorianDate = LocalDate.of(gregorian.year, gregorian.month + 1, gregorian.dayOfMonth)
         val hijriDate = HijrahDate.from(gregorianDate)
         return DateHolder(hijriDate.get(ChronoField.YEAR), hijriDate.get(ChronoField.MONTH_OF_YEAR) - 1, hijriDate.get(ChronoField.DAY_OF_MONTH))
     }
 
     internal fun hijriToGregorian(hijri: DateHolder): DateHolder {
-        val hijriDate = HijrahDate.of(hijri.year, hijri.month + 1, hijri.day)
+        val hijriDate = HijrahDate.of(hijri.year, hijri.month + 1, hijri.dayOfMonth)
         val gregorianDate = LocalDate.from(hijriDate)
         return DateHolder(gregorianDate.get(ChronoField.YEAR), gregorianDate.get(ChronoField.MONTH_OF_YEAR) - 1, gregorianDate.get(ChronoField.DAY_OF_MONTH))
     }
@@ -58,10 +58,30 @@ object HijriCalendarUtils {
                 leapYearMonthLength[month]
             else normalMonthLength[month]
 
+    fun yearLength(year: Int): Int =
+            if (isHijriLeapYear(year))
+                leapYearMonthLengthAggregated[12]
+            else normalMonthLengthAggregated[12]
+
     fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
             if (isHijriLeapYear(year))
                 leapYearMonthLengthAggregated[month] + dayOfMonth
             else normalMonthLengthAggregated[month] + dayOfMonth
+
+    internal fun dayOfYear(year: Int, dayOfYear: Int): DateHolder {
+        val monthLengthAggregated = if (isHijriLeapYear(year))
+            leapYearMonthLengthAggregated
+        else normalMonthLengthAggregated
+
+        var month = 0
+        for (i in 0 until monthLengthAggregated.size) {
+            if (dayOfYear > monthLengthAggregated[i] && dayOfYear <= monthLengthAggregated[i + 1]) {
+                month = i
+            }
+        }
+        val dayOfMonth = dayOfYear - monthLengthAggregated[month]
+        return DateHolder(year, month, dayOfMonth)
+    }
 
     fun monthName(month: Int): String = hijriMonthNames[month]
 

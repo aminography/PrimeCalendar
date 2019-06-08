@@ -7,38 +7,33 @@ import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertPersianToCivil
 import com.aminography.primecalendar.common.convertPersianToHijri
 import com.aminography.primecalendar.hijri.HijriCalendar
-import java.util.*
+import java.util.Calendar.*
 
 /**
  * @author aminography
  */
-class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault()) {
-
-    private var calculatingLevel = 0
+class PersianCalendar : BaseCalendar() {
 
     private var persianYear: Int = 0
     private var persianMonth: Int = 0
     private var persianDayOfMonth: Int = 0
 
-    override var year: Int = persianYear
+    override var year: Int
         get() = persianYear
         set(value) {
-            field = value
-            setDate(value, month, dayOfMonth)
+            set(value, persianMonth, persianDayOfMonth)
         }
 
-    override var month: Int = persianMonth
+    override var month: Int
         get() = persianMonth
         set(value) {
-            field = value
-            setDate(year, value, dayOfMonth)
+            set(persianYear, value, persianDayOfMonth)
         }
 
-    override var dayOfMonth: Int = persianDayOfMonth
+    override var dayOfMonth: Int
         get() = persianDayOfMonth
         set(value) {
-            field = value
-            setDate(year, month, value)
+            set(persianYear, persianMonth, value)
         }
 
     override val monthName: String
@@ -61,22 +56,35 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
     override val isLeapYear: Boolean
         get() = PersianCalendarUtils.isPersianLeapYear(year)
 
-    override val weekStartDay: Int
-        get() = Calendar.SATURDAY
+    override var firstDayOfWeek: Int = SATURDAY
+        set(value) {
+            field = value
+            setInternalFirstDayOfWeek(value)
+        }
 
     override val calendarType: CalendarType
         get() = CalendarType.PERSIAN
 
+    init {
+        invalidate()
+        setInternalFirstDayOfWeek(firstDayOfWeek)
+    }
+
     // ---------------------------------------------------------------------------------------------
 
-    override fun setDate(year: Int, month: Int, dayOfMonth: Int) {
-        persianYear = year
-        persianMonth = month
-        persianDayOfMonth = dayOfMonth
-        val gregorianYearMonthDay = PersianCalendarUtils.persianToGregorian(DateHolder(persianYear, persianMonth, persianDayOfMonth))
-        calculatingLevel++
-        super.setDate(gregorianYearMonthDay.year, gregorianYearMonthDay.month, gregorianYearMonthDay.day)
-        calculatingLevel--
+    override fun get(field: Int): Int {
+        return when (field) {
+            ERA -> throw NotImplementedError("ERA is not implemented yet!")
+            YEAR -> year
+            MONTH -> month
+            WEEK_OF_YEAR -> calculateWeekOfYear()
+            WEEK_OF_MONTH -> calculateWeekOfMonth()
+            DAY_OF_MONTH -> dayOfMonth // also DATE
+            DAY_OF_YEAR -> calculateDayOfYear()
+            DAY_OF_WEEK -> super.get(DAY_OF_WEEK)
+            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            else -> super.get(field)
+        }
     }
 
     override fun add(field: Int, amount: Int) {
@@ -88,71 +96,131 @@ class PersianCalendar : BaseCalendar(TimeZone.getDefault(), Locale.getDefault())
         }
 
         when (field) {
-            YEAR -> setDate(persianYear + amount, persianMonth, persianDayOfMonth)
+            YEAR -> set(persianYear + amount, persianMonth, persianDayOfMonth)
             MONTH -> {
                 if (amount > 0) {
-                    setDate(persianYear + (persianMonth + amount) / 12, (persianMonth + amount) % 12, persianDayOfMonth)
+                    set(persianYear + (persianMonth + amount) / 12, (persianMonth + amount) % 12, persianDayOfMonth)
                 } else {
-                    setDate(persianYear - (12 - (persianMonth + amount + 1)) / 12, (12 + (persianMonth + amount)) % 12, persianDayOfMonth)
+                    set(persianYear - (12 - (persianMonth + amount + 1)) / 12, (12 + (persianMonth + amount)) % 12, persianDayOfMonth)
                 }
             }
             else -> {
-                calculatingLevel++
                 super.add(field, amount)
-                calculatingLevel--
-                recalculate()
+                invalidate()
             }
         }
     }
 
-/*    override fun get(field: Int): Int {
-        return when (field) {
-            YEAR -> persianYear
-            MONTH -> persianMonth
-            DAY_OF_MONTH -> dayOfMonth
-            WEEK_OF_YEAR -> throw NotImplementedError("WEEK_OF_YEAR is not implemented yet!")
-            DAY_OF_YEAR -> throw NotImplementedError("DAY_OF_YEAR is not implemented yet!")
-            DAY_OF_WEEK -> throw NotImplementedError("DAY_OF_WEEK is not implemented yet!")
-            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
-            else -> super.get(field)
-        }
-    }*/
-
     override fun set(field: Int, value: Int) {
-        calculatingLevel++
-        super.set(field, value)
-        calculatingLevel--
-        recalculate()
-    }
+        if (value < 0) {
+            throw IllegalArgumentException()
+        }
+        if (field < 0 || field >= ZONE_OFFSET) {
+            throw IllegalArgumentException()
+        }
+        when (field) {
+            ERA -> {
+                super.set(field, value)
+                invalidate()
+            }
+            YEAR -> {
+                year = value
+            }
+            MONTH -> {
+                month = value
+            }
+            DAY_OF_MONTH -> { // also DATE
+                dayOfMonth = value
+            }
+            WEEK_OF_YEAR -> {
+                val firstDayOfYear = PersianCalendar().also {
+                    it.set(year, 0, 1)
+                }
+                val firstDayOfYearDayOfWeek = firstDayOfYear.get(DAY_OF_WEEK)
+                val currentDayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
 
-    override fun setTimeInMillis(millis: Long) {
-        calculatingLevel++
-        super.setTimeInMillis(millis)
-        calculatingLevel--
-        recalculate()
-    }
+                val move = (value - 1) * 7 + (currentDayOfWeek - firstDayOfYearDayOfWeek)
+                firstDayOfYear.add(DAY_OF_YEAR, move)
+                firstDayOfYear.let {
+                    set(it.year, it.month, it.dayOfMonth)
+                }
+            }
+            WEEK_OF_MONTH -> {
+                val firstDayOfMonth = PersianCalendar().also {
+                    it.set(year, month, 1)
+                }
+                val firstDayOfMonthDayOfWeek = firstDayOfMonth.get(DAY_OF_WEEK)
+                val currentDayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
 
-    override fun setTimeZone(zone: TimeZone) {
-        calculatingLevel++
-        super.setTimeZone(zone)
-        calculatingLevel--
-        recalculate()
-    }
-
-    private fun recalculate() {
-        if (calculatingLevel == 0) {
-            val persianYearMonthDay = PersianCalendarUtils.gregorianToPersian(
-                    DateHolder(
-                            super.get(YEAR),
-                            super.get(MONTH),
-                            super.get(DAY_OF_MONTH)
-                    )
-            )
-            persianYear = persianYearMonthDay.year
-            persianMonth = persianYearMonthDay.month
-            persianDayOfMonth = persianYearMonthDay.day
+                val move = (value - 1) * 7 + (currentDayOfWeek - firstDayOfMonthDayOfWeek)
+                firstDayOfMonth.add(DAY_OF_YEAR, move)
+                firstDayOfMonth.let {
+                    set(it.year, it.month, it.dayOfMonth)
+                }
+            }
+            DAY_OF_YEAR -> {
+                if (value > PersianCalendarUtils.yearLength(year)) {
+                    throw IllegalArgumentException()
+                } else {
+                    PersianCalendarUtils.dayOfYear(year, value).let {
+                        set(it.year, it.month, it.dayOfMonth)
+                    }
+                }
+            }
+            DAY_OF_WEEK -> {
+                super.set(field, value)
+                invalidate()
+            }
+            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            else -> {
+                super.set(field, value)
+                invalidate()
+            }
         }
     }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int) {
+        persianYear = year
+        persianMonth = month
+        persianDayOfMonth = dayOfMonth
+
+        PersianCalendarUtils.persianToGregorian(
+                DateHolder(persianYear, persianMonth, persianDayOfMonth)
+        ).let {
+            super.set(it.year, it.month, it.dayOfMonth)
+        }
+    }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
+        set(year, month, dayOfMonth)
+        super.set(HOUR_OF_DAY, hourOfDay)
+        super.set(MINUTE, minute)
+    }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
+        set(year, month, dayOfMonth)
+        super.set(HOUR_OF_DAY, hourOfDay)
+        super.set(MINUTE, minute)
+        super.set(SECOND, second)
+    }
+
+    override fun invalidate() {
+        PersianCalendarUtils.gregorianToPersian(
+                DateHolder(
+                        super.get(YEAR),
+                        super.get(MONTH),
+                        super.get(DAY_OF_MONTH)
+                )
+        ).let {
+            persianYear = it.year
+            persianMonth = it.month
+            persianDayOfMonth = it.dayOfMonth
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    override fun calculateDayOfYear(): Int = PersianCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     // ---------------------------------------------------------------------------------------------
 

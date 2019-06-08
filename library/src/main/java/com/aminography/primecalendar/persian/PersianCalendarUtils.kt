@@ -24,7 +24,7 @@ object PersianCalendarUtils {
         var i: Int
 
         gregorian.year = gregorian.year - 1600
-        gregorian.day = gregorian.day - 1
+        gregorian.dayOfMonth = gregorian.dayOfMonth - 1
 
         gregorianDayNo = 365 * gregorian.year + Math.floor(((gregorian.year + 3) / 4).toDouble()).toInt() - Math.floor(((gregorian.year + 99) / 100).toDouble()).toInt() + Math.floor(((gregorian.year + 399) / 400).toDouble()).toInt()
         i = 0
@@ -37,7 +37,7 @@ object PersianCalendarUtils {
             ++gregorianDayNo
         }
 
-        gregorianDayNo += gregorian.day
+        gregorianDayNo += gregorian.dayOfMonth
 
         persianDayNo = gregorianDayNo - 79
 
@@ -80,7 +80,7 @@ object PersianCalendarUtils {
 
         var i: Int
         persian.year = persian.year - 979
-        persian.day = persian.day - 1
+        persian.dayOfMonth = persian.dayOfMonth - 1
 
         persianDayNo = 365 * persian.year + (persian.year / 33) * 8 + Math.floor(((persian.year % 33 + 3) / 4).toDouble()).toInt()
         i = 0
@@ -89,7 +89,7 @@ object PersianCalendarUtils {
             ++i
         }
 
-        persianDayNo += persian.day
+        persianDayNo += persian.dayOfMonth
 
         gregorianDayNo = persianDayNo + 79
 
@@ -173,10 +173,30 @@ object PersianCalendarUtils {
                 leapYearMonthLength[month]
             else normalMonthLength[month]
 
+    fun yearLength(year: Int): Int =
+            if (isPersianLeapYear(year))
+                leapYearMonthLengthAggregated[12]
+            else normalMonthLengthAggregated[12]
+
     fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
             if (isPersianLeapYear(year))
                 leapYearMonthLengthAggregated[month] + dayOfMonth
             else normalMonthLengthAggregated[month] + dayOfMonth
+
+    internal fun dayOfYear(year: Int, dayOfYear: Int): DateHolder {
+        val monthLengthAggregated = if (isPersianLeapYear(year))
+            leapYearMonthLengthAggregated
+        else normalMonthLengthAggregated
+
+        var month = 0
+        for (i in 0 until monthLengthAggregated.size) {
+            if (dayOfYear > monthLengthAggregated[i] && dayOfYear <= monthLengthAggregated[i + 1]) {
+                month = i
+            }
+        }
+        val dayOfMonth = dayOfYear - monthLengthAggregated[month]
+        return DateHolder(year, month, dayOfMonth)
+    }
 
     fun monthName(month: Int): String = persianMonthNames[month]
 

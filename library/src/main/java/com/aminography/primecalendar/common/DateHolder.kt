@@ -8,9 +8,9 @@ import com.aminography.primecalendar.base.delimiter
 internal data class DateHolder(
         var year: Int,
         var month: Int,
-        var day: Int
+        var dayOfMonth: Int
 ) {
 
-    override fun toString(): String = "$year$delimiter$month$delimiter$day"
+    override fun toString(): String = "$year$delimiter$month$delimiter$dayOfMonth"
 
 }

@@ -18,7 +18,7 @@ public class ExampleUnitTest {
     @Test
     public void persianToCivilConversion() {
         PersianCalendar persian = new PersianCalendar();
-        persian.setDate(1370, 3, 15);
+        persian.set(1370, 3, 15);
         System.out.println("Persian Date: " + persian.getLongDateString());
 
         CivilCalendar civil = persian.toCivil();
@@ -32,7 +32,7 @@ public class ExampleUnitTest {
     @Test
     public void persianToHijriConversion() {
         PersianCalendar persian = new PersianCalendar();
-        persian.setDate(1370, 3, 15);
+        persian.set(1370, 3, 15);
         System.out.println("Persian Date: " + persian.getLongDateString());
 
         HijriCalendar hijri = persian.toHijri();

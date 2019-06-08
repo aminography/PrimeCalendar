@@ -16,6 +16,10 @@ object CivilCalendarUtils {
                 leapYearMonthLength[month]
             else normalMonthLength[month]
 
+    fun yearLength(year: Int): Int =
+            if (isGregorianLeapYear(year))
+                leapYearMonthLengthAggregated[12]
+            else normalMonthLengthAggregated[12]
 
     fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
             if (isGregorianLeapYear(year))
