@@ -28,6 +28,29 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun dayOfWeekInMonth() {
+        val calendar = CivilCalendar()
+//        calendar.year = 2019
+//        calendar.month = 5
+        calendar.dayOfMonth = 29
+//
+//        calendar.set(Calendar.WEEK_OF_YEAR, 1)
+
+//        val calendar = PersianCalendar()
+//        calendar.year = 1398
+//        calendar.month = 0
+//        calendar.dayOfMonth = 1
+
+        println(calendar.longDateString)
+        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+
+        calendar.set(Calendar.DAY_OF_WEEK_IN_MONTH, 0)
+
+        println(calendar.longDateString)
+        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+    }
+
+    @Test
     fun weekOfYear() {
 //        val calendar = CivilCalendar()
 //        calendar.year = 2019

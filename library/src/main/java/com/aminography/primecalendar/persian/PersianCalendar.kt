@@ -80,7 +80,13 @@ class PersianCalendar : BaseCalendar() {
             DAY_OF_MONTH -> dayOfMonth // also DATE
             DAY_OF_YEAR -> calculateDayOfYear()
             DAY_OF_WEEK -> super.get(DAY_OF_WEEK)
-            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            DAY_OF_WEEK_IN_MONTH -> when (dayOfMonth) {
+                in 1..7 -> 1
+                in 8..14 -> 2
+                in 15..21 -> 3
+                in 22..28 -> 4
+                else -> 5
+            }
             else -> super.get(field)
         }
     }
