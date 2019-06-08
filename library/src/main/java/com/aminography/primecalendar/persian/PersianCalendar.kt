@@ -241,6 +241,10 @@ class PersianCalendar : BaseCalendar() {
         super.set(SECOND, second)
     }
 
+    override fun roll(field: Int, amount: Int) {
+        // TODO
+    }
+
     override fun getMinimum(field: Int): Int {
         return when (field) {
             WEEK_OF_YEAR -> 1

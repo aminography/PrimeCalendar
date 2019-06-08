@@ -93,6 +93,10 @@ abstract class BaseCalendar : IConverter {
         return internalCalendar.getActualMaximum(field)
     }
 
+    fun roll(field: Int, up: Boolean) {
+        roll(field, if (up) +1 else -1)
+    }
+
     // Final Functions -----------------------------------------------------------------------------
 
     fun setTimeZone(zone: TimeZone) {
@@ -117,6 +121,8 @@ abstract class BaseCalendar : IConverter {
     protected abstract fun invalidate()
 
     protected abstract fun calculateDayOfYear(): Int
+
+    abstract fun roll(field: Int, amount: Int)
 
     protected fun setInternalFirstDayOfWeek(firstDayOfWeek: Int) {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
@@ -183,9 +189,6 @@ abstract class BaseCalendar : IConverter {
 
 //    fun roll(field: Int, up: Boolean)
 //    fun roll(field: Int, amount: Int)
-
-//    fun getActualMinimum(field: Int): Int
-//    fun getActualMaximum(field: Int): Int
 
     fun before(whenCalendar: BaseCalendar): Boolean {
         return compareTo(whenCalendar) < 0

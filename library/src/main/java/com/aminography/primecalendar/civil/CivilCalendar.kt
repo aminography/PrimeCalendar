@@ -89,6 +89,11 @@ class CivilCalendar : BaseCalendar() {
         invalidate()
     }
 
+    override fun roll(field: Int, amount: Int) {
+        internalCalendar.roll(field, amount)
+        invalidate()
+    }
+
     override fun invalidate() {
         civilYear = super.get(YEAR)
         civilMonth = super.get(MONTH)
