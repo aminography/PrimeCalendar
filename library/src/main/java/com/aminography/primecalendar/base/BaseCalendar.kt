@@ -13,7 +13,7 @@ import java.util.Calendar.DAY_OF_WEEK
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class BaseCalendar : IConverter {
 
-    private var internalCalendar = GregorianCalendar(TimeZone.getDefault(), Locale.getDefault())
+    protected var internalCalendar = GregorianCalendar(TimeZone.getDefault(), Locale.getDefault())
 
     abstract var year: Int
 
