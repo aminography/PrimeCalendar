@@ -3,9 +3,6 @@ package com.aminography.primecalendar.persian
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.*
-import com.aminography.primecalendar.common.DateHolder
-import com.aminography.primecalendar.common.convertPersianToCivil
-import com.aminography.primecalendar.common.convertPersianToHijri
 import com.aminography.primecalendar.hijri.HijriCalendar
 import java.util.Calendar.*
 
@@ -169,7 +166,9 @@ class PersianCalendar : BaseCalendar() {
                 super.set(field, value)
                 invalidate()
             }
-            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            DAY_OF_WEEK_IN_MONTH -> {
+                throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            }
             else -> {
                 super.set(field, value)
                 invalidate()

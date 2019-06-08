@@ -170,7 +170,9 @@ class HijriCalendar : BaseCalendar() {
                 super.set(field, value)
                 invalidate()
             }
-            DAY_OF_WEEK_IN_MONTH -> throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            DAY_OF_WEEK_IN_MONTH -> {
+                throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+            }
             else -> {
                 super.set(field, value)
                 invalidate()
