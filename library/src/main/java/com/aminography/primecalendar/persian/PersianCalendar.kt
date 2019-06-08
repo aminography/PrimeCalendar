@@ -133,29 +133,25 @@ class PersianCalendar : BaseCalendar() {
                 dayOfMonth = value
             }
             WEEK_OF_YEAR -> {
-                val firstDayOfYear = PersianCalendar().also {
-                    it.set(year, 0, 1)
-                }
-                val firstDayOfYearDayOfWeek = firstDayOfYear.get(DAY_OF_WEEK)
-                val currentDayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
+                PersianCalendar().also { base ->
+                    base.set(year, 0, 1)
+                    val baseDayOfWeek = weekOffsetFromFirstDayOfWeek(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
 
-                val move = (value - 1) * 7 + (currentDayOfWeek - firstDayOfYearDayOfWeek)
-                firstDayOfYear.add(DAY_OF_YEAR, move)
-                firstDayOfYear.let {
-                    set(it.year, it.month, it.dayOfMonth)
+                    val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
+                    base.add(DAY_OF_YEAR, move)
+                    set(base.year, base.month, base.dayOfMonth)
                 }
             }
             WEEK_OF_MONTH -> {
-                val firstDayOfMonth = PersianCalendar().also {
-                    it.set(year, month, 1)
-                }
-                val firstDayOfMonthDayOfWeek = firstDayOfMonth.get(DAY_OF_WEEK)
-                val currentDayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
+                PersianCalendar().also { base ->
+                    base.set(year, month, 1)
+                    val baseDayOfWeek = weekOffsetFromFirstDayOfWeek(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
 
-                val move = (value - 1) * 7 + (currentDayOfWeek - firstDayOfMonthDayOfWeek)
-                firstDayOfMonth.add(DAY_OF_YEAR, move)
-                firstDayOfMonth.let {
-                    set(it.year, it.month, it.dayOfMonth)
+                    val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
+                    base.add(DAY_OF_YEAR, move)
+                    set(base.year, base.month, base.dayOfMonth)
                 }
             }
             DAY_OF_YEAR -> {

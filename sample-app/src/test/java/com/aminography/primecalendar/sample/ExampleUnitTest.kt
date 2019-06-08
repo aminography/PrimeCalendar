@@ -37,13 +37,14 @@ class ExampleUnitTest {
 //        calendar.set(Calendar.WEEK_OF_YEAR, 1)
 
         val calendar = PersianCalendar()
-//        calendar.year = 1398
-//        calendar.month = 0
-//        calendar.dayOfMonth = 1
+        calendar.year = 1398
+        calendar.month = 0
+        calendar.dayOfMonth = 5
 
         println(calendar.longDateString)
+        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
 
-        calendar.set(Calendar.WEEK_OF_MONTH, 6)
+        calendar.set(Calendar.WEEK_OF_YEAR, 1)
 
         println(calendar.longDateString)
         println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
