@@ -112,7 +112,7 @@ abstract class BaseCalendar : IConverter {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, month, 1)
             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(calculateDayOfYear(), baseDayOfWeek)
+            return weekNumber(dayOfMonth, baseDayOfWeek)
         }
     }
 

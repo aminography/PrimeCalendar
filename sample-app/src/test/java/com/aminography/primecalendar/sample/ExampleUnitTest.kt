@@ -62,12 +62,12 @@ class ExampleUnitTest {
         val calendar = PersianCalendar()
         calendar.year = 1398
         calendar.month = 0
-        calendar.dayOfMonth = 31
+        calendar.dayOfMonth = 1
 
         println(calendar.longDateString)
         println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
 
-        calendar.set(Calendar.WEEK_OF_YEAR, 1)
+        calendar.set(Calendar.WEEK_OF_YEAR, -1)
 //        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
 
         println(calendar.longDateString)
@@ -85,7 +85,9 @@ class ExampleUnitTest {
 //        println(calendar.longDateString)
 //        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
 
-        calendar.set(Calendar.DAY_OF_YEAR, 365)
+//        calendar.set(Calendar.DAY_OF_YEAR, 365)
+
+        calendar.set(Calendar.WEEK_OF_MONTH, -1)
 
         println(calendar.longDateString)
         println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
