@@ -6,13 +6,14 @@ import com.aminography.primecalendar.common.IConverter
 import java.util.*
 import java.util.Calendar.DAY_OF_WEEK
 
+
 /**
  * @author aminography
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class BaseCalendar : IConverter {
 
-    protected val internalCalendar = GregorianCalendar(TimeZone.getDefault(), Locale.getDefault())
+    private var internalCalendar = GregorianCalendar(TimeZone.getDefault(), Locale.getDefault())
 
     abstract var year: Int
 
@@ -74,6 +75,10 @@ abstract class BaseCalendar : IConverter {
         invalidate()
     }
 
+    fun getTimeZone(): TimeZone {
+        return internalCalendar.timeZone
+    }
+
     var timeInMillis: Long = 0
         get() = internalCalendar.timeInMillis
         set(value) {
@@ -120,6 +125,53 @@ abstract class BaseCalendar : IConverter {
                     it.get(DAY_OF_WEEK)
                 }
         return weekNumber(calculateDayOfYear(), firstDayOfYearDayOfWeek)
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    fun getTime(): Date {
+        return Date(timeInMillis)
+    }
+
+    fun setTime(date: Date) {
+        timeInMillis = date.time
+    }
+
+    fun clone(): BaseCalendar {
+        return CalendarFactory.newInstance(calendarType).also {
+            it.internalCalendar = internalCalendar.clone() as GregorianCalendar
+            it.invalidate()
+        }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        } else if (other is BaseCalendar) {
+            return internalCalendar == other.internalCalendar
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return internalCalendar.hashCode()
+    }
+
+    fun before(whenCalendar: BaseCalendar): Boolean {
+        return compareTo(whenCalendar) < 0
+    }
+
+    fun after(whenCalendar: BaseCalendar): Boolean {
+        return compareTo(whenCalendar) > 0
+    }
+
+    operator fun compareTo(anotherCalendar: BaseCalendar): Int {
+        return compareTo(anotherCalendar.timeInMillis)
+    }
+
+    private operator fun compareTo(t: Long): Int {
+        val thisTime = timeInMillis
+        return if (thisTime > t) 1 else if (thisTime == t) 0 else -1
     }
 
     // ---------------------------------------------------------------------------------------------

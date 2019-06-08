@@ -214,8 +214,6 @@ class PersianCalendar : BaseCalendar() {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
-
     override fun calculateDayOfYear(): Int = PersianCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     // ---------------------------------------------------------------------------------------------

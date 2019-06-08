@@ -215,8 +215,6 @@ class HijriCalendar : BaseCalendar() {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
-
     override fun calculateDayOfYear(): Int = HijriCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     // ---------------------------------------------------------------------------------------------
