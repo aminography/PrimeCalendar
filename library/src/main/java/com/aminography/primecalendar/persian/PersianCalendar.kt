@@ -47,7 +47,8 @@ class PersianCalendar : BaseCalendar() {
             TUESDAY -> PersianCalendarUtils.persianWeekDays[3]
             WEDNESDAY -> PersianCalendarUtils.persianWeekDays[4]
             THURSDAY -> PersianCalendarUtils.persianWeekDays[5]
-            else -> PersianCalendarUtils.persianWeekDays[6]
+            FRIDAY -> PersianCalendarUtils.persianWeekDays[6]
+            else -> throw IllegalArgumentException()
         }
 
     override val monthLength: Int

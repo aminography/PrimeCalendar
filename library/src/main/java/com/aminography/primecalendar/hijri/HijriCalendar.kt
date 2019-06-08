@@ -48,7 +48,8 @@ class HijriCalendar : BaseCalendar() {
             TUESDAY -> HijriCalendarUtils.hijriWeekDays[3]
             WEDNESDAY -> HijriCalendarUtils.hijriWeekDays[4]
             THURSDAY -> HijriCalendarUtils.hijriWeekDays[5]
-            else -> HijriCalendarUtils.hijriWeekDays[6]
+            FRIDAY -> HijriCalendarUtils.hijriWeekDays[6]
+            else -> throw IllegalArgumentException()
         }
 
     override val monthLength: Int
