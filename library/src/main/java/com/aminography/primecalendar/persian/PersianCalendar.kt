@@ -136,8 +136,8 @@ class PersianCalendar : BaseCalendar() {
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(year, 0, 1)
-                    val baseDayOfWeek = adjustDayOffset(base.get(DAY_OF_WEEK))
-                    val dayOfWeek = adjustDayOffset(get(DAY_OF_WEEK))
+                    val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
                     base.add(DAY_OF_YEAR, move)
@@ -147,8 +147,8 @@ class PersianCalendar : BaseCalendar() {
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(year, month, 1)
-                    val baseDayOfWeek = adjustDayOffset(base.get(DAY_OF_WEEK))
-                    val dayOfWeek = adjustDayOffset(get(DAY_OF_WEEK))
+                    val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
                     base.add(DAY_OF_YEAR, move)

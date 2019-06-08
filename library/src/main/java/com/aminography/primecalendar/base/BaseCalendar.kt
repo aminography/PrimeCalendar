@@ -97,7 +97,7 @@ abstract class BaseCalendar : IConverter {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
     }
 
-    protected fun adjustDayOffset(dayOfWeek: Int): Int {
+    protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
         val day = if (dayOfWeek < firstDayOfWeek) dayOfWeek + 7 else dayOfWeek
         return (day - firstDayOfWeek) % 7
     }
@@ -111,7 +111,7 @@ abstract class BaseCalendar : IConverter {
     protected fun calculateWeekOfMonth(): Int {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, month, 1)
-            val baseDayOfWeek = adjustDayOffset(base.get(DAY_OF_WEEK))
+            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
             return weekNumber(calculateDayOfYear(), baseDayOfWeek)
         }
     }
@@ -119,7 +119,7 @@ abstract class BaseCalendar : IConverter {
     protected fun calculateWeekOfYear(): Int {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, 0, 1)
-            val baseDayOfWeek = adjustDayOffset(base.get(DAY_OF_WEEK))
+            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
             return weekNumber(calculateDayOfYear(), baseDayOfWeek)
         }
     }
