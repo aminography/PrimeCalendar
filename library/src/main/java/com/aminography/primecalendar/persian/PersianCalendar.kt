@@ -173,7 +173,31 @@ class PersianCalendar : BaseCalendar() {
                 invalidate()
             }
             DAY_OF_WEEK_IN_MONTH -> {
-                throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet!")
+                when {
+                    value > 0 -> {
+                        CalendarFactory.newInstance(calendarType).also { base ->
+                            base.set(year, month, dayOfMonth)
+                            val move = (value - get(DAY_OF_WEEK_IN_MONTH)) * 7
+                            base.add(DAY_OF_YEAR, move)
+                            set(base.year, base.month, base.dayOfMonth)
+                        }
+                    }
+                    value == 0 -> {
+                        CalendarFactory.newInstance(calendarType).also { base ->
+                            base.set(year, month, 1)
+                            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                            val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
+
+                            var move = (dayOfWeek - baseDayOfWeek)
+                            if (move >= 0) move += -7
+                            base.add(DAY_OF_YEAR, move)
+                            set(base.year, base.month, base.dayOfMonth)
+                        }
+                    }
+                    value < 0 -> {
+                        throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet for negative values!")
+                    }
+                }
             }
             else -> {
                 super.set(field, value)
