@@ -97,7 +97,7 @@ class CivilCalendar : BaseCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun calculateDayOfYear(): Int = CivilCalendarUtils.dayOfYear(year, month, dayOfMonth)
+    override fun calculateDayOfYear(): Int = super.get(DAY_OF_YEAR)
 
     // ---------------------------------------------------------------------------------------------
 
