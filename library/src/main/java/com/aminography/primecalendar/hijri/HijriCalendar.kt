@@ -209,7 +209,7 @@ class HijriCalendar : BaseCalendar() {
                         super.get(MONTH),
                         super.get(DAY_OF_MONTH)
                 )
-        ).let {
+        ).also {
             hijriYear = it.year
             hijriMonth = it.month
             hijriDayOfMonth = it.dayOfMonth

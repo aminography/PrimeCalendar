@@ -208,7 +208,7 @@ class PersianCalendar : BaseCalendar() {
                         super.get(MONTH),
                         super.get(DAY_OF_MONTH)
                 )
-        ).let {
+        ).also {
             persianYear = it.year
             persianMonth = it.month
             persianDayOfMonth = it.dayOfMonth
