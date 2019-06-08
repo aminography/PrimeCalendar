@@ -92,12 +92,8 @@ class PersianCalendar : BaseCalendar() {
     }
 
     override fun add(field: Int, amount: Int) {
-        if (amount == 0) {
-            return
-        }
-        if (field < 0 || field > MILLISECOND) {
-            throw IllegalArgumentException()
-        }
+        if (amount == 0) return
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
         when (field) {
             YEAR -> set(persianYear + amount, persianMonth, persianDayOfMonth)
@@ -116,9 +112,7 @@ class PersianCalendar : BaseCalendar() {
     }
 
     override fun set(field: Int, value: Int) {
-        if (field < 0 || field > MILLISECOND) {
-            throw IllegalArgumentException()
-        }
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
         checkRange(field, value)
 
         when (field) {
@@ -242,6 +236,9 @@ class PersianCalendar : BaseCalendar() {
     }
 
     override fun roll(field: Int, amount: Int) {
+        if (amount == 0) return
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
+
         // TODO
     }
 
