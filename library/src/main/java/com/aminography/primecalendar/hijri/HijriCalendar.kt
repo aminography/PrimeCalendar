@@ -137,8 +137,8 @@ class HijriCalendar : BaseCalendar() {
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(year, 0, 1)
-                    val baseDayOfWeek = weekOffsetFromFirstDayOfWeek(base.get(DAY_OF_WEEK))
-                    val dayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
+                    val baseDayOfWeek = adjustDayOffset(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = adjustDayOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
                     base.add(DAY_OF_YEAR, move)
@@ -148,8 +148,8 @@ class HijriCalendar : BaseCalendar() {
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(year, month, 1)
-                    val baseDayOfWeek = weekOffsetFromFirstDayOfWeek(base.get(DAY_OF_WEEK))
-                    val dayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
+                    val baseDayOfWeek = adjustDayOffset(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = adjustDayOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
                     base.add(DAY_OF_YEAR, move)
