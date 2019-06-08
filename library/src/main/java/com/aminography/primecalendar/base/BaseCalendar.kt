@@ -137,6 +137,23 @@ abstract class BaseCalendar : IConverter {
         timeInMillis = date.time
     }
 
+    fun before(whenCalendar: BaseCalendar): Boolean {
+        return compareTo(whenCalendar) < 0
+    }
+
+    fun after(whenCalendar: BaseCalendar): Boolean {
+        return compareTo(whenCalendar) > 0
+    }
+
+    operator fun compareTo(anotherCalendar: BaseCalendar): Int {
+        return compareTo(anotherCalendar.timeInMillis)
+    }
+
+    private operator fun compareTo(t: Long): Int {
+        val thisTime = timeInMillis
+        return if (thisTime > t) 1 else if (thisTime == t) 0 else -1
+    }
+
     fun clone(): BaseCalendar {
         return CalendarFactory.newInstance(calendarType).also {
             it.internalCalendar = internalCalendar.clone() as GregorianCalendar
@@ -157,28 +174,10 @@ abstract class BaseCalendar : IConverter {
         return internalCalendar.hashCode()
     }
 
-    fun before(whenCalendar: BaseCalendar): Boolean {
-        return compareTo(whenCalendar) < 0
+    override fun toString(): String {
+        return super.toString().apply {
+            "${substring(0, length - 1)}, Date=$shortDateString]"
+        }
     }
-
-    fun after(whenCalendar: BaseCalendar): Boolean {
-        return compareTo(whenCalendar) > 0
-    }
-
-    operator fun compareTo(anotherCalendar: BaseCalendar): Int {
-        return compareTo(anotherCalendar.timeInMillis)
-    }
-
-    private operator fun compareTo(t: Long): Int {
-        val thisTime = timeInMillis
-        return if (thisTime > t) 1 else if (thisTime == t) 0 else -1
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    override fun toString(): String =
-            super.toString().apply {
-                "${substring(0, length - 1)}, Date=$shortDateString]"
-            }
 
 }
