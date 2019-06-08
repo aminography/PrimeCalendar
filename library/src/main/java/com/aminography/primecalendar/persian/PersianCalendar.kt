@@ -2,7 +2,7 @@ package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
-import com.aminography.primecalendar.common.CalendarType
+import com.aminography.primecalendar.common.*
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertPersianToCivil
 import com.aminography.primecalendar.common.convertPersianToHijri
@@ -133,7 +133,7 @@ class PersianCalendar : BaseCalendar() {
                 dayOfMonth = value
             }
             WEEK_OF_YEAR -> {
-                PersianCalendar().also { base ->
+                CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(year, 0, 1)
                     val baseDayOfWeek = weekOffsetFromFirstDayOfWeek(base.get(DAY_OF_WEEK))
                     val dayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
@@ -144,7 +144,7 @@ class PersianCalendar : BaseCalendar() {
                 }
             }
             WEEK_OF_MONTH -> {
-                PersianCalendar().also { base ->
+                CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(year, month, 1)
                     val baseDayOfWeek = weekOffsetFromFirstDayOfWeek(base.get(DAY_OF_WEEK))
                     val dayOfWeek = weekOffsetFromFirstDayOfWeek(get(DAY_OF_WEEK))
