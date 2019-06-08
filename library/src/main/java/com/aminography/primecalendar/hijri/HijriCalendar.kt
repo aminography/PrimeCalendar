@@ -117,9 +117,7 @@ class HijriCalendar : BaseCalendar() {
     }
 
     override fun set(field: Int, value: Int) {
-        if (value < 0) {
-            throw IllegalArgumentException()
-        }
+//        if (value < 0) throw IllegalArgumentException()
         if (field < 0 || field >= ZONE_OFFSET) {
             throw IllegalArgumentException()
         }
@@ -196,7 +194,15 @@ class HijriCalendar : BaseCalendar() {
                         }
                     }
                     value < 0 -> {
-                        throw NotImplementedError("DAY_OF_WEEK_IN_MONTH is not implemented yet for negative values!")
+                        CalendarFactory.newInstance(calendarType).also { base ->
+                            base.set(year, month, monthLength)
+                            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                            val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
+
+                            val move = (dayOfWeek - baseDayOfWeek) + 7 * (value + 1)
+                            base.add(DAY_OF_YEAR, move)
+                            set(base.year, base.month, base.dayOfMonth)
+                        }
                     }
                 }
             }
