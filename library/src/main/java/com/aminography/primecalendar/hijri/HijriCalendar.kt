@@ -119,6 +119,7 @@ class HijriCalendar : BaseCalendar() {
         if (field < 0 || field >= ZONE_OFFSET) {
             throw IllegalArgumentException()
         }
+
         when (field) {
             ERA -> {
                 super.set(field, value)
