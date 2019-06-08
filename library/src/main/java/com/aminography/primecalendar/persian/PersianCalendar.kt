@@ -95,7 +95,7 @@ class PersianCalendar : BaseCalendar() {
         if (amount == 0) {
             return
         }
-        if (field < 0 || field >= ZONE_OFFSET) {
+        if (field < 0 || field > MILLISECOND) {
             throw IllegalArgumentException()
         }
 
@@ -116,8 +116,7 @@ class PersianCalendar : BaseCalendar() {
     }
 
     override fun set(field: Int, value: Int) {
-//        if (value < 0) throw IllegalArgumentException()
-        if (field < 0 || field >= ZONE_OFFSET) {
+        if (field < 0 || field > MILLISECOND) {
             throw IllegalArgumentException()
         }
 
