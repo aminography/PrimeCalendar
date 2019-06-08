@@ -39,7 +39,7 @@ class ExampleUnitTest {
         val calendar = PersianCalendar()
 //        calendar.year = 1398
         calendar.month = 4
-        calendar.dayOfMonth = 1
+        calendar.dayOfMonth = 31
 
         println(calendar.longDateString)
         println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")

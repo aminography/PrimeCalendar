@@ -4,6 +4,7 @@ import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.*
 import com.aminography.primecalendar.persian.PersianCalendar
+import java.util.*
 import java.util.Calendar.*
 
 
@@ -120,6 +121,7 @@ class HijriCalendar : BaseCalendar() {
         if (field < 0 || field > MILLISECOND) {
             throw IllegalArgumentException()
         }
+        checkRange(field, value)
 
         when (field) {
             ERA -> {
@@ -213,6 +215,10 @@ class HijriCalendar : BaseCalendar() {
     }
 
     override fun set(year: Int, month: Int, dayOfMonth: Int) {
+        checkRange(YEAR, year)
+        checkRange(MONTH, month)
+        checkRange(DAY_OF_MONTH, dayOfMonth)
+
         hijriYear = year
         hijriMonth = month
         hijriDayOfMonth = dayOfMonth
@@ -235,6 +241,68 @@ class HijriCalendar : BaseCalendar() {
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
         super.set(SECOND, second)
+    }
+
+    override fun getMinimum(field: Int): Int {
+        return when (field) {
+            WEEK_OF_YEAR -> 1
+            WEEK_OF_MONTH -> 0
+            DAY_OF_MONTH -> 1
+            DAY_OF_YEAR -> 1
+            DAY_OF_WEEK_IN_MONTH -> 1
+            else -> super.getMinimum(field)
+        }
+    }
+
+    override fun getMaximum(field: Int): Int {
+        return when (field) {
+            WEEK_OF_YEAR -> 52
+            WEEK_OF_MONTH -> 6
+            DAY_OF_MONTH -> 30
+            DAY_OF_YEAR -> 355
+            DAY_OF_WEEK_IN_MONTH -> 5
+            else -> super.getMaximum(field)
+        }
+    }
+
+    override fun getGreatestMinimum(field: Int): Int {
+        return getMinimum(field)
+    }
+
+    override fun getLeastMaximum(field: Int): Int {
+        return when (field) {
+            WEEK_OF_YEAR -> 51
+            WEEK_OF_MONTH -> 5
+            DAY_OF_MONTH -> 29
+            DAY_OF_YEAR -> 354
+            DAY_OF_WEEK_IN_MONTH -> 5
+            else -> super.getLeastMaximum(field)
+        }
+    }
+
+    override fun getActualMinimum(field: Int): Int {
+        return getMinimum(field)
+    }
+
+    override fun getActualMaximum(field: Int): Int {
+        return when (field) {
+            WEEK_OF_YEAR -> {
+                CalendarFactory.newInstance(calendarType).let { base ->
+                    base.set(DAY_OF_YEAR, if (isLeapYear) 355 else 354)
+                    base.calculateWeekOfYear()
+                }
+            }
+            WEEK_OF_MONTH -> {
+                CalendarFactory.newInstance(calendarType).let { base ->
+                    base.dayOfMonth = monthLength
+                    base.calculateWeekOfMonth()
+                }
+            }
+            DAY_OF_MONTH -> monthLength
+            DAY_OF_YEAR -> if (isLeapYear) 355 else 354
+            DAY_OF_WEEK_IN_MONTH -> 5
+            else -> super.getActualMaximum(field)
+        }
     }
 
     override fun invalidate() {

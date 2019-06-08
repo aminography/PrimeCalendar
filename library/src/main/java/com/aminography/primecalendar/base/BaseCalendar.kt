@@ -5,6 +5,7 @@ import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.IConverter
 import java.util.*
 import java.util.Calendar.DAY_OF_WEEK
+import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
 
 
 /**
@@ -68,6 +69,30 @@ abstract class BaseCalendar : IConverter {
         internalCalendar.set(year, month, dayOfMonth, hourOfDay, minute, second)
     }
 
+    open fun getMinimum(field: Int): Int {
+        return internalCalendar.getMinimum(field)
+    }
+
+    open fun getMaximum(field: Int): Int {
+        return internalCalendar.getMaximum(field)
+    }
+
+    open fun getGreatestMinimum(field: Int): Int {
+        return internalCalendar.getGreatestMinimum(field)
+    }
+
+    open fun getLeastMaximum(field: Int): Int {
+        return internalCalendar.getLeastMaximum(field)
+    }
+
+    open fun getActualMinimum(field: Int): Int {
+        return internalCalendar.getActualMinimum(field)
+    }
+
+    open fun getActualMaximum(field: Int): Int {
+        return internalCalendar.getActualMaximum(field)
+    }
+
     // Final Functions -----------------------------------------------------------------------------
 
     fun setTimeZone(zone: TimeZone) {
@@ -97,6 +122,12 @@ abstract class BaseCalendar : IConverter {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
     }
 
+    protected fun checkRange(field: Int, value: Int) {
+        if (field != DAY_OF_WEEK_IN_MONTH && (value < getActualMinimum(field) || value > getActualMaximum(field))) {
+            throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: ${getActualMinimum(field)} , Max: ${getActualMaximum(field)}]")
+        }
+    }
+
     protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
         val day = if (dayOfWeek < firstDayOfWeek) dayOfWeek + 7 else dayOfWeek
         return (day - firstDayOfWeek) % 7
@@ -108,7 +139,7 @@ abstract class BaseCalendar : IConverter {
         return dividend + if (remainder > 0) 1 else 0
     }
 
-    protected fun calculateWeekOfMonth(): Int {
+    internal fun calculateWeekOfMonth(): Int {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, month, 1)
             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
@@ -116,7 +147,7 @@ abstract class BaseCalendar : IConverter {
         }
     }
 
-    protected fun calculateWeekOfYear(): Int {
+    internal fun calculateWeekOfYear(): Int {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, 0, 1)
             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
@@ -133,6 +164,28 @@ abstract class BaseCalendar : IConverter {
     fun setTime(date: Date) {
         timeInMillis = date.time
     }
+
+    fun clear() {
+        internalCalendar.clear()
+        invalidate()
+    }
+
+    fun clear(field: Int) {
+        internalCalendar.clear(field)
+        invalidate()
+    }
+
+//    fun getDisplayName(field: Int, style: Int, locale: Locale): String
+
+//     When rolling on the month or Calendar.MONTH field, other fields like
+//     date might conflict and, need to be changed. For instance,
+//     rolling the month on the date 01/31/96 will result in 02/29/96.
+
+//    fun roll(field: Int, up: Boolean)
+//    fun roll(field: Int, amount: Int)
+
+//    fun getActualMinimum(field: Int): Int
+//    fun getActualMaximum(field: Int): Int
 
     fun before(whenCalendar: BaseCalendar): Boolean {
         return compareTo(whenCalendar) < 0
@@ -174,6 +227,32 @@ abstract class BaseCalendar : IConverter {
     override fun toString(): String {
         return super.toString().apply {
             "${substring(0, length - 1)}, Date=$shortDateString]"
+        }
+    }
+
+    companion object {
+        private val FIELD_NAME = arrayOf(
+                "ERA",
+                "YEAR",
+                "MONTH",
+                "WEEK_OF_YEAR",
+                "WEEK_OF_MONTH",
+                "DAY_OF_MONTH",
+                "DAY_OF_YEAR",
+                "DAY_OF_WEEK",
+                "DAY_OF_WEEK_IN_MONTH",
+                "AM_PM",
+                "HOUR",
+                "HOUR_OF_DAY",
+                "MINUTE",
+                "SECOND",
+                "MILLISECOND",
+                "ZONE_OFFSET",
+                "DST_OFFSET"
+        )
+
+        fun fieldName(field: Int): String {
+            return FIELD_NAME[field]
         }
     }
 
