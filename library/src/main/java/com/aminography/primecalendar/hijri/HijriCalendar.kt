@@ -288,6 +288,7 @@ class HijriCalendar : BaseCalendar() {
         return when (field) {
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).let { base ->
+                    base.year = year
                     base.set(DAY_OF_YEAR, if (isLeapYear) 355 else 354)
                     base.calculateWeekOfYear()
                 }
@@ -295,6 +296,7 @@ class HijriCalendar : BaseCalendar() {
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).let { base ->
                     base.dayOfMonth = monthLength
+                    base.set(year, month, monthLength)
                     base.calculateWeekOfMonth()
                 }
             }

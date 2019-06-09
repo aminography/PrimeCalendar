@@ -136,7 +136,7 @@ abstract class BaseCalendar : IConverter {
         }
     }
 
-    protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
+    /*protected*/ fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
         val day = if (dayOfWeek < firstDayOfWeek) dayOfWeek + 7 else dayOfWeek
         return (day - firstDayOfWeek) % 7
     }

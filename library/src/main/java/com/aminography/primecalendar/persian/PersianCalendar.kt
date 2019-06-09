@@ -253,14 +253,14 @@ class PersianCalendar : BaseCalendar() {
             DAY_OF_MONTH -> {
                 val targetMonthLength = monthLength
                 var targetDayOfMonth = (dayOfMonth + amount) % targetMonthLength
-                if (targetDayOfMonth < 0) targetDayOfMonth += targetMonthLength
+                if (targetDayOfMonth <= 0) targetDayOfMonth += targetMonthLength
 
                 set(year, month, targetDayOfMonth)
             }
             DAY_OF_YEAR -> {
                 val targetYearLength = PersianCalendarUtils.yearLength(year)
                 var targetDayOfYear = (calculateDayOfYear() + amount) % targetYearLength
-                if (targetDayOfYear < 0) targetDayOfYear += targetYearLength
+                if (targetDayOfYear <= 0) targetDayOfYear += targetYearLength
 
                 PersianCalendarUtils.dayOfYear(year, targetDayOfYear).let {
                     set(it.year, it.month, it.dayOfMonth)
@@ -281,32 +281,62 @@ class PersianCalendar : BaseCalendar() {
                 }
             }
             WEEK_OF_YEAR -> {
-                // TODO
+                val day = calculateDayOfYear()
+                val maxDay = PersianCalendarUtils.yearLength(year)
+                val woy = get(WEEK_OF_YEAR)
+                val maxWoy = getActualMaximum(WEEK_OF_YEAR)
+
+                val array = IntArray(maxWoy)
+                array[woy - 1] = day
+                for (i in woy..(maxWoy - 1)) {
+                    array[i] = if (array[i - 1] + 7 <= maxDay) {
+                        array[i - 1] + 7
+                    } else {
+                        maxDay
+                    }
+                }
+                for (i in (woy - 2) downTo 0) {
+                    array[i] = if (array[i + 1] - 7 >= 1) {
+                        array[i + 1] - 7
+                    } else {
+                        1
+                    }
+                }
+
+                var targetIndex = (woy - 1 + amount) % maxWoy
+                if (targetIndex < 0) targetIndex += maxWoy
+                val targetDayOfYear = array[targetIndex]
+
+                PersianCalendarUtils.dayOfYear(year, targetDayOfYear).let {
+                    set(it.year, it.month, it.dayOfMonth)
+                }
             }
             WEEK_OF_MONTH -> {
                 val day = dayOfMonth
-                val max = monthLength
-                val list = arrayListOf<Int>()
-                list.add(day)
+                val maxDay = monthLength
+                val wom = get(WEEK_OF_MONTH)
+                val maxWom = getActualMaximum(WEEK_OF_MONTH)
 
-                var x = day
-                while (x < max) {
-                    x += 7
-                    list.add(if (x <= max) x else max)
+                val array = IntArray(maxWom)
+                array[wom - 1] = day
+                for (i in wom..(maxWom - 1)) {
+                    array[i] = if (array[i - 1] + 7 <= maxDay) {
+                        array[i - 1] + 7
+                    } else {
+                        maxDay
+                    }
+                }
+                for (i in (wom - 2) downTo 0) {
+                    array[i] = if (array[i + 1] - 7 >= 1) {
+                        array[i + 1] - 7
+                    } else {
+                        1
+                    }
                 }
 
-                var dayIndex = 0
-                x = day
-                while (x > 0) {
-                    x -= 7
-                    list.add(0, if (x > 0) x else 1)
-                    dayIndex++
-                }
-
-                var targetIndex = (dayIndex + amount) % list.size
-                if (targetIndex < 0) targetIndex += list.size
-                val targetDayOfMonth = list[targetIndex]
-                list.clear()
+                var targetIndex = (wom - 1 + amount) % maxWom
+                if (targetIndex < 0) targetIndex += maxWom
+                val targetDayOfMonth = array[targetIndex]
 
                 set(year, month, targetDayOfMonth)
             }
@@ -388,13 +418,14 @@ class PersianCalendar : BaseCalendar() {
         return when (field) {
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).let { base ->
+                    base.year = year
                     base.set(DAY_OF_YEAR, if (isLeapYear) 366 else 365)
                     base.calculateWeekOfYear()
                 }
             }
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).let { base ->
-                    base.dayOfMonth = monthLength
+                    base.set(year, month, monthLength)
                     base.calculateWeekOfMonth()
                 }
             }

@@ -47,13 +47,60 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun persianRollDayOfYear() {
+        val calendar = PersianCalendar()
+        calendar.month = 0
+        calendar.dayOfMonth = 1
+        println(calendar.longDateString)
+        println("DAY_OF_YEAR: ${calendar.get(Calendar.DAY_OF_YEAR)}")
+
+        calendar.roll(Calendar.DAY_OF_YEAR, -1)
+
+        println(calendar.longDateString)
+        println("DAY_OF_YEAR: ${calendar.get(Calendar.DAY_OF_YEAR)}")
+    }
+
+    @Test
+    fun persianRollWeekOfYear() {
+        val calendar = PersianCalendar()
+        calendar.month = 11
+        calendar.dayOfMonth = 28
+        println(calendar.longDateString)
+        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+
+        calendar.roll(Calendar.WEEK_OF_YEAR, 1)
+
+        println(calendar.longDateString)
+        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+    }
+
+    @Test
+    fun calendarRollWeekOfMonth() {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH, 2)
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+
+        val civil = CivilCalendar()
+        civil.timeInMillis = calendar.timeInMillis
+        println(civil.longDateString)
+        println("WEEK_OF_MONTH: ${civil.get(Calendar.WEEK_OF_MONTH)}")
+
+        calendar.roll(Calendar.WEEK_OF_MONTH, -1)
+
+        civil.timeInMillis = calendar.timeInMillis
+        println(civil.longDateString)
+        println("WEEK_OF_MONTH: ${civil.get(Calendar.WEEK_OF_MONTH)}")
+    }
+
+    @Test
     fun persianRollWeekOfMonth() {
         val calendar = PersianCalendar()
-//        calendar.dayOfMonth = 7
+        calendar.month = 0
+        calendar.dayOfMonth = 27
         println(calendar.longDateString)
         println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
 
-        calendar.roll(Calendar.WEEK_OF_MONTH, -3)
+        calendar.roll(Calendar.WEEK_OF_MONTH, 1)
 
         println(calendar.longDateString)
         println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
@@ -198,6 +245,31 @@ class ExampleUnitTest {
         assertEquals(calendar.year, 2019)
         assertEquals(calendar.month, 5)
         assertEquals(calendar.dayOfMonth, 1)
+    }
+
+    @Test
+    fun DayOfWeek() {
+        val calendar = PersianCalendar()
+        calendar.month = 0
+
+        calendar.dayOfMonth = 1
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 2
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 3
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 4
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 5
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 6
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 7
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        calendar.dayOfMonth = 31
+        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
+
+        println("ActualMaximum WOM: ${calendar.getActualMaximum(Calendar.WEEK_OF_MONTH)}")
     }
 
 }
