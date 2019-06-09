@@ -2,6 +2,7 @@ package com.aminography.primecalendar.base
 
 import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.common.CalendarType
+import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.IConverter
 import java.util.*
 import java.util.Calendar.DAY_OF_WEEK
@@ -124,7 +125,13 @@ abstract class BaseCalendar : IConverter {
 
     protected abstract fun invalidate()
 
-    protected abstract fun calculateDayOfYear(): Int
+    internal abstract fun dayOfYear(): Int
+
+    internal abstract fun monthLength(year: Int, month: Int): Int
+
+    internal abstract fun yearLength(year: Int): Int
+
+    internal abstract fun dayOfYear(year: Int, dayOfYear: Int): DateHolder
 
     protected fun setInternalFirstDayOfWeek(firstDayOfWeek: Int) {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
@@ -147,7 +154,7 @@ abstract class BaseCalendar : IConverter {
         return dividend + if (remainder > 0) 1 else 0
     }
 
-    internal fun calculateWeekOfMonth(): Int {
+    internal fun weekOfMonth(): Int {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, month, 1)
             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
@@ -155,11 +162,11 @@ abstract class BaseCalendar : IConverter {
         }
     }
 
-    internal fun calculateWeekOfYear(): Int {
+    internal fun weekOfYear(): Int {
         CalendarFactory.newInstance(calendarType).also { base ->
             base.set(year, 0, 1)
             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(calculateDayOfYear(), baseDayOfWeek)
+            return weekNumber(dayOfYear(), baseDayOfWeek)
         }
     }
 

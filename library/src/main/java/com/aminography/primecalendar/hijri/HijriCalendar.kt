@@ -76,10 +76,10 @@ class HijriCalendar : BaseCalendar() {
             ERA -> super.get(ERA)
             YEAR -> year
             MONTH -> month
-            WEEK_OF_YEAR -> calculateWeekOfYear()
-            WEEK_OF_MONTH -> calculateWeekOfMonth()
+            WEEK_OF_YEAR -> weekOfYear()
+            WEEK_OF_MONTH -> weekOfMonth()
             DAY_OF_MONTH -> dayOfMonth // also DATE
-            DAY_OF_YEAR -> calculateDayOfYear()
+            DAY_OF_YEAR -> dayOfYear()
             DAY_OF_WEEK -> super.get(DAY_OF_WEEK)
             DAY_OF_WEEK_IN_MONTH -> when (dayOfMonth) {
                 in 1..7 -> 1
@@ -153,7 +153,7 @@ class HijriCalendar : BaseCalendar() {
                 }
             }
             DAY_OF_YEAR -> {
-                HijriCalendarUtils.dayOfYear(year, value).let {
+                dayOfYear(year, value).let {
                     set(it.year, it.month, it.dayOfMonth)
                 }
             }
@@ -241,7 +241,7 @@ class HijriCalendar : BaseCalendar() {
                 var targetMonth = (month + amount) % 12
                 if (targetMonth < 0) targetMonth += 12
 
-                val targetMonthLength = HijriCalendarUtils.monthLength(year, targetMonth)
+                val targetMonthLength = monthLength(year, targetMonth)
                 var targetDayOfMonth = dayOfMonth
                 if (targetDayOfMonth > targetMonthLength) targetDayOfMonth = targetMonthLength
 
@@ -255,11 +255,11 @@ class HijriCalendar : BaseCalendar() {
                 set(year, month, targetDayOfMonth)
             }
             DAY_OF_YEAR -> {
-                val targetYearLength = HijriCalendarUtils.yearLength(year)
-                var targetDayOfYear = (calculateDayOfYear() + amount) % targetYearLength
+                val targetYearLength = yearLength(year)
+                var targetDayOfYear = (dayOfYear() + amount) % targetYearLength
                 if (targetDayOfYear <= 0) targetDayOfYear += targetYearLength
 
-                HijriCalendarUtils.dayOfYear(year, targetDayOfYear).let {
+                dayOfYear(year, targetDayOfYear).let {
                     set(it.year, it.month, it.dayOfMonth)
                 }
             }
@@ -278,8 +278,8 @@ class HijriCalendar : BaseCalendar() {
                 }
             }
             WEEK_OF_YEAR -> {
-                val day = calculateDayOfYear()
-                val maxDay = HijriCalendarUtils.yearLength(year)
+                val day = dayOfYear()
+                val maxDay = yearLength(year)
                 val woy = get(WEEK_OF_YEAR)
                 val maxWoy = getActualMaximum(WEEK_OF_YEAR)
 
@@ -302,7 +302,7 @@ class HijriCalendar : BaseCalendar() {
                 if (targetIndex < 0) targetIndex += maxWoy
                 val targetDayOfYear = array[targetIndex]
 
-                HijriCalendarUtils.dayOfYear(year, targetDayOfYear).let {
+                dayOfYear(year, targetDayOfYear).let {
                     set(it.year, it.month, it.dayOfMonth)
                 }
             }
@@ -412,13 +412,13 @@ class HijriCalendar : BaseCalendar() {
                 CalendarFactory.newInstance(calendarType).let { base ->
                     base.year = year
                     base.set(DAY_OF_YEAR, if (isLeapYear) 355 else 354)
-                    base.calculateWeekOfYear()
+                    base.weekOfYear()
                 }
             }
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).let { base ->
                     base.set(year, month, monthLength)
-                    base.calculateWeekOfMonth()
+                    base.weekOfMonth()
                 }
             }
             DAY_OF_MONTH -> monthLength
@@ -442,7 +442,17 @@ class HijriCalendar : BaseCalendar() {
         }
     }
 
-    override fun calculateDayOfYear(): Int = HijriCalendarUtils.dayOfYear(year, month, dayOfMonth)
+    override fun dayOfYear(): Int =
+            HijriCalendarUtils.dayOfYear(year, month, dayOfMonth)
+
+    override fun monthLength(year: Int, month: Int): Int =
+            HijriCalendarUtils.monthLength(year, month)
+
+    override fun yearLength(year: Int): Int =
+            HijriCalendarUtils.yearLength(year)
+
+    override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
+            HijriCalendarUtils.dayOfYear(year, dayOfYear)
 
     // ---------------------------------------------------------------------------------------------
 

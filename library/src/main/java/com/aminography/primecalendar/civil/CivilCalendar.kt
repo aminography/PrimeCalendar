@@ -2,6 +2,7 @@ package com.aminography.primecalendar.civil
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.common.CalendarType
+import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertCivilToHijri
 import com.aminography.primecalendar.common.convertCivilToPersian
 import com.aminography.primecalendar.hijri.HijriCalendar
@@ -100,7 +101,16 @@ class CivilCalendar : BaseCalendar() {
         civilDayOfMonth = super.get(DAY_OF_MONTH)
     }
 
-    override fun calculateDayOfYear(): Int = super.get(DAY_OF_YEAR)
+    override fun dayOfYear(): Int = super.get(DAY_OF_YEAR)
+
+    override fun monthLength(year: Int, month: Int): Int =
+            CivilCalendarUtils.monthLength(year, month)
+
+    override fun yearLength(year: Int): Int =
+            CivilCalendarUtils.yearLength(year)
+
+    override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
+            CivilCalendarUtils.dayOfYear(year, dayOfYear)
 
     // ---------------------------------------------------------------------------------------------
 
