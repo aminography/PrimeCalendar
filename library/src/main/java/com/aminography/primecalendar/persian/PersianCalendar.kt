@@ -266,24 +266,54 @@ class PersianCalendar : BaseCalendar() {
                     set(it.year, it.month, it.dayOfMonth)
                 }
             }
+            DAY_OF_WEEK -> {
+                if (amount % 7 == 0) return
+
+                val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
+                var targetDayOfWeek = (dayOfWeek + amount) % 7
+                if (targetDayOfWeek < 0) targetDayOfWeek += 7
+
+                val move = targetDayOfWeek - dayOfWeek
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(year, month, dayOfMonth)
+                    base.add(DAY_OF_YEAR, move)
+                    set(base.year, base.month, base.dayOfMonth)
+                }
+            }
             WEEK_OF_YEAR -> {
                 // TODO
             }
             WEEK_OF_MONTH -> {
                 // TODO
             }
-            DAY_OF_WEEK -> {
-                // rule: not changing larger calendar fields...
-                if (amount % 7 == 0) return
-
-                var targetDayOfWeek = (get(DAY_OF_WEEK) + amount) % 7
-                if (targetDayOfWeek < 0) targetDayOfWeek += 7
-
-
-                // TODO
-            }
             DAY_OF_WEEK_IN_MONTH -> {
-                // TODO
+                if (amount == 0) return
+
+                val day = dayOfMonth
+                val max = monthLength
+                val list = arrayListOf<Int>()
+                list.add(day)
+
+                var x = day
+                while (x + 7 <= max) {
+                    x += 7
+                    list.add(x)
+                }
+
+                var dayIndex = 0
+                x = day
+                while (x - 7 > 0) {
+                    x -= 7
+                    list.add(0, x)
+                    dayIndex++
+                }
+
+                var targetIndex = (dayIndex + amount) % list.size
+                if (targetIndex < 0) targetIndex += list.size
+                val targetDayOfMonth = list[targetIndex]
+                list.clear()
+
+                set(year, month, targetDayOfMonth)
             }
             else -> {
                 super.roll(field, amount)
