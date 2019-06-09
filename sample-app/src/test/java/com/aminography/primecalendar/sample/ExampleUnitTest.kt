@@ -16,14 +16,17 @@ class ExampleUnitTest {
     @Test
     fun roll() {
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, 0)
-        calendar.set(Calendar.DAY_OF_MONTH, 7)
+//        calendar.set(Calendar.MONTH, 0)
+//        calendar.set(Calendar.DAY_OF_MONTH, 7)
+        calendar.set(Calendar.MONTH, 11)
+        calendar.set(Calendar.DAY_OF_MONTH, 30)
         val civil = CivilCalendar()
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
         println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
 
-        calendar.roll(Calendar.WEEK_OF_YEAR, -1)
+//        calendar.roll(Calendar.WEEK_OF_YEAR, -1)
+        calendar.roll(Calendar.WEEK_OF_YEAR, +1)
 
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
