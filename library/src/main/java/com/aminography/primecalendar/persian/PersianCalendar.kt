@@ -335,6 +335,13 @@ class PersianCalendar : BaseCalendar() {
             DAY_OF_WEEK_IN_MONTH -> {
                 val day = dayOfMonth
                 val maxDay = monthLength
+//                val wim = get(DAY_OF_WEEK_IN_MONTH)
+//                val maxWim = getActualMaximum(DAY_OF_WEEK_IN_MONTH)
+//
+//                val array = IntArray(maxWim)
+//                array[wim - 1] = day
+
+
                 val list = arrayListOf<Int>()
                 list.add(day)
 
