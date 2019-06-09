@@ -152,12 +152,8 @@ class PersianCalendar : BaseCalendar() {
                 }
             }
             DAY_OF_YEAR -> {
-                if (value > PersianCalendarUtils.yearLength(year)) {
-                    throw IllegalArgumentException()
-                } else {
-                    PersianCalendarUtils.dayOfYear(year, value).let {
-                        set(it.year, it.month, it.dayOfMonth)
-                    }
+                PersianCalendarUtils.dayOfYear(year, value).let {
+                    set(it.year, it.month, it.dayOfMonth)
                 }
             }
             DAY_OF_WEEK -> {
@@ -289,18 +285,16 @@ class PersianCalendar : BaseCalendar() {
                 val array = IntArray(maxWoy)
                 array[woy - 1] = day
                 for (i in woy..(maxWoy - 1)) {
-                    array[i] = if (array[i - 1] + 7 <= maxDay) {
-                        array[i - 1] + 7
-                    } else {
-                        maxDay
-                    }
+                    array[i] =
+                            if (array[i - 1] + 7 <= maxDay)
+                                array[i - 1] + 7
+                            else maxDay
                 }
                 for (i in (woy - 2) downTo 0) {
-                    array[i] = if (array[i + 1] - 7 >= 1) {
-                        array[i + 1] - 7
-                    } else {
-                        1
-                    }
+                    array[i] =
+                            if (array[i + 1] - 7 >= 1)
+                                array[i + 1] - 7
+                            else 1
                 }
 
                 var targetIndex = (woy - 1 + amount) % maxWoy
@@ -320,18 +314,16 @@ class PersianCalendar : BaseCalendar() {
                 val array = IntArray(maxWom)
                 array[wom - 1] = day
                 for (i in wom..(maxWom - 1)) {
-                    array[i] = if (array[i - 1] + 7 <= maxDay) {
-                        array[i - 1] + 7
-                    } else {
-                        maxDay
-                    }
+                    array[i] =
+                            if (array[i - 1] + 7 <= maxDay)
+                                array[i - 1] + 7
+                            else maxDay
                 }
                 for (i in (wom - 2) downTo 0) {
-                    array[i] = if (array[i + 1] - 7 >= 1) {
-                        array[i + 1] - 7
-                    } else {
-                        1
-                    }
+                    array[i] =
+                            if (array[i + 1] - 7 >= 1)
+                                array[i + 1] - 7
+                            else 1
                 }
 
                 var targetIndex = (wom - 1 + amount) % maxWom
@@ -342,12 +334,12 @@ class PersianCalendar : BaseCalendar() {
             }
             DAY_OF_WEEK_IN_MONTH -> {
                 val day = dayOfMonth
-                val max = monthLength
+                val maxDay = monthLength
                 val list = arrayListOf<Int>()
                 list.add(day)
 
                 var x = day
-                while (x + 7 <= max) {
+                while (x + 7 <= maxDay) {
                     x += 7
                     list.add(x)
                 }
