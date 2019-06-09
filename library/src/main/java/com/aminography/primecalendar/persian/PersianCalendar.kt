@@ -284,11 +284,33 @@ class PersianCalendar : BaseCalendar() {
                 // TODO
             }
             WEEK_OF_MONTH -> {
-                // TODO
+                val day = dayOfMonth
+                val max = monthLength
+                val list = arrayListOf<Int>()
+                list.add(day)
+
+                var x = day
+                while (x < max) {
+                    x += 7
+                    list.add(if (x <= max) x else max)
+                }
+
+                var dayIndex = 0
+                x = day
+                while (x > 0) {
+                    x -= 7
+                    list.add(0, if (x > 0) x else 1)
+                    dayIndex++
+                }
+
+                var targetIndex = (dayIndex + amount) % list.size
+                if (targetIndex < 0) targetIndex += list.size
+                val targetDayOfMonth = list[targetIndex]
+                list.clear()
+
+                set(year, month, targetDayOfMonth)
             }
             DAY_OF_WEEK_IN_MONTH -> {
-                if (amount == 0) return
-
                 val day = dayOfMonth
                 val max = monthLength
                 val list = arrayListOf<Int>()

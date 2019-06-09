@@ -16,18 +16,18 @@ class ExampleUnitTest {
     @Test
     fun roll() {
         val calendar = Calendar.getInstance()
-//        calendar.set(Calendar.MONTH, 0)
-        calendar.set(Calendar.DAY_OF_MONTH, 5)
+        calendar.set(Calendar.MONTH, 0)
+        calendar.set(Calendar.DAY_OF_MONTH, 7)
         val civil = CivilCalendar()
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
-        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
 
-        calendar.roll(Calendar.DAY_OF_WEEK_IN_MONTH, 0)
+        calendar.roll(Calendar.WEEK_OF_YEAR, -1)
 
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
-        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
     }
 
     @Test
@@ -41,6 +41,19 @@ class ExampleUnitTest {
 
         println(calendar.longDateString)
         println("DAY_OF_WEEK: ${calendar.get(Calendar.DAY_OF_WEEK)}")
+    }
+
+    @Test
+    fun persianRollWeekOfMonth() {
+        val calendar = PersianCalendar()
+//        calendar.dayOfMonth = 7
+        println(calendar.longDateString)
+        println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
+
+        calendar.roll(Calendar.WEEK_OF_MONTH, -3)
+
+        println(calendar.longDateString)
+        println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
     }
 
     @Test
