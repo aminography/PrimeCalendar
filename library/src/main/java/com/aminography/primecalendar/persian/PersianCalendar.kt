@@ -239,7 +239,56 @@ class PersianCalendar : BaseCalendar() {
         if (amount == 0) return
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
-        // TODO
+        when (field) {
+            MONTH -> {
+                var targetMonth = (month + amount) % 12
+                if (targetMonth < 0) targetMonth += 12
+
+                val targetMonthLength = PersianCalendarUtils.monthLength(year, targetMonth)
+                var targetDayOfMonth = dayOfMonth
+                if (targetDayOfMonth > targetMonthLength) targetDayOfMonth = targetMonthLength
+
+                set(year, targetMonth, targetDayOfMonth)
+            }
+            DAY_OF_MONTH -> {
+                val targetMonthLength = monthLength
+                var targetDayOfMonth = (dayOfMonth + amount) % targetMonthLength
+                if (targetDayOfMonth < 0) targetDayOfMonth += targetMonthLength
+
+                set(year, month, targetDayOfMonth)
+            }
+            DAY_OF_YEAR -> {
+                val targetYearLength = PersianCalendarUtils.yearLength(year)
+                var targetDayOfYear = (calculateDayOfYear() + amount) % targetYearLength
+                if (targetDayOfYear < 0) targetDayOfYear += targetYearLength
+
+                PersianCalendarUtils.dayOfYear(year, targetDayOfYear).let {
+                    set(it.year, it.month, it.dayOfMonth)
+                }
+            }
+            WEEK_OF_YEAR -> {
+                // TODO
+            }
+            WEEK_OF_MONTH -> {
+                // TODO
+            }
+            DAY_OF_WEEK -> {
+                // rule: not changing larger calendar fields...
+                if (amount % 7 == 0) return
+
+                var targetDayOfWeek = (get(DAY_OF_WEEK) + amount) % 7
+                if (targetDayOfWeek < 0) targetDayOfWeek += 7
+
+
+                // TODO
+            }
+            DAY_OF_WEEK_IN_MONTH -> {
+                // TODO
+            }
+            else -> {
+                super.roll(field, amount)
+            }
+        }
     }
 
     override fun getMinimum(field: Int): Int {

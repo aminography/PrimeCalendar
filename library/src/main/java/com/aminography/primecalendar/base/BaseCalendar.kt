@@ -97,6 +97,10 @@ abstract class BaseCalendar : IConverter {
         roll(field, if (up) +1 else -1)
     }
 
+    open fun roll(field: Int, amount: Int){
+        internalCalendar.roll(field, amount)
+    }
+
     // Final Functions -----------------------------------------------------------------------------
 
     fun setTimeZone(zone: TimeZone) {
@@ -121,8 +125,6 @@ abstract class BaseCalendar : IConverter {
     protected abstract fun invalidate()
 
     protected abstract fun calculateDayOfYear(): Int
-
-    abstract fun roll(field: Int, amount: Int)
 
     protected fun setInternalFirstDayOfWeek(firstDayOfWeek: Int) {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
