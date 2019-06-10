@@ -109,11 +109,12 @@ class ExampleUnitTest {
     @Test
     fun persianRollDayOfWeekInMonth() {
         val calendar = PersianCalendar()
+        calendar.month = 0
         calendar.dayOfMonth = 7
         println(calendar.longDateString)
         println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
 
-        calendar.roll(Calendar.DAY_OF_WEEK_IN_MONTH, -4)
+        calendar.roll(Calendar.DAY_OF_WEEK_IN_MONTH, -1)
 
         println(calendar.longDateString)
         println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
