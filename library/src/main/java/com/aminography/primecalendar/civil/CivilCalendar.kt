@@ -1,6 +1,6 @@
 package com.aminography.primecalendar.civil
 
-import com.aminography.primecalendar.base.BaseCalendar
+import com.aminography.primecalendar.IntermediateCalendar
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertCivilToHijri
@@ -13,7 +13,7 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class CivilCalendar : BaseCalendar() {
+class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
 
     private var civilYear: Int = 0
     private var civilMonth: Int = 0
@@ -65,45 +65,90 @@ class CivilCalendar : BaseCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun add(field: Int, amount: Int) {
-        super.add(field, amount)
-        invalidate()
-    }
+//    override fun add(field: Int, amount: Int) {
+//        super.add(field, amount)
+//        invalidate()
+//    }
+//
+//    override fun set(field: Int, value: Int) {
+//        super.set(field, value)
+//        invalidate()
+//    }
+//
+//    override fun set(year: Int, month: Int, dayOfMonth: Int) {
+//        super.set(year, month, dayOfMonth)
+//        invalidate()
+//    }
+//
+//    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
+//        super.set(year, month, dayOfMonth, hourOfDay, minute)
+//        invalidate()
+//    }
+//
+//    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
+//        super.set(year, month, dayOfMonth, hourOfDay, minute, second)
+//        invalidate()
+//    }
+//
+//    override fun roll(field: Int, amount: Int) {
+//        super.roll(field, amount)
+//        invalidate()
+//    }
+//
+//    override fun invalidate() {
+//        civilYear = get(YEAR)
+//        civilMonth = get(MONTH)
+//        civilDayOfMonth = get(DAY_OF_MONTH)
+//    }
 
-    override fun set(field: Int, value: Int) {
-        super.set(field, value)
-        invalidate()
-    }
+    override val minimum: Map<Int, Int>
+        get() = mapOf(
+                WEEK_OF_YEAR to 1,
+                WEEK_OF_MONTH to 0,
+                DAY_OF_MONTH to 1,
+                DAY_OF_YEAR to 1,
+                DAY_OF_WEEK_IN_MONTH to 1
+        )
+
+    override val maximum: Map<Int, Int>
+        get() = mapOf(
+                WEEK_OF_YEAR to 53, // Why not 54?
+                WEEK_OF_MONTH to 6,
+                DAY_OF_MONTH to 31,
+                DAY_OF_YEAR to 366,
+                DAY_OF_WEEK_IN_MONTH to 6 // Why not 5?
+        )
+
+    override val leastMaximum: Map<Int, Int>
+        get() = mapOf(
+                WEEK_OF_YEAR to 52, // Why not 53?
+                WEEK_OF_MONTH to 4,
+                DAY_OF_MONTH to 28,
+                DAY_OF_YEAR to 365,
+                DAY_OF_WEEK_IN_MONTH to 4
+        )
 
     override fun set(year: Int, month: Int, dayOfMonth: Int) {
+        checkRange(YEAR, year)
+        checkRange(MONTH, month)
+        checkRange(DAY_OF_MONTH, dayOfMonth)
+
         super.set(year, month, dayOfMonth)
         invalidate()
     }
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
-        super.set(year, month, dayOfMonth, hourOfDay, minute)
-        invalidate()
-    }
-
-    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
-        super.set(year, month, dayOfMonth, hourOfDay, minute, second)
-        invalidate()
-    }
-
-    override fun roll(field: Int, amount: Int) {
-        super.roll(field, amount)
-        invalidate()
-    }
-
     override fun invalidate() {
-        civilYear = get(YEAR)
-        civilMonth = get(MONTH)
-        civilDayOfMonth = get(DAY_OF_MONTH)
+        civilYear = internalCalendar.get(YEAR)
+        civilMonth = internalCalendar.get(MONTH)
+        civilDayOfMonth = internalCalendar.get(DAY_OF_MONTH)
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun dayOfYear(): Int = get(DAY_OF_YEAR)
+//    override fun dayOfYear(): Int = get(DAY_OF_YEAR)
+
+    override fun dayOfYear(): Int =
+            CivilCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     override fun monthLength(year: Int, month: Int): Int =
             CivilCalendarUtils.monthLength(year, month)

@@ -10,6 +10,11 @@ import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
 
 
 /**
+ * Short Descriptions
+ *
+ * More Descriptions
+ *
+ * @constructor
  * @author aminography
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -138,15 +143,15 @@ abstract class BaseCalendar : IConverter {
     }
 
     protected fun checkRange(field: Int, value: Int) {
-        if (field != DAY_OF_WEEK_IN_MONTH && (value < getActualMinimum(field) || value > getActualMaximum(field))) {
-            throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: ${getActualMinimum(field)} , Max: ${getActualMaximum(field)}]")
-        }
+//        if (field != DAY_OF_WEEK_IN_MONTH && (value < getActualMinimum(field) || value > getActualMaximum(field))) {
+//            throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: ${getActualMinimum(field)} , Max: ${getActualMaximum(field)}]")
+//        }
     }
 
-    //https://kotlinlang.org/docs/reference/kotlin-doc.html
+    // https://kotlinlang.org/docs/reference/kotlin-doc.html
     /**
-     * Returns offset of day based on firstDayOfWeek
-     * @param dayOfWeek standard day of week value defined in Calendar
+     * Returns offset of day based on [firstDayOfWeek]
+     * @param dayOfWeek standard day of week value defined in [java.util.Calendar]
      * @return day offset, starts from 0
      */
     protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
