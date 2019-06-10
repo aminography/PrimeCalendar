@@ -282,17 +282,17 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 val list = arrayListOf<Int>()
                 list.add(day)
 
-                var x = day
-                while (x + 7 <= maxDay) {
-                    x += 7
-                    list.add(x)
+                var d = day
+                while (d + 7 <= maxDay) {
+                    d += 7
+                    list.add(d)
                 }
 
                 var dayIndex = 0
-                x = day
-                while (x - 7 > 0) {
-                    x -= 7
-                    list.add(0, x)
+                d = day
+                while (d - 7 > 0) {
+                    d -= 7
+                    list.add(0, d)
                     dayIndex++
                 }
 
