@@ -98,7 +98,7 @@ abstract class BaseCalendar : IConverter {
         roll(field, if (up) +1 else -1)
     }
 
-    open fun roll(field: Int, amount: Int){
+    open fun roll(field: Int, amount: Int) {
         internalCalendar.roll(field, amount)
     }
 
@@ -143,14 +143,17 @@ abstract class BaseCalendar : IConverter {
         }
     }
 
+    /**
+     * result offset starts from 0
+     */
     protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
         val day = if (dayOfWeek < firstDayOfWeek) dayOfWeek + 7 else dayOfWeek
         return (day - firstDayOfWeek) % 7
     }
 
-    private fun weekNumber(day: Int, offset: Int): Int {
-        val dividend = (offset + day) / 7
-        val remainder = (offset + day) % 7
+    private fun weekNumber(day: Int, baseOffset: Int): Int {
+        val dividend = (baseOffset + day) / 7
+        val remainder = (baseOffset + day) % 7
         return dividend + if (remainder > 0) 1 else 0
     }
 
