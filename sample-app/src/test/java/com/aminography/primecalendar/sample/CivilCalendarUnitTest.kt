@@ -31,12 +31,12 @@ class CivilCalendarUnitTest {
         println("-------------------------------------------------------------------")
 
         civil.apply {
-            set(Calendar.WEEK_OF_YEAR, -10)
+            set(WEEK_OF_YEAR, -10)
             print(WEEK_OF_YEAR)
         }
 
         gregorian.apply {
-            set(Calendar.WEEK_OF_YEAR, -10)
+            set(WEEK_OF_YEAR, -10)
             print(WEEK_OF_YEAR)
         }
 
