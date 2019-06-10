@@ -192,13 +192,6 @@ abstract class BaseCalendar : IConverter {
 
 //    fun getDisplayName(field: Int, style: Int, locale: Locale): String
 
-//     When rolling on the month or Calendar.MONTH field, other fields like
-//     date might conflict and, need to be changed. For instance,
-//     rolling the month on the date 01/31/96 will result in 02/29/96.
-
-//    fun roll(field: Int, up: Boolean)
-//    fun roll(field: Int, amount: Int)
-
     fun before(whenCalendar: BaseCalendar): Boolean {
         return compareTo(whenCalendar) < 0
     }

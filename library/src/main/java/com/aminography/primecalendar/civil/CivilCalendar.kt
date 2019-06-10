@@ -96,12 +96,14 @@ class CivilCalendar : BaseCalendar() {
     }
 
     override fun invalidate() {
-        civilYear = internalCalendar.get(YEAR)
-        civilMonth = internalCalendar.get(MONTH)
-        civilDayOfMonth = internalCalendar.get(DAY_OF_MONTH)
+        civilYear = get(YEAR)
+        civilMonth = get(MONTH)
+        civilDayOfMonth = get(DAY_OF_MONTH)
     }
 
-    override fun dayOfYear(): Int = internalCalendar.get(DAY_OF_YEAR)
+    // ---------------------------------------------------------------------------------------------
+
+    override fun dayOfYear(): Int = get(DAY_OF_YEAR)
 
     override fun monthLength(year: Int, month: Int): Int =
             CivilCalendarUtils.monthLength(year, month)
