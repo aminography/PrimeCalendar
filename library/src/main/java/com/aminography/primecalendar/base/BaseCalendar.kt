@@ -143,8 +143,11 @@ abstract class BaseCalendar : IConverter {
         }
     }
 
+    //https://kotlinlang.org/docs/reference/kotlin-doc.html
     /**
-     * result offset starts from 0
+     * Returns offset of day based on firstDayOfWeek
+     * @param dayOfWeek standard day of week value defined in Calendar
+     * @return day offset, starts from 0
      */
     protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
         val day = if (dayOfWeek < firstDayOfWeek) dayOfWeek + 7 else dayOfWeek
