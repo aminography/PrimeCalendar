@@ -248,29 +248,4 @@ class ExampleUnitTest {
         assertEquals(calendar.dayOfMonth, 1)
     }
 
-    @Test
-    fun DayOfWeek() {
-        val calendar = PersianCalendar()
-        calendar.month = 0
-
-        calendar.dayOfMonth = 1
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 2
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 3
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 4
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 5
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 6
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 7
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-        calendar.dayOfMonth = 31
-        println("${calendar.longDateString}  ->  ${calendar.get(Calendar.DAY_OF_WEEK)}  adj:${calendar.adjustDayOfWeekOffset(calendar.get(Calendar.DAY_OF_WEEK))}  wom:${calendar.get(Calendar.WEEK_OF_MONTH)}")
-
-        println("ActualMaximum WOM: ${calendar.getActualMaximum(Calendar.WEEK_OF_MONTH)}")
-    }
-
 }
