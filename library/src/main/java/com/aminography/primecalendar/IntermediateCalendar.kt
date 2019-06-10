@@ -80,13 +80,47 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 invalidate()
             }
             YEAR -> {
-                year = value
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when (value) {
+                    in min..max -> year = value
+                    else -> throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: $min , Max: $max]")
+                }
             }
             MONTH -> {
-                month = value
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when {
+                    value in min..max -> {
+                        month = value
+                    }
+                    value < min -> {
+                        month = min
+                        add(field, value - min)
+                    }
+                    value > max -> {
+                        month = min
+                        add(field, value - max)
+                    }
+                }
+                // TODO: Check dayOfMonth values
             }
             DAY_OF_MONTH -> { // also DATE
-                dayOfMonth = value
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when {
+                    value in min..max -> {
+                        dayOfMonth = value
+                    }
+                    value < min -> {
+                        dayOfMonth = min
+                        add(field, value - min)
+                    }
+                    value > max -> {
+                        dayOfMonth = min
+                        add(field, value - max)
+                    }
+                }
             }
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
