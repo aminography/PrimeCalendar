@@ -147,6 +147,22 @@ abstract class PrimeCalendar : IConverter {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
     }
 
+    internal fun weekOfMonth(): Int {
+        CalendarFactory.newInstance(calendarType).also { base ->
+            base.set(year, month, 1)
+            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+            return weekNumber(dayOfMonth, baseDayOfWeek)
+        }
+    }
+
+    internal fun weekOfYear(): Int {
+        CalendarFactory.newInstance(calendarType).also { base ->
+            base.set(year, 0, 1)
+            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+            return weekNumber(dayOfYear(), baseDayOfWeek)
+        }
+    }
+
     // https://kotlinlang.org/docs/reference/kotlin-doc.html
     /**
      * Returns offset of day based on [firstDayOfWeek]
@@ -162,22 +178,6 @@ abstract class PrimeCalendar : IConverter {
         val dividend = (baseOffset + day) / 7
         val remainder = (baseOffset + day) % 7
         return dividend + if (remainder > 0) 1 else 0
-    }
-
-    internal fun weekOfMonth(): Int {
-        CalendarFactory.newInstance(calendarType).also { base ->
-            base.set(year, month, 1)
-            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(dayOfMonth, baseDayOfWeek)
-        }
-    }
-
-    internal fun weekOfYear(): Int {
-        CalendarFactory.newInstance(calendarType).also { base ->
-            base.set(year, 0, 1)
-            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(dayOfYear(), baseDayOfWeek)
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -224,9 +224,7 @@ abstract class PrimeCalendar : IConverter {
         if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA, MONTH, DAY_OF_WEEK, AM_PM)) {
             return null
         }
-
-        // ALL_STYLES
-        if (style == ALL_STYLES) {
+        if (style == ALL_STYLES) { // ALL_STYLES
             val shortNames = getDisplayNamesImpl(field, SHORT, locale)
             if (field == ERA || field == AM_PM) {
                 return shortNames
@@ -240,8 +238,6 @@ abstract class PrimeCalendar : IConverter {
             }
             return shortNames
         }
-
-        // SHORT or LONG
         return getDisplayNamesImpl(field, style, locale)
     }
 
