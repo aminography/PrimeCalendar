@@ -240,10 +240,10 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-                            val diff = dayOfWeek - baseDayOfWeek
+                            val offsetDiff = dayOfWeek - baseDayOfWeek
                             val move = when {
-                                diff < 0 -> diff
-                                diff > 0 -> diff - 7
+                                offsetDiff < 0 -> offsetDiff
+                                offsetDiff > 0 -> offsetDiff - 7
                                 else -> 0
                             } + 7 * (value + 1)
 
