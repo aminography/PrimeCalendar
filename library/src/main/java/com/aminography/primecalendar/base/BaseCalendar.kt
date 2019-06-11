@@ -4,8 +4,9 @@ import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.IConverter
+import java.text.DateFormatSymbols
 import java.util.*
-import java.util.Calendar.DAY_OF_WEEK
+import java.util.Calendar.*
 
 
 /**
@@ -200,7 +201,45 @@ abstract class BaseCalendar : IConverter {
         invalidate()
     }
 
+    fun isSet(field: Int): Boolean {
+        return internalCalendar.isSet(field)
+    }
+
 //    fun getDisplayName(field: Int, style: Int, locale: Locale): String
+
+    fun getDisplayName(field: Int, style: Int, locale: Locale): String? {
+        if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA_MASK or MONTH_MASK or DAY_OF_WEEK_MASK or AM_PM_MASK)) {
+            return null
+        }
+        val symbols = DateFormatSymbols.getInstance(locale)
+        getFieldStrings(field, style, symbols)?.let {
+            val fieldValue = get(field)
+            if (fieldValue < it.size) {
+                return it[fieldValue]
+            }
+        }
+        return null
+    }
+
+    fun checkDisplayNameParams(field: Int, style: Int, minStyle: Int, maxStyle: Int, locale: Locale?, fieldMask: Int): Boolean {
+        if (field < 0 || field >= FIELD_COUNT || style < minStyle || style > maxStyle) {
+            throw IllegalArgumentException()
+        }
+        if (locale == null) {
+            throw NullPointerException()
+        }
+        return isFieldSet(fieldMask, field)
+    }
+
+    private fun getFieldStrings(field: Int, style: Int, symbols: DateFormatSymbols): Array<String>? {
+        return when (field) {
+            ERA -> symbols.eras
+            MONTH -> if (style == LONG) symbols.months else symbols.shortMonths
+            DAY_OF_WEEK -> if (style == LONG) symbols.weekdays else symbols.shortWeekdays
+            AM_PM -> symbols.amPmStrings
+            else -> null
+        }
+    }
 
     fun before(whenCalendar: BaseCalendar): Boolean {
         return compareTo(whenCalendar) < 0
