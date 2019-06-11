@@ -93,7 +93,7 @@ class PersianCalendar : IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun apply() {
+    override fun store() {
         PersianCalendarUtils.persianToGregorian(
                 DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {

@@ -50,7 +50,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 internalYear = y
                 internalMonth = m
                 internalDayOfMonth = d
-                apply()
+                store()
             }
             MONTH -> {
                 val y: Int
@@ -69,7 +69,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 internalYear = y
                 internalMonth = m
                 internalDayOfMonth = d
-                apply()
+                store()
             }
             else -> {
                 super.add(field, amount)
@@ -92,7 +92,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 when (value) {
                     in min..max -> {
                         internalYear = value
-                        apply()
+                        store()
                     }
                     else -> throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: $min , Max: $max]")
                 }
@@ -103,16 +103,16 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 when {
                     value in min..max -> {
                         internalMonth = value
-                        apply()
+                        store()
                     }
                     value < min -> {
                         internalMonth = min
-                        apply()
+                        store()
                         add(field, value - min)
                     }
                     value > max -> {
                         internalMonth = max
-                        apply()
+                        store()
                         add(field, value - max)
                     }
                 }
@@ -123,16 +123,16 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 when {
                     value in min..max -> {
                         internalDayOfMonth = value
-                        apply()
+                        store()
                     }
                     value < min -> {
                         internalDayOfMonth = min
-                        apply()
+                        store()
                         add(field, value - min)
                     }
                     value > max -> {
                         internalDayOfMonth = max
-                        apply()
+                        store()
                         add(field, value - max)
                     }
                 }
@@ -149,7 +149,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     internalYear = base.year
                     internalMonth = base.month
                     internalDayOfMonth = base.dayOfMonth
-                    apply()
+                    store()
                 }
             }
             WEEK_OF_MONTH -> {
@@ -164,7 +164,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     internalYear = base.year
                     internalMonth = base.month
                     internalDayOfMonth = base.dayOfMonth
-                    apply()
+                    store()
                 }
             }
             DAY_OF_YEAR -> {
@@ -176,7 +176,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             internalYear = it.year
                             internalMonth = it.month
                             internalDayOfMonth = it.dayOfMonth
-                            apply()
+                            store()
                         }
                     }
                     value < min -> {
@@ -184,7 +184,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             internalYear = it.year
                             internalMonth = it.month
                             internalDayOfMonth = it.dayOfMonth
-                            apply()
+                            store()
                         }
                         add(field, value - min)
                     }
@@ -193,7 +193,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             internalYear = it.year
                             internalMonth = it.month
                             internalDayOfMonth = it.dayOfMonth
-                            apply()
+                            store()
                         }
                         add(field, value - max)
                     }
@@ -214,7 +214,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             internalYear = base.year
                             internalMonth = base.month
                             internalDayOfMonth = base.dayOfMonth
-                            apply()
+                            store()
                         }
                     }
                     value == 0 -> {
@@ -230,7 +230,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             internalYear = base.year
                             internalMonth = base.month
                             internalDayOfMonth = base.dayOfMonth
-                            apply()
+                            store()
                         }
                     }
                     value < 0 -> {
@@ -251,7 +251,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             internalYear = base.year
                             internalMonth = base.month
                             internalDayOfMonth = base.dayOfMonth
-                            apply()
+                            store()
                         }
                     }
                 }
@@ -301,7 +301,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
             }
         }
 
-        apply()
+        store()
 
         if (finalMove != 0) {
             add(DATE, finalMove)
@@ -336,7 +336,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
 
                 internalMonth = targetMonth
                 internalDayOfMonth = targetDayOfMonth
-                apply()
+                store()
             }
             DAY_OF_MONTH -> {
                 val targetMonthLength = monthLength
@@ -344,7 +344,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 if (targetDayOfMonth <= 0) targetDayOfMonth += targetMonthLength
 
                 internalDayOfMonth = targetDayOfMonth
-                apply()
+                store()
             }
             DAY_OF_YEAR -> {
                 val targetYearLength = yearLength(internalYear)
@@ -355,7 +355,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     internalYear = it.year
                     internalMonth = it.month
                     internalDayOfMonth = it.dayOfMonth
-                    apply()
+                    store()
                 }
             }
             DAY_OF_WEEK -> {
@@ -373,7 +373,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     internalYear = base.year
                     internalMonth = base.month
                     internalDayOfMonth = base.dayOfMonth
-                    apply()
+                    store()
                 }
             }
             WEEK_OF_YEAR -> {
@@ -405,7 +405,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     internalYear = it.year
                     internalMonth = it.month
                     internalDayOfMonth = it.dayOfMonth
-                    apply()
+                    store()
                 }
             }
             WEEK_OF_MONTH -> {
@@ -434,7 +434,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 val targetDayOfMonth = array[targetIndex]
 
                 internalDayOfMonth = targetDayOfMonth
-                apply()
+                store()
             }
             DAY_OF_WEEK_IN_MONTH -> {
                 val day = dayOfMonth
@@ -463,7 +463,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 list.clear()
 
                 internalDayOfMonth = targetDayOfMonth
-                apply()
+                store()
             }
             else -> {
                 super.roll(field, amount)

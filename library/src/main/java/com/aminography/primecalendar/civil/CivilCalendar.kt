@@ -126,7 +126,7 @@ class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun apply() {
+    override fun store() {
         internalCalendar.set(internalYear, internalMonth, internalDayOfMonth)
     }
 

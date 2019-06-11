@@ -97,7 +97,7 @@ class HijriCalendar : IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun apply() {
+    override fun store() {
         HijriCalendarUtils.hijriToGregorian(
                 DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {

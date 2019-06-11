@@ -131,7 +131,7 @@ abstract class BaseCalendar : IConverter {
 
     // ---------------------------------------------------------------------------------------------
 
-    protected abstract fun apply()
+    protected abstract fun store()
 
     protected abstract fun invalidate()
 
