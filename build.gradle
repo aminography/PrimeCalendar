@@ -40,7 +40,7 @@ ext {
 
     publishedGroupId = 'com.aminography'
     artifact = 'primecalendar'
-    libraryVersion = "1.0.11"
+    libraryVersion = "1.1.0"
 
     libraryName = 'PrimeCalendar'
     libraryDescription = 'PrimeCalendar makes working with dates easier.'
