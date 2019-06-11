@@ -140,14 +140,14 @@ class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
 
 //    override fun dayOfYear(): Int = get(DAY_OF_YEAR)
 
-    override fun dayOfYear(): Int =
-            CivilCalendarUtils.dayOfYear(year, month, dayOfMonth)
-
     override fun monthLength(year: Int, month: Int): Int =
             CivilCalendarUtils.monthLength(year, month)
 
     override fun yearLength(year: Int): Int =
             CivilCalendarUtils.yearLength(year)
+
+    override fun dayOfYear(): Int =
+            CivilCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
             CivilCalendarUtils.dayOfYear(year, dayOfYear)

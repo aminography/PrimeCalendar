@@ -80,7 +80,6 @@ abstract class IntermediateCalendar : BaseCalendar() {
 
     override fun set(field: Int, value: Int) {
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
-        checkRange(field, value)
 
         when (field) {
             ERA -> {

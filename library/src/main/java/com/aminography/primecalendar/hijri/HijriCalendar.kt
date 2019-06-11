@@ -121,14 +121,14 @@ class HijriCalendar : IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun dayOfYear(): Int =
-            HijriCalendarUtils.dayOfYear(year, month, dayOfMonth)
-
     override fun monthLength(year: Int, month: Int): Int =
             HijriCalendarUtils.monthLength(year, month)
 
     override fun yearLength(year: Int): Int =
             HijriCalendarUtils.yearLength(year)
+
+    override fun dayOfYear(): Int =
+            HijriCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
             HijriCalendarUtils.dayOfYear(year, dayOfYear)

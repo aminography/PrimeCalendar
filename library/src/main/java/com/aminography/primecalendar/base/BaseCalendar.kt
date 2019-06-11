@@ -6,7 +6,6 @@ import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.IConverter
 import java.util.*
 import java.util.Calendar.DAY_OF_WEEK
-import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
 
 
 /**
@@ -136,22 +135,16 @@ abstract class BaseCalendar : IConverter {
 
     protected abstract fun invalidate()
 
-    internal abstract fun dayOfYear(): Int
-
     internal abstract fun monthLength(year: Int, month: Int): Int
 
     internal abstract fun yearLength(year: Int): Int
+
+    internal abstract fun dayOfYear(): Int
 
     internal abstract fun dayOfYear(year: Int, dayOfYear: Int): DateHolder
 
     protected fun setInternalFirstDayOfWeek(firstDayOfWeek: Int) {
         internalCalendar.firstDayOfWeek = firstDayOfWeek
-    }
-
-    protected fun checkRange(field: Int, value: Int) {
-//        if (field != DAY_OF_WEEK_IN_MONTH && (value < getActualMinimum(field) || value > getActualMaximum(field))) {
-//            throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: ${getActualMinimum(field)} , Max: ${getActualMaximum(field)}]")
-//        }
     }
 
     // https://kotlinlang.org/docs/reference/kotlin-doc.html

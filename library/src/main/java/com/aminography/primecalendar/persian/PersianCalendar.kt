@@ -117,14 +117,14 @@ class PersianCalendar : IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun dayOfYear(): Int =
-            PersianCalendarUtils.dayOfYear(year, month, dayOfMonth)
-
     override fun monthLength(year: Int, month: Int): Int =
             PersianCalendarUtils.monthLength(year, month)
 
     override fun yearLength(year: Int): Int =
             PersianCalendarUtils.yearLength(year)
+
+    override fun dayOfYear(): Int =
+            PersianCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
             PersianCalendarUtils.dayOfYear(year, dayOfYear)
