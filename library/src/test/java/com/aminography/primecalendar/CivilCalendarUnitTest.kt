@@ -1,6 +1,5 @@
 package com.aminography.primecalendar
 
-import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -79,11 +78,11 @@ class CivilCalendarUnitTest {
     // ---------------------------------------------------------------------------------------------
 
     private fun CivilCalendar.print(field: Int) {
-        println("$longDateString  ->  ${BaseCalendar.fieldName(field)}: ${get(field)}")
+        println("$longDateString  ->  ${PrimeCalendar.fieldName(field)}: ${get(field)}")
     }
 
     private fun Calendar.print(field: Int) {
-        println("$longDateString  ->  ${BaseCalendar.fieldName(field)}: ${get(field)}")
+        println("$longDateString  ->  ${PrimeCalendar.fieldName(field)}: ${get(field)}")
     }
 
     private fun assertEquals(civil: CivilCalendar, gregorian: Calendar) {

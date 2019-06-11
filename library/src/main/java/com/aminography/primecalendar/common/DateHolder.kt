@@ -1,7 +1,5 @@
 package com.aminography.primecalendar.common
 
-import com.aminography.primecalendar.base.delimiter
-
 /**
  * @author aminography
  */

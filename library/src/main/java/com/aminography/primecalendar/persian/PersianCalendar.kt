@@ -1,6 +1,6 @@
 package com.aminography.primecalendar.persian
 
-import com.aminography.primecalendar.IntermediateCalendar
+import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.*
 import com.aminography.primecalendar.hijri.HijriCalendar
@@ -10,7 +10,7 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class PersianCalendar : IntermediateCalendar() {
+class PersianCalendar : BaseCalendar() {
 
     override var year: Int
         get() = internalYear

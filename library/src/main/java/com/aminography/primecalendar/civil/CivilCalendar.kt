@@ -1,6 +1,6 @@
 package com.aminography.primecalendar.civil
 
-import com.aminography.primecalendar.IntermediateCalendar
+import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertCivilToHijri
@@ -14,7 +14,7 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
+class CivilCalendar : /*PrimeCalendar()*/ BaseCalendar() {
 
     override var year: Int
         get() = internalYear

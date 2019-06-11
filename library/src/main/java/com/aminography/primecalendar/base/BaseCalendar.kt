@@ -1,358 +1,525 @@
 package com.aminography.primecalendar.base
 
+import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.common.CalendarFactory
-import com.aminography.primecalendar.common.CalendarType
-import com.aminography.primecalendar.common.DateHolder
-import com.aminography.primecalendar.common.IConverter
-import java.text.DateFormatSymbols
-import java.util.*
 import java.util.Calendar.*
 
-
 /**
- * Short Descriptions
- *
- * More Descriptions
- *
- * @constructor
  * @author aminography
  */
-@Suppress("unused", "MemberVisibilityCanBePrivate")
-abstract class BaseCalendar : IConverter {
+abstract class BaseCalendar : PrimeCalendar() {
 
-    protected var internalCalendar = GregorianCalendar(TimeZone.getDefault(), Locale.getDefault())
+    abstract val minimum: Map<Int, Int>
 
-    protected var internalYear: Int = 0
-    protected var internalMonth: Int = 0
-    protected var internalDayOfMonth: Int = 0
+    abstract val maximum: Map<Int, Int>
 
-    abstract var year: Int
+    abstract val leastMaximum: Map<Int, Int>
 
-    abstract var month: Int
-
-    abstract var dayOfMonth: Int
-
-    abstract val monthName: String
-
-    abstract val weekDayName: String
-
-    abstract val monthLength: Int
-
-    abstract val isLeapYear: Boolean
-
-    abstract val firstDayOfWeek: Int
-
-    abstract val calendarType: CalendarType
-
-    val longDateString: String
-        get() = "$weekDayName,  $dayOfMonth  $monthName  $year"
-
-    val shortDateString: String
-        get() = normalize(year) + delimiter + normalize(month + 1) + delimiter + normalize(dayOfMonth)
-
-    val monthDayString: String
-        get() = monthName + " " + normalize(dayOfMonth)
-
-    // Open Functions ------------------------------------------------------------------------------
-
-    open fun get(field: Int): Int {
-        return internalCalendar.get(field)
-    }
-
-    open fun set(field: Int, value: Int) {
-        internalCalendar.set(field, value)
-    }
-
-    open fun set(year: Int, month: Int, dayOfMonth: Int) {
-        internalCalendar.set(year, month, dayOfMonth)
-    }
-
-    open fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
-        internalCalendar.set(year, month, dayOfMonth, hourOfDay, minute)
-    }
-
-    open fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
-        internalCalendar.set(year, month, dayOfMonth, hourOfDay, minute, second)
-    }
-
-    open fun add(field: Int, amount: Int) {
-        internalCalendar.add(field, amount)
-    }
-
-    open fun roll(field: Int, amount: Int) {
-        internalCalendar.roll(field, amount)
-    }
-
-    open fun getMinimum(field: Int): Int {
-        return internalCalendar.getMinimum(field)
-    }
-
-    open fun getMaximum(field: Int): Int {
-        return internalCalendar.getMaximum(field)
-    }
-
-    open fun getGreatestMinimum(field: Int): Int {
-        return internalCalendar.getGreatestMinimum(field)
-    }
-
-    open fun getLeastMaximum(field: Int): Int {
-        return internalCalendar.getLeastMaximum(field)
-    }
-
-    open fun getActualMinimum(field: Int): Int {
-        return internalCalendar.getActualMinimum(field)
-    }
-
-    open fun getActualMaximum(field: Int): Int {
-        return internalCalendar.getActualMaximum(field)
-    }
-
-    // Final Functions -----------------------------------------------------------------------------
-
-    fun roll(field: Int, up: Boolean) {
-        roll(field, if (up) +1 else -1)
-    }
-
-    fun setTimeZone(zone: TimeZone) {
-        internalCalendar.timeZone = zone
-        invalidate()
-    }
-
-    fun getTimeZone(): TimeZone {
-        return internalCalendar.timeZone
-    }
-
-    var timeInMillis: Long = 0
-        get() = internalCalendar.timeInMillis
-        set(value) {
-            field = value
-            internalCalendar.timeInMillis = value
-            invalidate()
-        }
-
-    // ---------------------------------------------------------------------------------------------
-
-    protected abstract fun store()
-
-    protected abstract fun invalidate()
-
-    protected abstract fun configSymbols(symbols: DateFormatSymbols)
-
-    internal abstract fun monthLength(year: Int, month: Int): Int
-
-    internal abstract fun yearLength(year: Int): Int
-
-    internal abstract fun dayOfYear(): Int
-
-    internal abstract fun dayOfYear(year: Int, dayOfYear: Int): DateHolder
-
-    protected fun setInternalFirstDayOfWeek(firstDayOfWeek: Int) {
-        internalCalendar.firstDayOfWeek = firstDayOfWeek
-    }
-
-    // https://kotlinlang.org/docs/reference/kotlin-doc.html
-    /**
-     * Returns offset of day based on [firstDayOfWeek]
-     * @param dayOfWeek standard day of week value defined in [java.util.Calendar]
-     * @return day offset, starts from 0
-     */
-    protected fun adjustDayOfWeekOffset(dayOfWeek: Int): Int {
-        val day = if (dayOfWeek < firstDayOfWeek) dayOfWeek + 7 else dayOfWeek
-        return (day - firstDayOfWeek) % 7
-    }
-
-    private fun weekNumber(day: Int, baseOffset: Int): Int {
-        val dividend = (baseOffset + day) / 7
-        val remainder = (baseOffset + day) % 7
-        return dividend + if (remainder > 0) 1 else 0
-    }
-
-    internal fun weekOfMonth(): Int {
-        CalendarFactory.newInstance(calendarType).also { base ->
-            base.set(year, month, 1)
-            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(dayOfMonth, baseDayOfWeek)
-        }
-    }
-
-    internal fun weekOfYear(): Int {
-        CalendarFactory.newInstance(calendarType).also { base ->
-            base.set(year, 0, 1)
-            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(dayOfYear(), baseDayOfWeek)
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    fun getTime(): Date {
-        return Date(timeInMillis)
-    }
-
-    fun setTime(date: Date) {
-        timeInMillis = date.time
-    }
-
-    fun clear() {
-        internalCalendar.clear()
-        invalidate()
-    }
-
-    fun clear(field: Int) {
-        internalCalendar.clear(field)
-        invalidate()
-    }
-
-    fun isSet(field: Int): Boolean {
-        return internalCalendar.isSet(field)
-    }
-
-    fun getDisplayName(field: Int, style: Int, locale: Locale): String? {
-        if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA, MONTH, DAY_OF_WEEK, AM_PM)) {
-            return null
-        }
-        val symbols = DateFormatSymbols.getInstance(locale)
-        configSymbols(symbols)
-
-        getFieldStrings(field, style, symbols)?.let {
-            val fieldValue = get(field)
-            if (fieldValue < it.size) {
-                return it[fieldValue]
-            }
-        }
-        return null
-    }
-
-    fun getDisplayNames(field: Int, style: Int, locale: Locale): Map<String, Int>? {
-        if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA, MONTH, DAY_OF_WEEK, AM_PM)) {
-            return null
-        }
-
-        // ALL_STYLES
-        if (style == ALL_STYLES) {
-            val shortNames = getDisplayNamesImpl(field, SHORT, locale)
-            if (field == ERA || field == AM_PM) {
-                return shortNames
-            }
-            val longNames = getDisplayNamesImpl(field, LONG, locale)
-            if (shortNames == null) {
-                return longNames
-            }
-            if (longNames != null) {
-                shortNames.putAll(longNames)
-            }
-            return shortNames
-        }
-
-        // SHORT or LONG
-        return getDisplayNamesImpl(field, style, locale)
-    }
-
-    private fun getDisplayNamesImpl(field: Int, style: Int, locale: Locale): MutableMap<String, Int>? {
-        val symbols = DateFormatSymbols.getInstance(locale)
-        configSymbols(symbols)
-
-        getFieldStrings(field, style, symbols)?.let {
-            val names = HashMap<String, Int>()
-            for (i in it.indices) {
-                if (it[i].isEmpty()) continue
-                names[it[i]] = i
-            }
-            return names
-        }
-        return null
-    }
-
-    private fun checkDisplayNameParams(field: Int, style: Int, minStyle: Int, maxStyle: Int, locale: Locale?, vararg fields: Int): Boolean {
-        if (field < 0 || field >= FIELD_COUNT || style < minStyle || style > maxStyle) {
-            throw IllegalArgumentException()
-        }
-        if (locale == null) {
-            throw NullPointerException()
-        }
-        return isFieldSet(fields, field)
-    }
-
-    private fun isFieldSet(fields: IntArray, field: Int): Boolean {
-        return fields.contains(field)
-    }
-
-    private fun getFieldStrings(field: Int, style: Int, symbols: DateFormatSymbols): Array<String>? {
+    override fun get(field: Int): Int {
         return when (field) {
-            ERA -> symbols.eras
-            MONTH -> if (style == LONG) symbols.months else symbols.shortMonths
-            DAY_OF_WEEK -> if (style == LONG) symbols.weekdays else symbols.shortWeekdays
-            AM_PM -> symbols.amPmStrings
-            else -> null
+            ERA -> super.get(ERA)
+            YEAR -> internalYear
+            MONTH -> internalMonth
+            WEEK_OF_YEAR -> weekOfYear()
+            WEEK_OF_MONTH -> weekOfMonth()
+            DAY_OF_MONTH -> internalDayOfMonth // also DATE
+            DAY_OF_YEAR -> dayOfYear()
+            DAY_OF_WEEK -> super.get(DAY_OF_WEEK)
+            DAY_OF_WEEK_IN_MONTH -> when (internalDayOfMonth) {
+                in 1..7 -> 1
+                in 8..14 -> 2
+                in 15..21 -> 3
+                in 22..28 -> 4
+                else -> 5
+            }
+            else -> super.get(field)
         }
     }
 
-    fun before(whenCalendar: BaseCalendar): Boolean {
-        return compareTo(whenCalendar) < 0
-    }
+    override fun set(field: Int, value: Int) {
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
-    fun after(whenCalendar: BaseCalendar): Boolean {
-        return compareTo(whenCalendar) > 0
-    }
+        when (field) {
+            ERA -> {
+                super.set(field, value)
+                invalidate()
+            }
+            YEAR -> {
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when (value) {
+                    in min..max -> {
+                        internalYear = value
+                        store()
+                    }
+                    else -> throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: $min , Max: $max]")
+                }
+            }
+            MONTH -> { // Fortunately, add() contains day of month checking
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when {
+                    value in min..max -> {
+                        internalMonth = value
+                        store()
+                    }
+                    value < min -> {
+                        internalMonth = min
+                        store()
+                        add(field, value - min)
+                    }
+                    value > max -> {
+                        internalMonth = max
+                        store()
+                        add(field, value - max)
+                    }
+                }
+            }
+            DAY_OF_MONTH -> { // also DATE
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when {
+                    value in min..max -> {
+                        internalDayOfMonth = value
+                        store()
+                    }
+                    value < min -> {
+                        internalDayOfMonth = min
+                        store()
+                        add(field, value - min)
+                    }
+                    value > max -> {
+                        internalDayOfMonth = max
+                        store()
+                        add(field, value - max)
+                    }
+                }
+            }
+            WEEK_OF_YEAR -> {
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(internalYear, 0, 1) // set base to first day of year
+                    val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-    operator fun compareTo(anotherCalendar: BaseCalendar): Int {
-        return compareTo(anotherCalendar.timeInMillis)
-    }
+                    val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
+                    base.add(DATE, move)
 
-    private operator fun compareTo(t: Long): Int {
-        val thisTime = timeInMillis
-        return if (thisTime > t) 1 else if (thisTime == t) 0 else -1
-    }
+                    internalYear = base.year
+                    internalMonth = base.month
+                    internalDayOfMonth = base.dayOfMonth
+                    store()
+                }
+            }
+            WEEK_OF_MONTH -> {
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(internalYear, internalMonth, 1) // set base to first day of month
+                    val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                    val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-    fun clone(): BaseCalendar {
-        return CalendarFactory.newInstance(calendarType).also {
-            it.internalCalendar = internalCalendar.clone() as GregorianCalendar
-            it.invalidate()
+                    val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
+                    base.add(DATE, move)
+
+                    internalYear = base.year
+                    internalMonth = base.month
+                    internalDayOfMonth = base.dayOfMonth
+                    store()
+                }
+            }
+            DAY_OF_YEAR -> {
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when {
+                    value in min..max -> {
+                        dayOfYear(internalYear, value).let {
+                            internalYear = it.year
+                            internalMonth = it.month
+                            internalDayOfMonth = it.dayOfMonth
+                            store()
+                        }
+                    }
+                    value < min -> {
+                        dayOfYear(internalYear, min).let {
+                            internalYear = it.year
+                            internalMonth = it.month
+                            internalDayOfMonth = it.dayOfMonth
+                            store()
+                        }
+                        add(field, value - min)
+                    }
+                    value > max -> {
+                        dayOfYear(internalYear, max).let {
+                            internalYear = it.year
+                            internalMonth = it.month
+                            internalDayOfMonth = it.dayOfMonth
+                            store()
+                        }
+                        add(field, value - max)
+                    }
+                }
+            }
+            DAY_OF_WEEK -> {
+                super.set(field, value)
+                invalidate()
+            }
+            DAY_OF_WEEK_IN_MONTH -> {
+                when {
+                    value > 0 -> {
+                        CalendarFactory.newInstance(calendarType).also { base ->
+                            base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
+                            val move = (value - get(DAY_OF_WEEK_IN_MONTH)) * 7
+                            base.add(DATE, move)
+
+                            internalYear = base.year
+                            internalMonth = base.month
+                            internalDayOfMonth = base.dayOfMonth
+                            store()
+                        }
+                    }
+                    value == 0 -> {
+                        CalendarFactory.newInstance(calendarType).also { base ->
+                            base.set(internalYear, internalMonth, 1)  // set base to first day of month
+                            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                            val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
+
+                            var move = (dayOfWeek - baseDayOfWeek)
+                            if (move >= 0) move += -7
+                            base.add(DATE, move)
+
+                            internalYear = base.year
+                            internalMonth = base.month
+                            internalDayOfMonth = base.dayOfMonth
+                            store()
+                        }
+                    }
+                    value < 0 -> {
+                        CalendarFactory.newInstance(calendarType).also { base ->
+                            base.set(internalYear, internalMonth, monthLength)  // set base to last day of month
+                            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                            val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
+
+                            val offsetDiff = dayOfWeek - baseDayOfWeek
+                            val move = when {
+                                offsetDiff < 0 -> offsetDiff
+                                offsetDiff > 0 -> offsetDiff - 7
+                                else -> 0
+                            } + 7 * (value + 1)
+
+                            base.add(DATE, move)
+
+                            internalYear = base.year
+                            internalMonth = base.month
+                            internalDayOfMonth = base.dayOfMonth
+                            store()
+                        }
+                    }
+                }
+            }
+            else -> {
+                super.set(field, value)
+                invalidate()
+            }
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        } else if (other is BaseCalendar) {
-            return internalCalendar == other.internalCalendar
+    override fun set(year: Int, month: Int, dayOfMonth: Int) {
+        internalYear = year
+
+        val monthMin = getActualMinimum(MONTH)
+        val monthMax = getActualMaximum(MONTH)
+        when {
+            month in monthMin..monthMax -> {
+                internalMonth = month
+            }
+            month < monthMin -> {
+                val diff = month - monthMin
+                internalYear -= (12 - (monthMin + diff + 1)) / 12
+                internalMonth = 12 + (monthMin + diff) % 12
+            }
+            month > monthMax -> {
+                val diff = month - monthMax
+                internalYear += (monthMax + diff) / 12
+                internalMonth = (monthMax + diff) % 12
+            }
         }
-        return false
-    }
 
-    override fun hashCode(): Int {
-        return internalCalendar.hashCode()
-    }
+        var finalMove = 0
+        val dayMin = getActualMinimum(DAY_OF_MONTH)
+        val dayMax = monthLength(internalYear, internalMonth)
+        when {
+            dayOfMonth in dayMin..dayMax -> {
+                internalDayOfMonth = dayOfMonth
+            }
+            dayOfMonth < dayMin -> {
+                internalDayOfMonth = dayMin
+                finalMove = dayOfMonth - dayMin
+            }
+            dayOfMonth > dayMax -> {
+                internalDayOfMonth = dayMax
+                finalMove = dayOfMonth - dayMax
+            }
+        }
 
-    override fun toString(): String {
-        return super.toString().apply {
-            "${substring(0, length - 1)}, Date=$shortDateString]"
+        store()
+
+        if (finalMove != 0) {
+            add(DATE, finalMove)
         }
     }
 
-    companion object {
-        private val FIELD_NAME = arrayOf(
-                "ERA",
-                "YEAR",
-                "MONTH",
-                "WEEK_OF_YEAR",
-                "WEEK_OF_MONTH",
-                "DAY_OF_MONTH",
-                "DAY_OF_YEAR",
-                "DAY_OF_WEEK",
-                "DAY_OF_WEEK_IN_MONTH",
-                "AM_PM",
-                "HOUR",
-                "HOUR_OF_DAY",
-                "MINUTE",
-                "SECOND",
-                "MILLISECOND",
-                "ZONE_OFFSET",
-                "DST_OFFSET"
-        )
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
+        set(year, month, dayOfMonth)
+        super.set(HOUR_OF_DAY, hourOfDay)
+        super.set(MINUTE, minute)
+    }
 
-        fun fieldName(field: Int): String {
-            return FIELD_NAME[field]
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
+        set(year, month, dayOfMonth)
+        super.set(HOUR_OF_DAY, hourOfDay)
+        super.set(MINUTE, minute)
+        super.set(SECOND, second)
+    }
+
+    override fun add(field: Int, amount: Int) {
+        if (amount == 0) return
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
+
+        when (field) {
+            YEAR -> {
+                val y = internalYear + amount
+                val m = internalMonth
+                var d = internalDayOfMonth
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                store()
+            }
+            MONTH -> {
+                val y: Int
+                val m: Int
+                var d: Int = internalDayOfMonth
+
+                if (amount > 0) {
+                    y = internalYear + (internalMonth + amount) / 12
+                    m = (internalMonth + amount) % 12
+                } else {
+                    y = internalYear - (12 - (internalMonth + amount + 1)) / 12
+                    m = 12 + (internalMonth + amount) % 12
+                }
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                store()
+            }
+            else -> {
+                super.add(field, amount)
+                invalidate()
+            }
+        }
+    }
+
+    override fun roll(field: Int, amount: Int) {
+        if (amount == 0) return
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
+
+        when (field) {
+            MONTH -> {
+                var targetMonth = (internalMonth + amount) % 12
+                if (targetMonth < 0) targetMonth += 12
+
+                val targetMonthLength = monthLength(internalYear, targetMonth)
+                var targetDayOfMonth = internalDayOfMonth
+                if (targetDayOfMonth > targetMonthLength) targetDayOfMonth = targetMonthLength
+
+                internalMonth = targetMonth
+                internalDayOfMonth = targetDayOfMonth
+                store()
+            }
+            DAY_OF_MONTH -> {
+                val targetMonthLength = monthLength
+                var targetDayOfMonth = (internalDayOfMonth + amount) % targetMonthLength
+                if (targetDayOfMonth <= 0) targetDayOfMonth += targetMonthLength
+
+                internalDayOfMonth = targetDayOfMonth
+                store()
+            }
+            DAY_OF_YEAR -> {
+                val targetYearLength = yearLength(internalYear)
+                var targetDayOfYear = (dayOfYear() + amount) % targetYearLength
+                if (targetDayOfYear <= 0) targetDayOfYear += targetYearLength
+
+                dayOfYear(internalYear, targetDayOfYear).let {
+                    internalYear = it.year
+                    internalMonth = it.month
+                    internalDayOfMonth = it.dayOfMonth
+                    store()
+                }
+            }
+            DAY_OF_WEEK -> {
+                if (amount % 7 == 0) return
+
+                val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
+                var targetDayOfWeek = (dayOfWeek + amount) % 7
+                if (targetDayOfWeek < 0) targetDayOfWeek += 7
+
+                val move = targetDayOfWeek - dayOfWeek
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
+                    base.add(DATE, move)
+
+                    internalYear = base.year
+                    internalMonth = base.month
+                    internalDayOfMonth = base.dayOfMonth
+                    store()
+                }
+            }
+            WEEK_OF_YEAR -> {
+                val day = dayOfYear()
+                val maxDay = yearLength(internalYear)
+                val woy = get(WEEK_OF_YEAR)
+                val maxWoy = getActualMaximum(WEEK_OF_YEAR)
+
+                val array = IntArray(maxWoy)
+                array[woy - 1] = day
+                for (i in woy until maxWoy) {
+                    array[i] =
+                            if (array[i - 1] + 7 <= maxDay)
+                                array[i - 1] + 7
+                            else maxDay
+                }
+                for (i in (woy - 2) downTo 0) {
+                    array[i] =
+                            if (array[i + 1] - 7 >= 1)
+                                array[i + 1] - 7
+                            else 1
+                }
+
+                var targetIndex = (woy - 1 + amount) % maxWoy
+                if (targetIndex < 0) targetIndex += maxWoy
+                val targetDayOfYear = array[targetIndex]
+
+                dayOfYear(internalYear, targetDayOfYear).let {
+                    internalYear = it.year
+                    internalMonth = it.month
+                    internalDayOfMonth = it.dayOfMonth
+                    store()
+                }
+            }
+            WEEK_OF_MONTH -> {
+                val day = internalDayOfMonth
+                val maxDay = monthLength
+                val wom = get(WEEK_OF_MONTH)
+                val maxWom = getActualMaximum(WEEK_OF_MONTH)
+
+                val array = IntArray(maxWom)
+                array[wom - 1] = day
+                for (i in wom until maxWom) {
+                    array[i] =
+                            if (array[i - 1] + 7 <= maxDay)
+                                array[i - 1] + 7
+                            else maxDay
+                }
+                for (i in (wom - 2) downTo 0) {
+                    array[i] =
+                            if (array[i + 1] - 7 >= 1)
+                                array[i + 1] - 7
+                            else 1
+                }
+
+                var targetIndex = (wom - 1 + amount) % maxWom
+                if (targetIndex < 0) targetIndex += maxWom
+                val targetDayOfMonth = array[targetIndex]
+
+                internalDayOfMonth = targetDayOfMonth
+                store()
+            }
+            DAY_OF_WEEK_IN_MONTH -> {
+                val day = dayOfMonth
+                val maxDay = monthLength
+
+                val list = arrayListOf<Int>()
+                list.add(day)
+
+                var d = day
+                while (d + 7 <= maxDay) {
+                    d += 7
+                    list.add(d)
+                }
+
+                var dayIndex = 0
+                d = day
+                while (d - 7 > 0) {
+                    d -= 7
+                    list.add(0, d)
+                    dayIndex++
+                }
+
+                var targetIndex = (dayIndex + amount) % list.size
+                if (targetIndex < 0) targetIndex += list.size
+                val targetDayOfMonth = list[targetIndex]
+                list.clear()
+
+                internalDayOfMonth = targetDayOfMonth
+                store()
+            }
+            else -> {
+                super.roll(field, amount)
+            }
+        }
+    }
+
+    override fun getMinimum(field: Int): Int {
+        return minimum.getOrElse(field) {
+            return super.getMinimum(field)
+        }
+    }
+
+    override fun getMaximum(field: Int): Int {
+        return maximum.getOrElse(field) {
+            return super.getMaximum(field)
+        }
+    }
+
+    override fun getGreatestMinimum(field: Int): Int {
+        return getMinimum(field)
+    }
+
+    override fun getLeastMaximum(field: Int): Int {
+        return leastMaximum.getOrElse(field) {
+            return super.getLeastMaximum(field)
+        }
+    }
+
+    override fun getActualMinimum(field: Int): Int {
+        return getMinimum(field)
+    }
+
+    override fun getActualMaximum(field: Int): Int {
+        return when (field) {
+            WEEK_OF_YEAR -> {
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
+                    base.set(DAY_OF_YEAR, yearLength(year))
+                }.weekOfYear()
+            }
+            WEEK_OF_MONTH -> {
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(year, month, monthLength) // set base to last day of month
+                }.weekOfMonth()
+            }
+            DAY_OF_MONTH -> monthLength
+            DAY_OF_YEAR -> yearLength(year)
+            DAY_OF_WEEK_IN_MONTH -> when (monthLength) {
+                in 1..7 -> 1
+                in 8..14 -> 2
+                in 15..21 -> 3
+                in 22..28 -> 4
+                else -> 5
+            }
+            else -> super.getActualMaximum(field)
         }
     }
 

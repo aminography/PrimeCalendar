@@ -1,4 +1,4 @@
-package com.aminography.primecalendar.base
+package com.aminography.primecalendar.common
 
 import java.util.*
 
