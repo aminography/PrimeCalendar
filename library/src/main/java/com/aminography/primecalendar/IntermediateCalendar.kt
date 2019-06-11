@@ -242,7 +242,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
 
                             val diff = dayOfWeek - baseDayOfWeek
                             val move = when {
-                                diff < 0 -> -diff
+                                diff < 0 -> diff
                                 diff > 0 -> diff - 7
                                 else -> 0
                             } + 7 * (value + 1)
