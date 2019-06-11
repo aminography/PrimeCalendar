@@ -209,7 +209,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     value > 0 -> {
                         CalendarFactory.newInstance(calendarType).also { base ->
                             base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
-                            val move = (value - get(DAY_OF_WEEK_IN_MONTH)) * 7 // TODO: handle over-max or below-min values
+                            val move = (value - get(DAY_OF_WEEK_IN_MONTH)) * 7
                             base.add(DATE, move)
 
                             internalYear = base.year
@@ -224,7 +224,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-                            var move = (dayOfWeek - baseDayOfWeek) // TODO: handle over-max or below-min values
+                            var move = (dayOfWeek - baseDayOfWeek)
                             if (move >= 0) move += -7
                             base.add(DATE, move)
 
@@ -240,7 +240,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-                            val move = (dayOfWeek - baseDayOfWeek) + 7 * (value + 1) // TODO: handle over-max or below-min values
+                            val move = (dayOfWeek - baseDayOfWeek) + 7 * value // TODO: handle over-max or below-min values
                             base.add(DATE, move)
 
                             internalYear = base.year

@@ -93,23 +93,11 @@ class PersianCalendar : IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int) {
-        checkRange(YEAR, year)
-        checkRange(MONTH, month)
-        checkRange(DAY_OF_MONTH, dayOfMonth)
-
-        internalYear = year
-        internalMonth = month
-        internalDayOfMonth = dayOfMonth
-
-        apply()
-    }
-
     override fun apply() {
         PersianCalendarUtils.persianToGregorian(
                 DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {
-            super.set(it.year, it.month, it.dayOfMonth)
+            internalCalendar.set(it.year, it.month, it.dayOfMonth)
         }
     }
 

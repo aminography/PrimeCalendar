@@ -101,7 +101,7 @@ class HijriCalendar : IntermediateCalendar() {
         HijriCalendarUtils.hijriToGregorian(
                 DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {
-            super.set(it.year, it.month, it.dayOfMonth)
+            internalCalendar.set(it.year, it.month, it.dayOfMonth)
         }
     }
 

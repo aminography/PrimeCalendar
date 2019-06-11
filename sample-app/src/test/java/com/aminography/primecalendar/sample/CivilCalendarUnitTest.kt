@@ -13,6 +13,43 @@ import java.util.Calendar.*
 class CivilCalendarUnitTest {
 
     @Test
+    fun dayOfWeekInMonth() {
+        val civil = CivilCalendar().apply {
+//            set(YEAR, 2019)
+//            set(MONTH, 4)
+//            set(DAY_OF_MONTH, 14)
+            set(YEAR, 2019)
+            set(MONTH, 5)
+            set(DAY_OF_MONTH, 19)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+
+        val gregorian = getInstance().apply {
+//            set(YEAR, 2019)
+//            set(MONTH, 4)
+//            set(DAY_OF_MONTH, 14)
+            set(YEAR, 2019)
+            set(MONTH, 5)
+            set(DAY_OF_MONTH, 19)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+
+        println("-------------------------------------------------------------------")
+
+        civil.apply {
+            set(DAY_OF_WEEK_IN_MONTH, -1)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+
+        gregorian.apply {
+            set(DAY_OF_WEEK_IN_MONTH, -1)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
     fun weekOfYear() {
         val civil = CivilCalendar().apply {
             set(YEAR, 2019)
@@ -21,7 +58,7 @@ class CivilCalendarUnitTest {
             print(WEEK_OF_YEAR)
         }
 
-        val gregorian = Calendar.getInstance().apply {
+        val gregorian = getInstance().apply {
             set(YEAR, 2019)
             set(MONTH, 5)
             set(DAY_OF_MONTH, 10)
