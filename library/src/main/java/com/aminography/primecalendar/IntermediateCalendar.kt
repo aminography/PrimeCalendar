@@ -271,22 +271,14 @@ abstract class IntermediateCalendar : BaseCalendar() {
         apply()
     }
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) { // TODO: handle over-max or below-min values
-        internalYear = year
-        internalMonth = month
-        internalDayOfMonth = dayOfMonth
-        apply()
-
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
+        set(year, month, dayOfMonth)
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
     }
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) { // TODO: handle over-max or below-min values
-        internalYear = year
-        internalMonth = month
-        internalDayOfMonth = dayOfMonth
-        apply()
-
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
+        set(year, month, dayOfMonth)
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
         super.set(SECOND, second)
