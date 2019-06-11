@@ -112,7 +112,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                         add(field, value - min)
                     }
                     value > max -> {
-                        internalMonth = min
+                        internalMonth = max
                         apply()
                         add(field, value - max)
                     }
@@ -132,7 +132,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                         add(field, value - min)
                     }
                     value > max -> {
-                        internalDayOfMonth = min
+                        internalDayOfMonth = max
                         apply()
                         add(field, value - max)
                     }

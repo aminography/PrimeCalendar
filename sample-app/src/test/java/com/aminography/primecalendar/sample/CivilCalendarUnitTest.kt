@@ -17,14 +17,14 @@ class CivilCalendarUnitTest {
         val civil = CivilCalendar().apply {
             set(YEAR, 2019)
             set(MONTH, 9)
-            set(DAY_OF_MONTH, 19)
+            set(DAY_OF_MONTH, 90)
             print(DAY_OF_WEEK_IN_MONTH)
         }
 
         val gregorian = getInstance().apply {
             set(YEAR, 2019)
             set(MONTH, 9)
-            set(DAY_OF_MONTH, 19)
+            set(DAY_OF_MONTH, 90)
             print(DAY_OF_WEEK_IN_MONTH)
         }
 
