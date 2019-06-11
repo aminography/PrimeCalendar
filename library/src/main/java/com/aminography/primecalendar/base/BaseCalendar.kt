@@ -4,6 +4,8 @@ import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.IConverter
+import com.aminography.primecalendar.persian.PersianCalendar
+import com.aminography.primecalendar.persian.PersianCalendarUtils
 import java.text.DateFormatSymbols
 import java.util.*
 import java.util.Calendar.*
@@ -218,6 +220,17 @@ abstract class BaseCalendar : IConverter {
                 return it[fieldValue]
             }
         }
+        // For Test -------------------
+//        internal var eras: Array<String>? = null
+//        internal var months: Array<String>? = null
+//        internal var shortMonths: Array<String>? = null
+//        internal var weekdays: Array<String>? = null
+//        internal var shortWeekdays: Array<String>? = null
+//        internal var ampms: Array<String>? = null
+//        internal var zoneStrings = null as Array<Array<String>>?
+
+        symbols.months = PersianCalendarUtils.persianMonthNames
+        // -------------------
         return null
     }
 
