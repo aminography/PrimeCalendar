@@ -258,7 +258,6 @@ abstract class BaseCalendar : PrimeCalendar() {
                 finalMove = dayOfMonth - dayMax
             }
         }
-
         store()
 
         if (finalMove != 0) {
