@@ -62,7 +62,7 @@ abstract class IntermediateCalendar : BaseCalendar() {
                     m = (internalMonth + amount) % 12
                 } else {
                     y = internalYear - (12 - (internalMonth + amount + 1)) / 12
-                    m = (12 + (internalMonth + amount)) % 12
+                    m = 12 + (internalMonth + amount) % 12
                 }
                 if (d > monthLength(y, m)) d = monthLength(y, m)
 
@@ -264,11 +264,49 @@ abstract class IntermediateCalendar : BaseCalendar() {
         }
     }
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int) { // TODO: handle over-max or below-min values
+    override fun set(year: Int, month: Int, dayOfMonth: Int) {
         internalYear = year
-        internalMonth = month
-        internalDayOfMonth = dayOfMonth
+
+        val monthMin = getActualMinimum(MONTH)
+        val monthMax = getActualMaximum(MONTH)
+        when {
+            month in monthMin..monthMax -> {
+                internalMonth = month
+            }
+            month < monthMin -> {
+                val diff = month - monthMin
+                internalYear -= (12 - (monthMin + diff + 1)) / 12
+                internalMonth = 12 + (monthMin + diff) % 12
+            }
+            month > monthMax -> {
+                val diff = month - monthMax
+                internalYear += (monthMax + diff) / 12
+                internalMonth = (monthMax + diff) % 12
+            }
+        }
+
+        var finalMove = 0
+        val dayMin = getActualMinimum(DAY_OF_MONTH)
+        val dayMax = monthLength(internalYear, internalMonth)
+        when {
+            dayOfMonth in dayMin..dayMax -> {
+                internalDayOfMonth = dayOfMonth
+            }
+            dayOfMonth < dayMin -> {
+                internalDayOfMonth = dayMin
+                finalMove = dayOfMonth - dayMin
+            }
+            dayOfMonth > dayMax -> {
+                internalDayOfMonth = dayMax
+                finalMove = dayOfMonth - dayMax
+            }
+        }
+
         apply()
+
+        if (finalMove != 0) {
+            add(DATE, finalMove)
+        }
     }
 
     override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {

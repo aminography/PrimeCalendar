@@ -45,10 +45,10 @@ class PersianCalendar : IntermediateCalendar() {
         }
 
     override val monthLength: Int
-        get() = PersianCalendarUtils.monthLength(year, month)
+        get() = PersianCalendarUtils.monthLength(internalYear, internalMonth)
 
     override val isLeapYear: Boolean
-        get() = PersianCalendarUtils.isPersianLeapYear(year)
+        get() = PersianCalendarUtils.isPersianLeapYear(internalYear)
 
     override var firstDayOfWeek: Int = SATURDAY
         set(value) {

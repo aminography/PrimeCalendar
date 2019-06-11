@@ -15,7 +15,7 @@ class CivilCalendarUnitTest {
     @Test
     fun dayOfWeekInMonth() {
         val civil = CivilCalendar().apply {
-            set(2019, 5, 40)
+            set(2019, 50, -100)
 //            set(YEAR, 2019)
 //            set(MONTH, 5)
 //            set(DAY_OF_MONTH, 19)
@@ -23,7 +23,7 @@ class CivilCalendarUnitTest {
         }
 
         val gregorian = getInstance().apply {
-            set(2019, 5, 40)
+            set(2019, 50, -100)
 //            set(YEAR, 2019)
 //            set(MONTH, 5)
 //            set(DAY_OF_MONTH, 19)

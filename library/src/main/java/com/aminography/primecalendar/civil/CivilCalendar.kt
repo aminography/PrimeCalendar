@@ -40,10 +40,10 @@ class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
         get() = internalCalendar.getDisplayName(DAY_OF_WEEK, LONG, Locale.ENGLISH)
 
     override val monthLength: Int
-        get() = CivilCalendarUtils.monthLength(year, month)
+        get() = CivilCalendarUtils.monthLength(internalYear, internalMonth)
 
     override val isLeapYear: Boolean
-        get() = CivilCalendarUtils.isGregorianLeapYear(year)
+        get() = CivilCalendarUtils.isGregorianLeapYear(internalYear)
 
     override var firstDayOfWeek: Int = SUNDAY
         set(value) {

@@ -49,10 +49,10 @@ class HijriCalendar : IntermediateCalendar() {
         }
 
     override val monthLength: Int
-        get() = HijriCalendarUtils.monthLength(year, month)
+        get() = HijriCalendarUtils.monthLength(internalYear, internalMonth)
 
     override val isLeapYear: Boolean
-        get() = HijriCalendarUtils.isHijriLeapYear(year)
+        get() = HijriCalendarUtils.isHijriLeapYear(internalYear)
 
     override var firstDayOfWeek: Int = SATURDAY
         set(value) {
