@@ -36,48 +36,6 @@ abstract class IntermediateCalendar : BaseCalendar() {
         }
     }
 
-    override fun add(field: Int, amount: Int) {
-        if (amount == 0) return
-        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
-
-        when (field) {
-            YEAR -> {
-                val y = internalYear + amount
-                val m = internalMonth
-                var d = internalDayOfMonth
-                if (d > monthLength(y, m)) d = monthLength(y, m)
-
-                internalYear = y
-                internalMonth = m
-                internalDayOfMonth = d
-                store()
-            }
-            MONTH -> {
-                val y: Int
-                val m: Int
-                var d: Int = internalDayOfMonth
-
-                if (amount > 0) {
-                    y = internalYear + (internalMonth + amount) / 12
-                    m = (internalMonth + amount) % 12
-                } else {
-                    y = internalYear - (12 - (internalMonth + amount + 1)) / 12
-                    m = 12 + (internalMonth + amount) % 12
-                }
-                if (d > monthLength(y, m)) d = monthLength(y, m)
-
-                internalYear = y
-                internalMonth = m
-                internalDayOfMonth = d
-                store()
-            }
-            else -> {
-                super.add(field, amount)
-                invalidate()
-            }
-        }
-    }
-
     override fun set(field: Int, value: Int) {
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
@@ -319,6 +277,48 @@ abstract class IntermediateCalendar : BaseCalendar() {
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
         super.set(SECOND, second)
+    }
+
+    override fun add(field: Int, amount: Int) {
+        if (amount == 0) return
+        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
+
+        when (field) {
+            YEAR -> {
+                val y = internalYear + amount
+                val m = internalMonth
+                var d = internalDayOfMonth
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                store()
+            }
+            MONTH -> {
+                val y: Int
+                val m: Int
+                var d: Int = internalDayOfMonth
+
+                if (amount > 0) {
+                    y = internalYear + (internalMonth + amount) / 12
+                    m = (internalMonth + amount) % 12
+                } else {
+                    y = internalYear - (12 - (internalMonth + amount + 1)) / 12
+                    m = 12 + (internalMonth + amount) % 12
+                }
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                store()
+            }
+            else -> {
+                super.add(field, amount)
+                invalidate()
+            }
+        }
     }
 
     override fun roll(field: Int, amount: Int) {

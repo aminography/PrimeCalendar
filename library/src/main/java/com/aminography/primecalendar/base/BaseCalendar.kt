@@ -59,10 +59,6 @@ abstract class BaseCalendar : IConverter {
         return internalCalendar.get(field)
     }
 
-    open fun add(field: Int, amount: Int) {
-        internalCalendar.add(field, amount)
-    }
-
     open fun set(field: Int, value: Int) {
         internalCalendar.set(field, value)
     }
@@ -77,6 +73,14 @@ abstract class BaseCalendar : IConverter {
 
     open fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
         internalCalendar.set(year, month, dayOfMonth, hourOfDay, minute, second)
+    }
+
+    open fun add(field: Int, amount: Int) {
+        internalCalendar.add(field, amount)
+    }
+
+    open fun roll(field: Int, amount: Int) {
+        internalCalendar.roll(field, amount)
     }
 
     open fun getMinimum(field: Int): Int {
@@ -103,15 +107,11 @@ abstract class BaseCalendar : IConverter {
         return internalCalendar.getActualMaximum(field)
     }
 
+    // Final Functions -----------------------------------------------------------------------------
+
     fun roll(field: Int, up: Boolean) {
         roll(field, if (up) +1 else -1)
     }
-
-    open fun roll(field: Int, amount: Int) {
-        internalCalendar.roll(field, amount)
-    }
-
-    // Final Functions -----------------------------------------------------------------------------
 
     fun setTimeZone(zone: TimeZone) {
         internalCalendar.timeZone = zone
