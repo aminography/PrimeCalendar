@@ -224,8 +224,8 @@ abstract class BaseCalendar : PrimeCalendar() {
     override fun set(year: Int, month: Int, dayOfMonth: Int) {
         internalYear = year
 
-        val monthMin = getActualMinimum(MONTH)
-        val monthMax = getActualMaximum(MONTH)
+        val monthMin = 0
+        val monthMax = 11
         when {
             month in monthMin..monthMax -> {
                 internalMonth = month
@@ -243,7 +243,7 @@ abstract class BaseCalendar : PrimeCalendar() {
         }
 
         var finalMove = 0
-        val dayMin = getActualMinimum(DAY_OF_MONTH)
+        val dayMin = 1
         val dayMax = monthLength(internalYear, internalMonth)
         when {
             dayOfMonth in dayMin..dayMax -> {
