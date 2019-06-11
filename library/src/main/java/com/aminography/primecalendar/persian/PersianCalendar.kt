@@ -4,6 +4,7 @@ import com.aminography.primecalendar.IntermediateCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.*
 import com.aminography.primecalendar.hijri.HijriCalendar
+import java.text.DateFormatSymbols
 import java.util.Calendar.*
 
 /**
@@ -30,17 +31,17 @@ class PersianCalendar : IntermediateCalendar() {
         }
 
     override val monthName: String
-        get() = PersianCalendarUtils.persianMonthNames[internalMonth]
+        get() = PersianCalendarUtils.monthNames[internalMonth]
 
     override val weekDayName: String
         get() = when (get(DAY_OF_WEEK)) {
-            SATURDAY -> PersianCalendarUtils.persianWeekDays[0]
-            SUNDAY -> PersianCalendarUtils.persianWeekDays[1]
-            MONDAY -> PersianCalendarUtils.persianWeekDays[2]
-            TUESDAY -> PersianCalendarUtils.persianWeekDays[3]
-            WEDNESDAY -> PersianCalendarUtils.persianWeekDays[4]
-            THURSDAY -> PersianCalendarUtils.persianWeekDays[5]
-            FRIDAY -> PersianCalendarUtils.persianWeekDays[6]
+            SATURDAY -> PersianCalendarUtils.weekDays[0]
+            SUNDAY -> PersianCalendarUtils.weekDays[1]
+            MONDAY -> PersianCalendarUtils.weekDays[2]
+            TUESDAY -> PersianCalendarUtils.weekDays[3]
+            WEDNESDAY -> PersianCalendarUtils.weekDays[4]
+            THURSDAY -> PersianCalendarUtils.weekDays[5]
+            FRIDAY -> PersianCalendarUtils.weekDays[6]
             else -> throw IllegalArgumentException()
         }
 
@@ -112,6 +113,17 @@ class PersianCalendar : IntermediateCalendar() {
             internalYear = it.year
             internalMonth = it.month
             internalDayOfMonth = it.dayOfMonth
+        }
+    }
+
+    override fun configSymbols(symbols: DateFormatSymbols) {
+        symbols.apply {
+            eras = PersianCalendarUtils.eras
+            months = PersianCalendarUtils.monthNames
+            shortMonths = PersianCalendarUtils.shortMonthNames
+            weekdays = PersianCalendarUtils.weekDays
+            shortWeekdays = PersianCalendarUtils.shortWeekDays
+            amPmStrings = PersianCalendarUtils.amPm
         }
     }
 

@@ -58,6 +58,8 @@ class ExampleUnitTest {
 
         println(calendar.longDateString)
         println("DAY_OF_YEAR: ${calendar.get(Calendar.DAY_OF_YEAR)}")
+
+        println(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH))
     }
 
     @Test

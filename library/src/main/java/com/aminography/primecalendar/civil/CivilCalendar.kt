@@ -7,6 +7,7 @@ import com.aminography.primecalendar.common.convertCivilToHijri
 import com.aminography.primecalendar.common.convertCivilToPersian
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
+import java.text.DateFormatSymbols
 import java.util.*
 import java.util.Calendar.*
 
@@ -134,6 +135,9 @@ class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
         internalYear = internalCalendar.get(YEAR)
         internalMonth = internalCalendar.get(MONTH)
         internalDayOfMonth = internalCalendar.get(DAY_OF_MONTH)
+    }
+
+    override fun configSymbols(symbols: DateFormatSymbols) {
     }
 
     // ---------------------------------------------------------------------------------------------

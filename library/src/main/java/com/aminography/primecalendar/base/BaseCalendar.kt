@@ -4,8 +4,6 @@ import com.aminography.primecalendar.common.CalendarFactory
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.IConverter
-import com.aminography.primecalendar.persian.PersianCalendar
-import com.aminography.primecalendar.persian.PersianCalendarUtils
 import java.text.DateFormatSymbols
 import java.util.*
 import java.util.Calendar.*
@@ -138,6 +136,8 @@ abstract class BaseCalendar : IConverter {
 
     protected abstract fun invalidate()
 
+    protected abstract fun configSymbols(symbols: DateFormatSymbols)
+
     internal abstract fun monthLength(year: Int, month: Int): Int
 
     internal abstract fun yearLength(year: Int): Int
@@ -207,41 +207,74 @@ abstract class BaseCalendar : IConverter {
         return internalCalendar.isSet(field)
     }
 
-//    fun getDisplayName(field: Int, style: Int, locale: Locale): String
-
     fun getDisplayName(field: Int, style: Int, locale: Locale): String? {
-        if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA_MASK or MONTH_MASK or DAY_OF_WEEK_MASK or AM_PM_MASK)) {
+        if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA, MONTH, DAY_OF_WEEK, AM_PM)) {
             return null
         }
         val symbols = DateFormatSymbols.getInstance(locale)
+        configSymbols(symbols)
+
         getFieldStrings(field, style, symbols)?.let {
             val fieldValue = get(field)
             if (fieldValue < it.size) {
                 return it[fieldValue]
             }
         }
-        // For Test -------------------
-//        internal var eras: Array<String>? = null
-//        internal var months: Array<String>? = null
-//        internal var shortMonths: Array<String>? = null
-//        internal var weekdays: Array<String>? = null
-//        internal var shortWeekdays: Array<String>? = null
-//        internal var ampms: Array<String>? = null
-//        internal var zoneStrings = null as Array<Array<String>>?
-
-        symbols.months = PersianCalendarUtils.persianMonthNames
-        // -------------------
         return null
     }
 
-    fun checkDisplayNameParams(field: Int, style: Int, minStyle: Int, maxStyle: Int, locale: Locale?, fieldMask: Int): Boolean {
+    fun getDisplayNames(field: Int, style: Int, locale: Locale): Map<String, Int>? {
+        if (!checkDisplayNameParams(field, style, ALL_STYLES, LONG, locale, ERA, MONTH, DAY_OF_WEEK, AM_PM)) {
+            return null
+        }
+
+        // ALL_STYLES
+        if (style == ALL_STYLES) {
+            val shortNames = getDisplayNamesImpl(field, SHORT, locale)
+            if (field == ERA || field == AM_PM) {
+                return shortNames
+            }
+            val longNames = getDisplayNamesImpl(field, LONG, locale)
+            if (shortNames == null) {
+                return longNames
+            }
+            if (longNames != null) {
+                shortNames.putAll(longNames)
+            }
+            return shortNames
+        }
+
+        // SHORT or LONG
+        return getDisplayNamesImpl(field, style, locale)
+    }
+
+    private fun getDisplayNamesImpl(field: Int, style: Int, locale: Locale): MutableMap<String, Int>? {
+        val symbols = DateFormatSymbols.getInstance(locale)
+        configSymbols(symbols)
+
+        getFieldStrings(field, style, symbols)?.let {
+            val names = HashMap<String, Int>()
+            for (i in it.indices) {
+                if (it[i].isEmpty()) continue
+                names[it[i]] = i
+            }
+            return names
+        }
+        return null
+    }
+
+    private fun checkDisplayNameParams(field: Int, style: Int, minStyle: Int, maxStyle: Int, locale: Locale?, vararg fields: Int): Boolean {
         if (field < 0 || field >= FIELD_COUNT || style < minStyle || style > maxStyle) {
             throw IllegalArgumentException()
         }
         if (locale == null) {
             throw NullPointerException()
         }
-        return isFieldSet(fieldMask, field)
+        return isFieldSet(fields, field)
+    }
+
+    private fun isFieldSet(fields: IntArray, field: Int): Boolean {
+        return fields.contains(field)
     }
 
     private fun getFieldStrings(field: Int, style: Int, symbols: DateFormatSymbols): Array<String>? {

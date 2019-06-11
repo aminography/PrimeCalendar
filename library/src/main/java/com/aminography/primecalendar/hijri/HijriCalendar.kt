@@ -7,6 +7,7 @@ import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.common.convertHijriToCivil
 import com.aminography.primecalendar.common.convertHijriToPersian
 import com.aminography.primecalendar.persian.PersianCalendar
+import java.text.DateFormatSymbols
 import java.util.Calendar.*
 
 
@@ -34,17 +35,17 @@ class HijriCalendar : IntermediateCalendar() {
         }
 
     override val monthName: String
-        get() = HijriCalendarUtils.hijriMonthNames[internalMonth]
+        get() = HijriCalendarUtils.monthNames[internalMonth]
 
     override val weekDayName: String
         get() = when (get(DAY_OF_WEEK)) {
-            SATURDAY -> HijriCalendarUtils.hijriWeekDays[0]
-            SUNDAY -> HijriCalendarUtils.hijriWeekDays[1]
-            MONDAY -> HijriCalendarUtils.hijriWeekDays[2]
-            TUESDAY -> HijriCalendarUtils.hijriWeekDays[3]
-            WEDNESDAY -> HijriCalendarUtils.hijriWeekDays[4]
-            THURSDAY -> HijriCalendarUtils.hijriWeekDays[5]
-            FRIDAY -> HijriCalendarUtils.hijriWeekDays[6]
+            SATURDAY -> HijriCalendarUtils.weekDays[0]
+            SUNDAY -> HijriCalendarUtils.weekDays[1]
+            MONDAY -> HijriCalendarUtils.weekDays[2]
+            TUESDAY -> HijriCalendarUtils.weekDays[3]
+            WEDNESDAY -> HijriCalendarUtils.weekDays[4]
+            THURSDAY -> HijriCalendarUtils.weekDays[5]
+            FRIDAY -> HijriCalendarUtils.weekDays[6]
             else -> throw IllegalArgumentException()
         }
 
@@ -116,6 +117,17 @@ class HijriCalendar : IntermediateCalendar() {
             internalYear = it.year
             internalMonth = it.month
             internalDayOfMonth = it.dayOfMonth
+        }
+    }
+
+    override fun configSymbols(symbols: DateFormatSymbols) {
+        symbols.apply {
+            eras = HijriCalendarUtils.eras
+            months = HijriCalendarUtils.monthNames
+            shortMonths = HijriCalendarUtils.shortMonthNames
+            weekdays = HijriCalendarUtils.weekDays
+            shortWeekdays = HijriCalendarUtils.shortWeekDays
+            amPmStrings = HijriCalendarUtils.amPm
         }
     }
 
