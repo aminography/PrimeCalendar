@@ -436,7 +436,7 @@ abstract class BaseCalendar : PrimeCalendar() {
                 store()
             }
             DAY_OF_WEEK_IN_MONTH -> {
-                val day = dayOfMonth
+                val day = internalDayOfMonth
                 val maxDay = monthLength
 
                 val list = arrayListOf<Int>()
