@@ -1,9 +1,5 @@
 package com.aminography.primecalendar.sample;
 
-import com.aminography.primecalendar.civil.CivilCalendar;
-import com.aminography.primecalendar.hijri.HijriCalendar;
-import com.aminography.primecalendar.persian.PersianCalendar;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -16,31 +12,8 @@ import static org.junit.Assert.assertEquals;
 public class ExampleUnitTest {
 
     @Test
-    public void persianToCivilConversion() {
-        PersianCalendar persian = new PersianCalendar();
-        persian.set(1370, 3, 15);
-        System.out.println("Persian Date: " + persian.getLongDateString());
-
-        CivilCalendar civil = persian.toCivil();
-        System.out.println("Civil Date: " + civil.getLongDateString());
-
-        assertEquals(civil.getYear(), 1991);
-        assertEquals(civil.getMonth(), 6);
-        assertEquals(civil.getDayOfMonth(), 6);
-    }
-
-    @Test
-    public void persianToHijriConversion() {
-        PersianCalendar persian = new PersianCalendar();
-        persian.set(1370, 3, 15);
-        System.out.println("Persian Date: " + persian.getLongDateString());
-
-        HijriCalendar hijri = persian.toHijri();
-        System.out.println("Hijri Date: " + hijri.getLongDateString());
-
-        assertEquals(hijri.getYear(), 1411);
-        assertEquals(hijri.getMonth(), 11);
-        assertEquals(hijri.getDayOfMonth(), 23);
+    public void addition_isCorrect() {
+        assertEquals(4, 2 + 2);
     }
 
 }

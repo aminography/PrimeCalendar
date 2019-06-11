@@ -1,4 +1,4 @@
-package com.aminography.primecalendar.sample
+package com.aminography.primecalendar
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
