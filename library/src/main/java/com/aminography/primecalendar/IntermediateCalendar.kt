@@ -18,14 +18,14 @@ abstract class IntermediateCalendar : BaseCalendar() {
     override fun get(field: Int): Int {
         return when (field) {
             ERA -> super.get(ERA)
-            YEAR -> year
-            MONTH -> month
+            YEAR -> internalYear
+            MONTH -> internalMonth
             WEEK_OF_YEAR -> weekOfYear()
             WEEK_OF_MONTH -> weekOfMonth()
-            DAY_OF_MONTH -> dayOfMonth // also DATE
+            DAY_OF_MONTH -> internalDayOfMonth // also DATE
             DAY_OF_YEAR -> dayOfYear()
             DAY_OF_WEEK -> super.get(DAY_OF_WEEK)
-            DAY_OF_WEEK_IN_MONTH -> when (dayOfMonth) {
+            DAY_OF_WEEK_IN_MONTH -> when (internalDayOfMonth) {
                 in 1..7 -> 1
                 in 8..14 -> 2
                 in 15..21 -> 3
@@ -42,26 +42,34 @@ abstract class IntermediateCalendar : BaseCalendar() {
 
         when (field) {
             YEAR -> {
-                val y = year + amount
-                val m = month
-                var d = dayOfMonth
+                val y = internalYear + amount
+                val m = internalMonth
+                var d = internalDayOfMonth
                 if (d > monthLength(y, m)) d = monthLength(y, m)
-                set(y, m, d)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                apply()
             }
             MONTH -> {
+                val y: Int
+                val m: Int
+                var d: Int = internalDayOfMonth
+
                 if (amount > 0) {
-                    val y = year + (month + amount) / 12
-                    val m = (month + amount) % 12
-                    var d = dayOfMonth
-                    if (d > monthLength(y, m)) d = monthLength(y, m)
-                    set(y, m, d)
+                    y = internalYear + (internalMonth + amount) / 12
+                    m = (internalMonth + amount) % 12
                 } else {
-                    val y = year - (12 - (month + amount + 1)) / 12
-                    val m = (12 + (month + amount)) % 12
-                    var d = dayOfMonth
-                    if (d > monthLength(y, m)) d = monthLength(y, m)
-                    set(y, m, d)
+                    y = internalYear - (12 - (internalMonth + amount + 1)) / 12
+                    m = (12 + (internalMonth + amount)) % 12
                 }
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                apply()
             }
             else -> {
                 super.add(field, amount)
@@ -83,70 +91,113 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 val min = getActualMinimum(field)
                 val max = getActualMaximum(field)
                 when (value) {
-                    in min..max -> year = value
+                    in min..max -> {
+                        internalYear = value
+                        apply()
+                    }
                     else -> throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: $min , Max: $max]")
                 }
             }
-            MONTH -> {
+            MONTH -> { // Fortunately, add() contains day of month checking
                 val min = getActualMinimum(field)
                 val max = getActualMaximum(field)
                 when {
                     value in min..max -> {
-                        month = value
+                        internalMonth = value
+                        apply()
                     }
                     value < min -> {
-                        month = min
+                        internalMonth = min
+                        apply()
                         add(field, value - min)
                     }
                     value > max -> {
-                        month = min
+                        internalMonth = min
+                        apply()
                         add(field, value - max)
                     }
                 }
-                // TODO: Check dayOfMonth values
             }
             DAY_OF_MONTH -> { // also DATE
                 val min = getActualMinimum(field)
                 val max = getActualMaximum(field)
                 when {
                     value in min..max -> {
-                        dayOfMonth = value
+                        internalDayOfMonth = value
+                        apply()
                     }
                     value < min -> {
-                        dayOfMonth = min
+                        internalDayOfMonth = min
+                        apply()
                         add(field, value - min)
                     }
                     value > max -> {
-                        dayOfMonth = min
+                        internalDayOfMonth = min
+                        apply()
                         add(field, value - max)
                     }
                 }
             }
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
-                    base.set(year, 0, 1)
+                    base.set(internalYear, 0, 1) // set base to first day of year
                     val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                     val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
-                    base.add(DAY_OF_YEAR, move)
-                    set(base.year, base.month, base.dayOfMonth)
+                    base.add(DATE, move)
+
+                    internalYear = base.year
+                    internalMonth = base.month
+                    internalDayOfMonth = base.dayOfMonth
+                    apply()
                 }
             }
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
-                    base.set(year, month, 1)
+                    base.set(internalYear, internalMonth, 1) // set base to first day of month
                     val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                     val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
-                    base.add(DAY_OF_YEAR, move)
-                    set(base.year, base.month, base.dayOfMonth)
+                    base.add(DATE, move)
+
+                    internalYear = base.year
+                    internalMonth = base.month
+                    internalDayOfMonth = base.dayOfMonth
+                    apply()
                 }
             }
             DAY_OF_YEAR -> {
-                dayOfYear(year, value).let {
-                    set(it.year, it.month, it.dayOfMonth)
+                val min = getActualMinimum(field)
+                val max = getActualMaximum(field)
+                when {
+                    value in min..max -> {
+                        dayOfYear(internalYear, value).let {
+                            internalYear = it.year
+                            internalMonth = it.month
+                            internalDayOfMonth = it.dayOfMonth
+                            apply()
+                        }
+                    }
+                    value < min -> {
+                        dayOfYear(internalYear, min).let {
+                            internalYear = it.year
+                            internalMonth = it.month
+                            internalDayOfMonth = it.dayOfMonth
+                            apply()
+                        }
+                        add(field, value - min)
+                    }
+                    value > max -> {
+                        dayOfYear(internalYear, max).let {
+                            internalYear = it.year
+                            internalMonth = it.month
+                            internalDayOfMonth = it.dayOfMonth
+                            apply()
+                        }
+                        add(field, value - max)
+                    }
                 }
             }
             DAY_OF_WEEK -> {
@@ -157,33 +208,45 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 when {
                     value > 0 -> {
                         CalendarFactory.newInstance(calendarType).also { base ->
-                            base.set(year, month, dayOfMonth)
-                            val move = (value - get(DAY_OF_WEEK_IN_MONTH)) * 7
-                            base.add(DAY_OF_YEAR, move)
-                            set(base.year, base.month, base.dayOfMonth)
+                            base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
+                            val move = (value - get(DAY_OF_WEEK_IN_MONTH)) * 7 // TODO: handle over-max or below-min values
+                            base.add(DATE, move)
+
+                            internalYear = base.year
+                            internalMonth = base.month
+                            internalDayOfMonth = base.dayOfMonth
+                            apply()
                         }
                     }
                     value == 0 -> {
                         CalendarFactory.newInstance(calendarType).also { base ->
-                            base.set(year, month, 1)
+                            base.set(internalYear, internalMonth, 1)  // set base to first day of month
                             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-                            var move = (dayOfWeek - baseDayOfWeek)
+                            var move = (dayOfWeek - baseDayOfWeek) // TODO: handle over-max or below-min values
                             if (move >= 0) move += -7
-                            base.add(DAY_OF_YEAR, move)
-                            set(base.year, base.month, base.dayOfMonth)
+                            base.add(DATE, move)
+
+                            internalYear = base.year
+                            internalMonth = base.month
+                            internalDayOfMonth = base.dayOfMonth
+                            apply()
                         }
                     }
                     value < 0 -> {
                         CalendarFactory.newInstance(calendarType).also { base ->
-                            base.set(year, month, monthLength)
+                            base.set(internalYear, internalMonth, monthLength)  // set base to last day of month
                             val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
-                            val move = (dayOfWeek - baseDayOfWeek) + 7 * (value + 1)
-                            base.add(DAY_OF_YEAR, move)
-                            set(base.year, base.month, base.dayOfMonth)
+                            val move = (dayOfWeek - baseDayOfWeek) + 7 * (value + 1) // TODO: handle over-max or below-min values
+                            base.add(DATE, move)
+
+                            internalYear = base.year
+                            internalMonth = base.month
+                            internalDayOfMonth = base.dayOfMonth
+                            apply()
                         }
                     }
                 }
@@ -195,14 +258,29 @@ abstract class IntermediateCalendar : BaseCalendar() {
         }
     }
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
-        set(year, month, dayOfMonth)
+    override fun set(year: Int, month: Int, dayOfMonth: Int) { // TODO: handle over-max or below-min values
+        internalYear = year
+        internalMonth = month
+        internalDayOfMonth = dayOfMonth
+        apply()
+    }
+
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) { // TODO: handle over-max or below-min values
+        internalYear = year
+        internalMonth = month
+        internalDayOfMonth = dayOfMonth
+        apply()
+
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
     }
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
-        set(year, month, dayOfMonth)
+    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) { // TODO: handle over-max or below-min values
+        internalYear = year
+        internalMonth = month
+        internalDayOfMonth = dayOfMonth
+        apply()
+
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
         super.set(SECOND, second)
@@ -214,29 +292,35 @@ abstract class IntermediateCalendar : BaseCalendar() {
 
         when (field) {
             MONTH -> {
-                var targetMonth = (month + amount) % 12
+                var targetMonth = (internalMonth + amount) % 12
                 if (targetMonth < 0) targetMonth += 12
 
-                val targetMonthLength = monthLength(year, targetMonth)
-                var targetDayOfMonth = dayOfMonth
+                val targetMonthLength = monthLength(internalYear, targetMonth)
+                var targetDayOfMonth = internalDayOfMonth
                 if (targetDayOfMonth > targetMonthLength) targetDayOfMonth = targetMonthLength
 
-                set(year, targetMonth, targetDayOfMonth)
+                internalMonth = targetMonth
+                internalDayOfMonth = targetDayOfMonth
+                apply()
             }
             DAY_OF_MONTH -> {
                 val targetMonthLength = monthLength
-                var targetDayOfMonth = (dayOfMonth + amount) % targetMonthLength
+                var targetDayOfMonth = (internalDayOfMonth + amount) % targetMonthLength
                 if (targetDayOfMonth <= 0) targetDayOfMonth += targetMonthLength
 
-                set(year, month, targetDayOfMonth)
+                internalDayOfMonth = targetDayOfMonth
+                apply()
             }
             DAY_OF_YEAR -> {
-                val targetYearLength = yearLength(year)
+                val targetYearLength = yearLength(internalYear)
                 var targetDayOfYear = (dayOfYear() + amount) % targetYearLength
                 if (targetDayOfYear <= 0) targetDayOfYear += targetYearLength
 
-                dayOfYear(year, targetDayOfYear).let {
-                    set(it.year, it.month, it.dayOfMonth)
+                dayOfYear(internalYear, targetDayOfYear).let {
+                    internalYear = it.year
+                    internalMonth = it.month
+                    internalDayOfMonth = it.dayOfMonth
+                    apply()
                 }
             }
             DAY_OF_WEEK -> {
@@ -248,14 +332,18 @@ abstract class IntermediateCalendar : BaseCalendar() {
 
                 val move = targetDayOfWeek - dayOfWeek
                 CalendarFactory.newInstance(calendarType).also { base ->
-                    base.set(year, month, dayOfMonth)
-                    base.add(DAY_OF_YEAR, move)
-                    set(base.year, base.month, base.dayOfMonth)
+                    base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
+                    base.add(DATE, move)
+
+                    internalYear = base.year
+                    internalMonth = base.month
+                    internalDayOfMonth = base.dayOfMonth
+                    apply()
                 }
             }
             WEEK_OF_YEAR -> {
                 val day = dayOfYear()
-                val maxDay = yearLength(year)
+                val maxDay = yearLength(internalYear)
                 val woy = get(WEEK_OF_YEAR)
                 val maxWoy = getActualMaximum(WEEK_OF_YEAR)
 
@@ -278,12 +366,15 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 if (targetIndex < 0) targetIndex += maxWoy
                 val targetDayOfYear = array[targetIndex]
 
-                dayOfYear(year, targetDayOfYear).let {
-                    set(it.year, it.month, it.dayOfMonth)
+                dayOfYear(internalYear, targetDayOfYear).let {
+                    internalYear = it.year
+                    internalMonth = it.month
+                    internalDayOfMonth = it.dayOfMonth
+                    apply()
                 }
             }
             WEEK_OF_MONTH -> {
-                val day = dayOfMonth
+                val day = internalDayOfMonth
                 val maxDay = monthLength
                 val wom = get(WEEK_OF_MONTH)
                 val maxWom = getActualMaximum(WEEK_OF_MONTH)
@@ -307,7 +398,8 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 if (targetIndex < 0) targetIndex += maxWom
                 val targetDayOfMonth = array[targetIndex]
 
-                set(year, month, targetDayOfMonth)
+                internalDayOfMonth = targetDayOfMonth
+                apply()
             }
             DAY_OF_WEEK_IN_MONTH -> {
                 val day = dayOfMonth
@@ -335,7 +427,8 @@ abstract class IntermediateCalendar : BaseCalendar() {
                 val targetDayOfMonth = list[targetIndex]
                 list.clear()
 
-                set(year, month, targetDayOfMonth)
+                internalDayOfMonth = targetDayOfMonth
+                apply()
             }
             else -> {
                 super.roll(field, amount)
@@ -372,17 +465,15 @@ abstract class IntermediateCalendar : BaseCalendar() {
     override fun getActualMaximum(field: Int): Int {
         return when (field) {
             WEEK_OF_YEAR -> {
-                CalendarFactory.newInstance(calendarType).let { base ->
-                    base.year = year
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
                     base.set(DAY_OF_YEAR, yearLength(year))
-                    base.weekOfYear()
-                }
+                }.weekOfYear()
             }
             WEEK_OF_MONTH -> {
-                CalendarFactory.newInstance(calendarType).let { base ->
-                    base.set(year, month, monthLength)
-                    base.weekOfMonth()
-                }
+                CalendarFactory.newInstance(calendarType).also { base ->
+                    base.set(year, month, monthLength) // set base to last day of month
+                }.weekOfMonth()
             }
             DAY_OF_MONTH -> monthLength
             DAY_OF_YEAR -> yearLength(year)

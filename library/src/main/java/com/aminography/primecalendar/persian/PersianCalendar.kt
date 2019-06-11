@@ -11,30 +11,26 @@ import java.util.Calendar.*
  */
 class PersianCalendar : IntermediateCalendar() {
 
-    private var persianYear: Int = 0
-    private var persianMonth: Int = 0
-    private var persianDayOfMonth: Int = 0
-
     override var year: Int
-        get() = persianYear
+        get() = internalYear
         set(value) {
-            set(value, persianMonth, persianDayOfMonth)
+            set(value, internalMonth, internalDayOfMonth)
         }
 
     override var month: Int
-        get() = persianMonth
+        get() = internalMonth
         set(value) {
-            set(persianYear, value, persianDayOfMonth)
+            set(internalYear, value, internalDayOfMonth)
         }
 
     override var dayOfMonth: Int
-        get() = persianDayOfMonth
+        get() = internalDayOfMonth
         set(value) {
-            set(persianYear, persianMonth, value)
+            set(internalYear, internalMonth, value)
         }
 
     override val monthName: String
-        get() = PersianCalendarUtils.persianMonthNames[persianMonth]
+        get() = PersianCalendarUtils.persianMonthNames[internalMonth]
 
     override val weekDayName: String
         get() = when (get(DAY_OF_WEEK)) {
@@ -102,12 +98,16 @@ class PersianCalendar : IntermediateCalendar() {
         checkRange(MONTH, month)
         checkRange(DAY_OF_MONTH, dayOfMonth)
 
-        persianYear = year
-        persianMonth = month
-        persianDayOfMonth = dayOfMonth
+        internalYear = year
+        internalMonth = month
+        internalDayOfMonth = dayOfMonth
 
+        apply()
+    }
+
+    override fun apply() {
         PersianCalendarUtils.persianToGregorian(
-                DateHolder(persianYear, persianMonth, persianDayOfMonth)
+                DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {
             super.set(it.year, it.month, it.dayOfMonth)
         }
@@ -121,9 +121,9 @@ class PersianCalendar : IntermediateCalendar() {
                         internalCalendar.get(DAY_OF_MONTH)
                 )
         ).also {
-            persianYear = it.year
-            persianMonth = it.month
-            persianDayOfMonth = it.dayOfMonth
+            internalYear = it.year
+            internalMonth = it.month
+            internalDayOfMonth = it.dayOfMonth
         }
     }
 

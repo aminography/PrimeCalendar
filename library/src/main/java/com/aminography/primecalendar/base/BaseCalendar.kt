@@ -22,6 +22,10 @@ abstract class BaseCalendar : IConverter {
 
     protected var internalCalendar = GregorianCalendar(TimeZone.getDefault(), Locale.getDefault())
 
+    protected var internalYear: Int = 0
+    protected var internalMonth: Int = 0
+    protected var internalDayOfMonth: Int = 0
+
     abstract var year: Int
 
     abstract var month: Int
@@ -127,6 +131,8 @@ abstract class BaseCalendar : IConverter {
         }
 
     // ---------------------------------------------------------------------------------------------
+
+    protected abstract fun apply()
 
     protected abstract fun invalidate()
 

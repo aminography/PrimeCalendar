@@ -15,26 +15,22 @@ import java.util.Calendar.*
  */
 class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
 
-    private var civilYear: Int = 0
-    private var civilMonth: Int = 0
-    private var civilDayOfMonth: Int = 0
-
     override var year: Int
-        get() = civilYear
+        get() = internalYear
         set(value) {
-            set(value, civilMonth, civilDayOfMonth)
+            set(value, internalMonth, internalDayOfMonth)
         }
 
     override var month: Int
-        get() = civilMonth
+        get() = internalMonth
         set(value) {
-            set(civilYear, value, civilDayOfMonth)
+            set(internalYear, value, internalDayOfMonth)
         }
 
     override var dayOfMonth: Int
-        get() = civilDayOfMonth
+        get() = internalDayOfMonth
         set(value) {
-            set(civilYear, civilMonth, value)
+            set(internalYear, internalMonth, value)
         }
 
     override val monthName: String
@@ -128,19 +124,16 @@ class CivilCalendar : /*BaseCalendar()*/ IntermediateCalendar() {
                 DAY_OF_WEEK_IN_MONTH to 4
         )
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int) {
-        checkRange(YEAR, year)
-        checkRange(MONTH, month)
-        checkRange(DAY_OF_MONTH, dayOfMonth)
+    // ---------------------------------------------------------------------------------------------
 
-        super.set(year, month, dayOfMonth)
-        invalidate()
+    override fun apply() {
+        super.set(internalYear, internalMonth, internalDayOfMonth)
     }
 
     override fun invalidate() {
-        civilYear = internalCalendar.get(YEAR)
-        civilMonth = internalCalendar.get(MONTH)
-        civilDayOfMonth = internalCalendar.get(DAY_OF_MONTH)
+        internalYear = internalCalendar.get(YEAR)
+        internalMonth = internalCalendar.get(MONTH)
+        internalDayOfMonth = internalCalendar.get(DAY_OF_MONTH)
     }
 
     // ---------------------------------------------------------------------------------------------

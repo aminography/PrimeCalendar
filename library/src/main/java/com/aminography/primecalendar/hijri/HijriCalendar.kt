@@ -15,30 +15,26 @@ import java.util.Calendar.*
  */
 class HijriCalendar : IntermediateCalendar() {
 
-    private var hijriYear: Int = 0
-    private var hijriMonth: Int = 0
-    private var hijriDayOfMonth: Int = 0
-
     override var year: Int
-        get() = hijriYear
+        get() = internalYear
         set(value) {
-            set(value, hijriMonth, hijriDayOfMonth)
+            set(value, internalMonth, internalDayOfMonth)
         }
 
     override var month: Int
-        get() = hijriMonth
+        get() = internalMonth
         set(value) {
-            set(hijriYear, value, hijriDayOfMonth)
+            set(internalYear, value, internalDayOfMonth)
         }
 
     override var dayOfMonth: Int
-        get() = hijriDayOfMonth
+        get() = internalDayOfMonth
         set(value) {
-            set(hijriYear, hijriMonth, value)
+            set(internalYear, internalMonth, value)
         }
 
     override val monthName: String
-        get() = HijriCalendarUtils.hijriMonthNames[hijriMonth]
+        get() = HijriCalendarUtils.hijriMonthNames[internalMonth]
 
     override val weekDayName: String
         get() = when (get(DAY_OF_WEEK)) {
@@ -101,17 +97,9 @@ class HijriCalendar : IntermediateCalendar() {
 
     // ---------------------------------------------------------------------------------------------
 
-    override fun set(year: Int, month: Int, dayOfMonth: Int) {
-        checkRange(YEAR, year)
-        checkRange(MONTH, month)
-        checkRange(DAY_OF_MONTH, dayOfMonth)
-
-        hijriYear = year
-        hijriMonth = month
-        hijriDayOfMonth = dayOfMonth
-
+    override fun apply() {
         HijriCalendarUtils.hijriToGregorian(
-                DateHolder(hijriYear, hijriMonth, hijriDayOfMonth)
+                DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {
             super.set(it.year, it.month, it.dayOfMonth)
         }
@@ -125,9 +113,9 @@ class HijriCalendar : IntermediateCalendar() {
                         internalCalendar.get(DAY_OF_MONTH)
                 )
         ).also {
-            hijriYear = it.year
-            hijriMonth = it.month
-            hijriDayOfMonth = it.dayOfMonth
+            internalYear = it.year
+            internalMonth = it.month
+            internalDayOfMonth = it.dayOfMonth
         }
     }
 
