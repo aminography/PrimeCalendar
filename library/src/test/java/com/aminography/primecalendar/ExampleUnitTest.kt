@@ -31,6 +31,8 @@ class ExampleUnitTest {
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
         println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+
+
     }
 
     @Test
