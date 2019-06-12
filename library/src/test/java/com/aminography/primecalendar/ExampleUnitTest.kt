@@ -252,4 +252,11 @@ class ExampleUnitTest {
         assertEquals(calendar.dayOfMonth, 1)
     }
 
+    @Test
+    fun Test() {
+        val calendar = CivilCalendar()
+        calendar.set(2019, -120, 1)
+        println("Date: ${calendar.longDateString}")
+    }
+
 }

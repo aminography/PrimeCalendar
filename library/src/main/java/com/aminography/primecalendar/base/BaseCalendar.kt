@@ -233,7 +233,7 @@ abstract class BaseCalendar : PrimeCalendar() {
             month < monthMin -> {
                 val diff = month - monthMin
                 internalYear -= (12 - (monthMin + diff + 1)) / 12
-                internalMonth = 12 + (monthMin + diff) % 12
+                internalMonth = (12 + (monthMin + diff) % 12) % 12
             }
             month > monthMax -> {
                 val diff = month - monthMax
@@ -304,7 +304,7 @@ abstract class BaseCalendar : PrimeCalendar() {
                     m = (internalMonth + amount) % 12
                 } else {
                     y = internalYear - (12 - (internalMonth + amount + 1)) / 12
-                    m = 12 + (internalMonth + amount) % 12
+                    m = (12 + (internalMonth + amount) % 12) % 12
                 }
                 if (d > monthLength(y, m)) d = monthLength(y, m)
 
