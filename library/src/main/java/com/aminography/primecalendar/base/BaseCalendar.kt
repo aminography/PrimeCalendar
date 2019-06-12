@@ -7,7 +7,7 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-abstract class BaseCalendar : PrimeCalendar() {
+internal abstract class BaseCalendar : PrimeCalendar() {
 
     abstract val minimum: Map<Int, Int>
 
