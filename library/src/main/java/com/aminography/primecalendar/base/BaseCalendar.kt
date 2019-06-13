@@ -5,16 +5,58 @@ import com.aminography.primecalendar.common.CalendarFactory
 import java.util.Calendar.*
 
 /**
+ * `BaseCalendar` is an abstract subclass of [PrimeCalendar] and provides some methods which are
+ * generalized for its child's calendar type.
+ *
  * @author aminography
  */
 abstract class BaseCalendar : PrimeCalendar() {
 
+    /**
+     * A map of minimum feasible values for calendar fields depending on type of calendar.
+     * The map fills in each child class implementing a calendar type.
+     *
+     * [WEEK_OF_YEAR],
+     * [WEEK_OF_MONTH],
+     * [DAY_OF_MONTH],
+     * [DAY_OF_YEAR],
+     * [DAY_OF_WEEK_IN_MONTH]
+     */
     abstract val minimum: Map<Int, Int>
 
+    /**
+     * A map of maximum feasible values for calendar fields depending on type of calendar.
+     * The map fills in each child class implementing a calendar type.
+     *
+     * [WEEK_OF_YEAR],
+     * [WEEK_OF_MONTH],
+     * [DAY_OF_MONTH],
+     * [DAY_OF_YEAR],
+     * [DAY_OF_WEEK_IN_MONTH]
+     */
     abstract val maximum: Map<Int, Int>
 
+    /**
+     * A map of least maximum feasible values for calendar fields depending on type of calendar.
+     * The map fills in each child class implementing a calendar type.
+     *
+     * [WEEK_OF_YEAR],
+     * [WEEK_OF_MONTH],
+     * [DAY_OF_MONTH],
+     * [DAY_OF_YEAR],
+     * [DAY_OF_WEEK_IN_MONTH]
+     */
     abstract val leastMaximum: Map<Int, Int>
 
+    /**
+     * Returns the value of the given calendar field.
+     *
+     * @param field the given calendar field.
+     * @return the value for the given calendar field.
+     * @throws ArrayIndexOutOfBoundsException if the specified field is out of range ([field &lt; 0 || field &gt;= FIELD_COUNT]).
+     *
+     * @see set(int,int)
+     */
     override fun get(field: Int): Int {
         return when (field) {
             ERA -> super.get(ERA)
@@ -36,6 +78,18 @@ abstract class BaseCalendar : PrimeCalendar() {
         }
     }
 
+    /**
+     * Sets the given calendar field to the given value.
+     *
+     * @param field the given calendar field.
+     * @param value the value to be set for the given calendar field.
+     * @throws ArrayIndexOutOfBoundsException if the specified field is out of range ([field &lt; 0 || field &gt;= FIELD_COUNT]).
+     *
+     * @see set(int,int,int)
+     * @see set(int,int,int,int,int)
+     * @see set(int,int,int,int,int,int)
+     * @see get(int)
+     */
     override fun set(field: Int, value: Int) {
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
@@ -221,6 +275,18 @@ abstract class BaseCalendar : PrimeCalendar() {
         }
     }
 
+    /**
+     * Sets the values for the calendar fields [YEAR], [MONTH], and [DAY_OF_MONTH].
+     * Previous values of other calendar fields are retained.  If this is not desired, call [clear] first.
+     *
+     * @param year the value used to set the [YEAR] calendar field.
+     * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
+     * @param dayOfMonth the value used to set the [DAY_OF_MONTH] calendar field.
+     *
+     * @see set(int,int)
+     * @see set(int,int,int,int,int)
+     * @see set(int,int,int,int,int,int)
+     */
     override fun set(year: Int, month: Int, dayOfMonth: Int) {
         internalYear = year
 
@@ -265,12 +331,41 @@ abstract class BaseCalendar : PrimeCalendar() {
         }
     }
 
+    /**
+     * Sets the values for the calendar fields [YEAR], [MONTH], [DAY_OF_MONTH], [HOUR_OF_DAY], and [MINUTE].
+     * Previous values of other fields are retained.  If this is not desired, call [clear] first.
+     *
+     * @param year the value used to set the [YEAR] calendar field.
+     * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
+     * @param dayOfMonth the value used to set the [DAY_OF_MONTH] calendar field.
+     * @param hourOfDay the value used to set the [HOUR_OF_DAY] calendar field.
+     * @param minute the value used to set the [MINUTE] calendar field.
+     *
+     * @see set(int,int)
+     * @see set(int,int,int)
+     * @see set(int,int,int,int,int,int)
+     */
     override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
         set(year, month, dayOfMonth)
         super.set(HOUR_OF_DAY, hourOfDay)
         super.set(MINUTE, minute)
     }
 
+    /**
+     * Sets the values for the calendar fields [YEAR], [MONTH], [DAY_OF_MONTH], [HOUR_OF_DAY], [MINUTE], and [SECOND].
+     * Previous values of other fields are retained.  If this is not desired, call [clear] first.
+     *
+     * @param year the value used to set the [YEAR] calendar field.
+     * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
+     * @param dayOfMonth the value used to set the [DAY_OF_MONTH] calendar field.
+     * @param hourOfDay the value used to set the [HOUR_OF_DAY] calendar field.
+     * @param minute the value used to set the [MINUTE] calendar field.
+     * @param second the value used to set the [SECOND] calendar field.
+     *
+     * @see set(int,int)
+     * @see set(int,int,int)
+     * @see set(int,int,int,int,int,int)
+     */
     override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
         set(year, month, dayOfMonth)
         super.set(HOUR_OF_DAY, hourOfDay)
@@ -278,6 +373,18 @@ abstract class BaseCalendar : PrimeCalendar() {
         super.set(SECOND, second)
     }
 
+    /**
+     * Adds or subtracts the specified amount of time to the given calendar field,
+     * based on the calendar's rules. For example, to subtract 5 days from
+     * the current time of the calendar, you can achieve it by calling:
+     * `add(Calendar.DAY_OF_MONTH, -5)`.
+     *
+     * @param field the calendar field.
+     * @param amount the amount of date or time to be added to the field.
+     *
+     * @see roll(int,int)
+     * @see set(int,int)
+     */
     override fun add(field: Int, amount: Int) {
         if (amount == 0) return
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
@@ -320,6 +427,25 @@ abstract class BaseCalendar : PrimeCalendar() {
         }
     }
 
+    /**
+     * Adds the specified (signed) amount to the specified calendar field
+     * without changing larger fields.  A negative amount means to roll
+     * down.
+     *
+     * NOTE:  This default implementation on `Calendar` just repeatedly calls the
+     * version of [roll] that rolls by one unit.  This may not
+     * always do the right thing.  For example, if the [DAY_OF_MONTH] field is 31,
+     * rolling through February will leave it set to 28.  The [java.util.GregorianCalendar]
+     * version of this function takes care of this problem.  Other subclasses
+     * should also provide overrides of this function that do the right thing.
+     *
+     * @param field the calendar field.
+     * @param amount the signed amount to add to the calendar field.
+     *
+     * @see roll(int,boolean)
+     * @see add(int,int)
+     * @see set(int,int)
+     */
     override fun roll(field: Int, amount: Int) {
         if (amount == 0) return
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
@@ -481,32 +607,143 @@ abstract class BaseCalendar : PrimeCalendar() {
         }
     }
 
+    /**
+     * Returns the minimum value for the given calendar field of this
+     * `Calendar` instance. The minimum value is defined as
+     * the smallest value returned by the [get] method
+     * for any possible time value. The minimum value depends on
+     * calendar system specific parameters of the instance.
+     *
+     * @param field the calendar field.
+     * @return the minimum value for the given calendar field.
+     *
+     * @see getMaximum(int)
+     * @see getGreatestMinimum(int)
+     * @see getLeastMaximum(int)
+     * @see getActualMinimum(int)
+     * @see getActualMaximum(int)
+     */
     override fun getMinimum(field: Int): Int {
         return minimum.getOrElse(field) {
             return super.getMinimum(field)
         }
     }
 
+    /**
+     * Returns the maximum value for the given calendar field of this
+     * `Calendar` instance. The maximum value is defined as
+     * the largest value returned by the [get] method
+     * for any possible time value. The maximum value depends on
+     * calendar system specific parameters of the instance.
+     *
+     * @param field the calendar field.
+     * @return the maximum value for the given calendar field.
+     *
+     * @see getMinimum(int)
+     * @see getGreatestMinimum(int)
+     * @see getLeastMaximum(int)
+     * @see getActualMinimum(int)
+     * @see getActualMaximum(int)
+     */
     override fun getMaximum(field: Int): Int {
         return maximum.getOrElse(field) {
             return super.getMaximum(field)
         }
     }
 
+    /**
+     * Returns the highest minimum value for the given calendar field
+     * of this `Calendar` instance. The highest minimum
+     * value is defined as the largest value returned by [getActualMinimum] for
+     * any possible time value. The
+     * greatest minimum value depends on calendar system specific
+     * parameters of the instance.
+     *
+     * @param field the calendar field.
+     * @return the highest minimum value for the given calendar field.
+     *
+     * @see getMinimum(int)
+     * @see getMaximum(int)
+     * @see getLeastMaximum(int)
+     * @see getActualMinimum(int)
+     * @see getActualMaximum(int)
+     */
+
     override fun getGreatestMinimum(field: Int): Int {
         return getMinimum(field)
     }
 
+    /**
+     * Returns the lowest maximum value for the given calendar field
+     * of this `Calendar` instance. The lowest maximum
+     * value is defined as the smallest value returned by [getActualMaximum]
+     * for any possible time value. The least
+     * maximum value depends on calendar system specific parameters of
+     * the instance. For example, a `Calendar` for the
+     * Gregorian calendar system returns 28 for the
+     * [DAY_OF_MONTH] field, because the 28th is the last
+     * day of the shortest month of this calendar, February in a
+     * common year.
+     *
+     * @param field the calendar field.
+     * @return the lowest maximum value for the given calendar field.
+     *
+     * @see getMinimum(int)
+     * @see getMaximum(int)
+     * @see getGreatestMinimum(int)
+     * @see getActualMinimum(int)
+     * @see getActualMaximum(int)
+     */
     override fun getLeastMaximum(field: Int): Int {
         return leastMaximum.getOrElse(field) {
             return super.getLeastMaximum(field)
         }
     }
 
+    /**
+     * Returns the minimum value that the specified calendar field
+     * could have, given the time value of this `Calendar`.
+     *
+     * The default implementation of this method uses an iterative
+     * algorithm to determine the actual minimum value for the
+     * calendar field. Subclasses should, if possible, override this
+     * with a more efficient implementation - in many cases, they can
+     * simply return [getMinimum].
+     *
+     * @param field the calendar field
+     * @return the minimum of the given calendar field for the time value of this `Calendar`
+     * 
+     * @see getMinimum(int)
+     * @see getMaximum(int)
+     * @see getGreatestMinimum(int)
+     * @see getLeastMaximum(int)
+     * @see getActualMaximum(int)
+     */
     override fun getActualMinimum(field: Int): Int {
         return getMinimum(field)
     }
 
+    /**
+     * Returns the maximum value that the specified calendar field
+     * could have, given the time value of this
+     * `Calendar`. For example, the actual maximum value of
+     * the [MONTH] field is 12 in some years, and 13 in
+     * other years in the Hebrew calendar system.
+     *
+     * The default implementation of this method uses an iterative
+     * algorithm to determine the actual maximum value for the
+     * calendar field. Subclasses should, if possible, override this
+     * with a more efficient implementation.
+     *
+     * @param field the calendar field
+     * @return the maximum of the given calendar field for the time value of this `Calendar`
+     *
+     * @see getMinimum(int)
+     * @see getMaximum(int)
+     * @see getGreatestMinimum(int)
+     * @see getLeastMaximum(int)
+     * @see getActualMinimum(int)
+     */
     override fun getActualMaximum(field: Int): Int {
         return when (field) {
             WEEK_OF_YEAR -> {
