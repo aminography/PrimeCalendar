@@ -325,6 +325,17 @@ abstract class BaseCalendar : PrimeCalendar() {
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
         when (field) {
+            YEAR -> {
+                val y = internalYear + amount
+                val m = internalMonth
+                var d = internalDayOfMonth
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                store()
+            }
             MONTH -> {
                 var targetMonth = (internalMonth + amount) % 12
                 if (targetMonth < 0) targetMonth += 12

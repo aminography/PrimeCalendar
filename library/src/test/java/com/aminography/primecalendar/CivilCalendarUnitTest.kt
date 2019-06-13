@@ -313,69 +313,256 @@ class CivilCalendarUnitTest {
         assertEquals(civil, gregorian)
     }
 
-    // ---------------------------------------------------------------------------------------------
-
     @Test
-    fun dayOfWeekInMonth() {
+    fun add_YEAR_negativeValues() {
         val civil = CivilCalendar().apply {
-            set(2019, 50, -100)
-//            set(YEAR, 2019)
-//            set(MONTH, 5)
-//            set(DAY_OF_MONTH, 19)
-            print(DAY_OF_WEEK_IN_MONTH)
+            add(YEAR, -7)
+            print(DAY_OF_YEAR)
         }
-
         val gregorian = getInstance().apply {
-            set(2019, 50, -100)
-//            set(YEAR, 2019)
-//            set(MONTH, 5)
-//            set(DAY_OF_MONTH, 19)
-            print(DAY_OF_WEEK_IN_MONTH)
+            add(YEAR, -7)
+            print(DAY_OF_YEAR)
         }
-
-        println("-------------------------------------------------------------------")
-
-        civil.apply {
-            set(DAY_OF_WEEK_IN_MONTH, -1)
-            print(DAY_OF_WEEK_IN_MONTH)
-        }
-
-        gregorian.apply {
-            set(DAY_OF_WEEK_IN_MONTH, -1)
-            print(DAY_OF_WEEK_IN_MONTH)
-        }
-
         assertEquals(civil, gregorian)
     }
 
     @Test
-    fun weekOfYear() {
+    fun add_MONTH() {
         val civil = CivilCalendar().apply {
-            set(YEAR, 2019)
-            set(MONTH, 5)
-            set(DAY_OF_MONTH, 10)
-            print(WEEK_OF_YEAR)
+            add(MONTH, 53)
+            print(DAY_OF_YEAR)
         }
-
         val gregorian = getInstance().apply {
-            set(YEAR, 2019)
-            set(MONTH, 5)
-            set(DAY_OF_MONTH, 10)
+            add(MONTH, 53)
+            print(DAY_OF_YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun add_MONTH_negativeValues() {
+        val civil = CivilCalendar().apply {
+            add(MONTH, -17)
+            print(DAY_OF_YEAR)
+        }
+        val gregorian = getInstance().apply {
+            add(MONTH, -17)
+            print(DAY_OF_YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Test
+    fun roll_YEAR() {
+        val civil = CivilCalendar().apply {
+            roll(YEAR, 19)
+            print(YEAR)
+        }
+        val gregorian = getInstance().apply {
+            roll(YEAR, 19)
+            print(YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_YEAR_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(YEAR, -21)
+            print(YEAR)
+        }
+        val gregorian = getInstance().apply {
+            roll(YEAR, -21)
+            print(YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_MONTH() {
+        val civil = CivilCalendar().apply {
+            roll(MONTH, 193)
+            print(MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(MONTH, 193)
+            print(MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_MONTH_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(MONTH, -121)
+            print(MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(MONTH, -121)
+            print(MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_MONTH() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_MONTH, 193)
+            print(DAY_OF_MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_MONTH, 193)
+            print(DAY_OF_MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_MONTH_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_MONTH, -121)
+            print(DAY_OF_MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_MONTH, -121)
+            print(DAY_OF_MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_YEAR() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_YEAR, 1973)
+            print(DAY_OF_YEAR)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_YEAR, 1973)
+            print(DAY_OF_YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_YEAR_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_YEAR, -1021)
+            print(DAY_OF_YEAR)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_YEAR, -1021)
+            print(DAY_OF_YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_WEEK() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_WEEK, 193)
+            print(DAY_OF_WEEK)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_WEEK, 193)
+            print(DAY_OF_WEEK)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_WEEK_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_WEEK, -121)
+            print(DAY_OF_WEEK)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_WEEK, -121)
+            print(DAY_OF_WEEK)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    /**
+     * I have reported an anomaly in rolling behaviour [here](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8225641)
+     * which causes the difference in result of two following test cases.
+     */
+    @Test
+    fun roll_WEEK_OF_YEAR() {
+        val civil = CivilCalendar().apply {
+            roll(WEEK_OF_YEAR, 193)
             print(WEEK_OF_YEAR)
         }
-
-        println("-------------------------------------------------------------------")
-
-        civil.apply {
-            set(WEEK_OF_YEAR, -10)
+        val gregorian = getInstance().apply {
+            roll(WEEK_OF_YEAR, 193)
             print(WEEK_OF_YEAR)
         }
+        assertEquals(civil, gregorian)
+    }
 
-        gregorian.apply {
-            set(WEEK_OF_YEAR, -10)
+    @Test
+    fun roll_WEEK_OF_YEAR_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(WEEK_OF_YEAR, -121)
             print(WEEK_OF_YEAR)
         }
+        val gregorian = getInstance().apply {
+            roll(WEEK_OF_YEAR, -121)
+            print(WEEK_OF_YEAR)
+        }
+        assertEquals(civil, gregorian)
+    }
 
+    @Test
+    fun roll_WEEK_OF_MONTH() {
+        val civil = CivilCalendar().apply {
+            roll(WEEK_OF_MONTH, 193)
+            print(WEEK_OF_MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(WEEK_OF_MONTH, 193)
+            print(WEEK_OF_MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_WEEK_OF_MONTH_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(WEEK_OF_MONTH, -121)
+            print(WEEK_OF_MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(WEEK_OF_MONTH, -121)
+            print(WEEK_OF_MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_WEEK_IN_MONTH() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_WEEK_IN_MONTH, 193)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_WEEK_IN_MONTH, 193)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+        assertEquals(civil, gregorian)
+    }
+
+    @Test
+    fun roll_DAY_OF_WEEK_IN_MONTH_negativeValues() {
+        val civil = CivilCalendar().apply {
+            roll(DAY_OF_WEEK_IN_MONTH, -121)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
+        val gregorian = getInstance().apply {
+            roll(DAY_OF_WEEK_IN_MONTH, -121)
+            print(DAY_OF_WEEK_IN_MONTH)
+        }
         assertEquals(civil, gregorian)
     }
 
