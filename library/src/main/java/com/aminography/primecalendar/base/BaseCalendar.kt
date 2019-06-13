@@ -668,7 +668,6 @@ abstract class BaseCalendar : PrimeCalendar() {
      * @see getActualMinimum(int)
      * @see getActualMaximum(int)
      */
-
     override fun getGreatestMinimum(field: Int): Int {
         return getMinimum(field)
     }
@@ -712,7 +711,7 @@ abstract class BaseCalendar : PrimeCalendar() {
      *
      * @param field the calendar field
      * @return the minimum of the given calendar field for the time value of this `Calendar`
-     * 
+     *
      * @see getMinimum(int)
      * @see getMaximum(int)
      * @see getGreatestMinimum(int)
