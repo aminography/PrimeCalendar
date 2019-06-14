@@ -5,7 +5,7 @@ import com.aminography.primecalendar.common.DateHolder
 /**
  * @author aminography
  */
-internal object PersianCalendarUtils {
+object PersianCalendarUtils {
 
     // Month Length Arrays -------------------------------------------------------------------------
 
@@ -80,12 +80,12 @@ internal object PersianCalendarUtils {
 
     // Internal Calculation Methods ----------------------------------------------------------------
 
-    internal fun monthLength(year: Int, month: Int): Int =
+    fun monthLength(year: Int, month: Int): Int =
             if (isPersianLeapYear(year))
                 leapYearMonthLength[month]
             else normalMonthLength[month]
 
-    internal fun yearLength(year: Int): Int =
+    fun yearLength(year: Int): Int =
             if (isPersianLeapYear(year))
                 leapYearMonthLengthAggregated[12]
             else normalMonthLengthAggregated[12]

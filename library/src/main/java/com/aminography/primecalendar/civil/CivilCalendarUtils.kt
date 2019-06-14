@@ -5,7 +5,7 @@ import com.aminography.primecalendar.common.DateHolder
 /**
  * @author aminography
  */
-internal object CivilCalendarUtils {
+object CivilCalendarUtils {
 
     // Month Length Arrays -------------------------------------------------------------------------
 
@@ -17,12 +17,12 @@ internal object CivilCalendarUtils {
 
     // Internal Calculation Methods ----------------------------------------------------------------
 
-    internal fun monthLength(year: Int, month: Int): Int =
+    fun monthLength(year: Int, month: Int): Int =
             if (isGregorianLeapYear(year))
                 leapYearMonthLength[month]
             else normalMonthLength[month]
 
-    internal fun yearLength(year: Int): Int =
+    fun yearLength(year: Int): Int =
             if (isGregorianLeapYear(year))
                 leapYearMonthLengthAggregated[12]
             else normalMonthLengthAggregated[12]

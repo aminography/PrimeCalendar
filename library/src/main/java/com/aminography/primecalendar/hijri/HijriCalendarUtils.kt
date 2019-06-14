@@ -8,7 +8,7 @@ import org.threeten.bp.temporal.ChronoField
 /**
  * @author aminography
  */
-internal object HijriCalendarUtils {
+object HijriCalendarUtils {
 
     // Month Length Arrays -------------------------------------------------------------------------
 
@@ -82,12 +82,12 @@ internal object HijriCalendarUtils {
 
     // Internal Calculation Methods ----------------------------------------------------------------
 
-    internal fun monthLength(year: Int, month: Int): Int =
+    fun monthLength(year: Int, month: Int): Int =
             if (isHijriLeapYear(year))
                 leapYearMonthLength[month]
             else normalMonthLength[month]
 
-    internal fun yearLength(year: Int): Int =
+    fun yearLength(year: Int): Int =
             if (isHijriLeapYear(year))
                 leapYearMonthLengthAggregated[12]
             else normalMonthLengthAggregated[12]
