@@ -68,6 +68,9 @@ val calendar = PersianCalendar()
 val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 ```
 
+### • Locale
+
+
 ### • Functionalities
 A
 ```kotlin
