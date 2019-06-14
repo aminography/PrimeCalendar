@@ -7,7 +7,9 @@ Also it is possible to convert dates to each other.
   
 Download
 --------
-## Gradle
+If you are using...
+
+### Gradle
 Add the following lines to your `build.gradle` file:
 
 ```gradle
@@ -20,7 +22,7 @@ dependencies {
 }
 ```
 
-## Maven
+### Maven
 Add the following lines to your `pom.xml` file:
 
 ```xml
