@@ -72,7 +72,19 @@ Calendar objects can be instantiated by the class constructors or using [`Calend
 A
 
 ### • Date Conversion
-A
+
+> ```java
+> PersianCalendar persian = calendar.toPersian();
+> HijriCalendar hijri = calendar.toHijri();
+> CivilCalendar civil = calendar.toCivil();
+> ```
+
+> **Kotlin**
+> ```kotlin
+> val persian = calendar.toPersian()
+> val hijri = calendar.toHijri()
+> val civil = calendar.toCivil()
+> ```
 
 
 License
