@@ -54,19 +54,19 @@ Usage
 -----
 Calendar objects can be instantiated by the class constructors or using [`CalendarFactory`](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/common/CalendarFactory.kt).
 
-Java:
-```java
-PrimeCalendar calendar = new PersianCalendar();
-// or
-PrimeCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
-```
+> **Java**
+> ```java
+> PrimeCalendar calendar = new PersianCalendar();
+> // or
+> PrimeCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
+> ```
 
-Kotlin:
-```kotlin
-val calendar = PersianCalendar()
-// or
-val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
-```
+> **Kotlin**
+> ```kotlin
+> val calendar = PersianCalendar()
+> // or
+> val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
+> ```
 
 ### • Functionalities
 A
