@@ -50,6 +50,15 @@ Add the following lines to your `pom.xml` file:
 </dependencies>
 ```
 
+Usage
+-----
+A
+
+Functionalities
+---------------
+A
+
+
 License
 --------
 ```
