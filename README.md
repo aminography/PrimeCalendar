@@ -26,7 +26,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.2'
+    implementation 'com.aminography:primecalendar:1.2.7'
 }
 ```
 
