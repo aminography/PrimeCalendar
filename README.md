@@ -2,7 +2,7 @@
 
 **`PrimeCalendar`** provides all [`java.util.Calendar`](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html) functionalities for `Persian` and `Hijri` dates.
 **`PrimeCalendar`** can be used in every **JVM-based** projects such as **Java/kotlin** applications, **Android** apps, etc.
-Here
+This library contains three types of calendar as well as their conversion to each other.
 
   | Calendar System | Provided Class | Descriptions |
   | --- | --- | --- |
