@@ -27,6 +27,9 @@ class CivilCalendar constructor(
             locale: Locale = Locale.getDefault()
     ) : this(TimeZone.getDefault(), locale)
 
+    constructor(
+    ) : this(TimeZone.getDefault(), Locale.getDefault())
+
     override val monthName: String
         get() = internalCalendar.getDisplayName(MONTH, LONG, locale)
 

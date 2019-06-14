@@ -19,7 +19,7 @@ class ExampleUnitTest {
 
     @Test
     fun aaaaaa() {
-        val persian = PersianCalendar(locale = Locale.forLanguageTag("fa"))
+        val persian = PersianCalendar(Locale.ENGLISH)
         persian.set(1398, 2, 24)
         println(persian.longDateString)
 

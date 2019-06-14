@@ -28,6 +28,9 @@ class HijriCalendar constructor(
             locale: Locale = Locale(DEFAULT_LOCALE)
     ) : this(TimeZone.getDefault(), locale)
 
+    constructor(
+    ) : this(TimeZone.getDefault(), Locale(DEFAULT_LOCALE))
+
     override val monthName: String
         get() = HijriCalendarUtils.monthName(internalMonth, locale)
 
