@@ -5,7 +5,119 @@ import com.aminography.primecalendar.common.DateHolder
 /**
  * @author aminography
  */
-object PersianCalendarUtils {
+internal object PersianCalendarUtils {
+
+    // Month Length Arrays -------------------------------------------------------------------------
+
+    private val gregorianMonthLength = intArrayOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+    private val normalMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29)
+    private val leapYearMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30)
+
+    private val normalMonthLengthAggregated = intArrayOf(0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 365)
+    private val leapYearMonthLengthAggregated = intArrayOf(0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 366)
+
+    // Symbol Name Arrays --------------------------------------------------------------------------
+
+    internal val monthNames = arrayOf(
+            "\u0641\u0631\u0648\u0631\u062f\u06cc\u0646", // Farvardin
+            "\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a", // Ordibehesht
+            "\u062e\u0631\u062f\u0627\u062f", // Khordad
+            "\u062a\u06cc\u0631", // Tir
+            "\u0645\u0631\u062f\u0627\u062f", // Mordad
+            "\u0634\u0647\u0631\u06cc\u0648\u0631", // Shahrivar
+            "\u0645\u0647\u0631", // Mehr
+            "\u0622\u0628\u0627\u0646", // Aban
+            "\u0622\u0630\u0631", // Azar
+            "\u062f\u06cc", // Dey
+            "\u0628\u0647\u0645\u0646", // Bahman
+            "\u0627\u0633\u0641\u0646\u062f" // Esfand
+    )
+
+    internal val weekDays = arrayOf(
+            "\u0634\u0646\u0628\u0647", // Shanbeh
+            "\u06cc\u06a9\u200c\u0634\u0646\u0628\u0647", // Yekshanbeh
+            "\u062f\u0648\u0634\u0646\u0628\u0647", // Doshanbeh
+            "\u0633\u0647\u200c\u0634\u0646\u0628\u0647", // Sehshanbeh
+            "\u0686\u0647\u0627\u0631\u0634\u0646\u0628\u0647", // Chaharshanbeh
+            "\u067e\u0646\u062c\u200c\u0634\u0646\u0628\u0647", // Panjshanbeh
+            "\u062c\u0645\u0639\u0647" // jom'e
+    )
+
+    internal val eras = arrayOf(
+            "\u0642\u0628\u0644\u0020\u0627\u0632\u0020\u0645\u06cc\u0644\u0627\u062f", // AD
+            "\u0628\u0639\u062f\u0020\u0627\u0632\u0020\u0645\u06cc\u0644\u0627\u062f" // BC
+    )
+
+    internal val amPm = arrayOf(
+            "\u0642\u0628\u0644\u0020\u0627\u0632\u0020\u0638\u0647\u0631", // AM
+            "\u0628\u0639\u062f\u0020\u0627\u0632\u0020\u0638\u0647\u0631" // PM
+    )
+
+    internal val shortMonthNames = arrayOf(
+            "\u0641\u0631", // Farvardin
+            "\u0627\u0631\u062f", // Ordibehesht
+            "\u062e\u0631\u062f", // Khordad
+            "\u062a\u06cc\u0631", // Tir
+            "\u0645\u0631", // Mordad
+            "\u0634\u0647\u0631", // Shahrivar
+            "\u0645\u0647\u0631", // Mehr
+            "\u0622\u0628", // Aban
+            "\u0622\u0630\u0631", // Azar
+            "\u062f\u06cc", // Dey
+            "\u0628\u0647", // Bahman
+            "\u0627\u0633" // Esfand
+    )
+
+    internal val shortWeekDays = arrayOf(
+            "\u0634", // Shanbeh
+            "\u06cc", // Yekshanbeh
+            "\u062f", // Doshanbeh
+            "\u0633", // Sehshanbeh
+            "\u0686", // Chaharshanbeh
+            "\u067e", // Panjshanbeh
+            "\u062c" // jom'e
+    )
+
+    // Internal Calculation Methods ----------------------------------------------------------------
+
+    internal fun monthLength(year: Int, month: Int): Int =
+            if (isPersianLeapYear(year))
+                leapYearMonthLength[month]
+            else normalMonthLength[month]
+
+    internal fun yearLength(year: Int): Int =
+            if (isPersianLeapYear(year))
+                leapYearMonthLengthAggregated[12]
+            else normalMonthLengthAggregated[12]
+
+    internal fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
+            if (isPersianLeapYear(year))
+                leapYearMonthLengthAggregated[month] + dayOfMonth
+            else normalMonthLengthAggregated[month] + dayOfMonth
+
+    internal fun dayOfYear(year: Int, dayOfYear: Int): DateHolder {
+        val monthLengthAggregated = if (isPersianLeapYear(year))
+            leapYearMonthLengthAggregated
+        else normalMonthLengthAggregated
+
+        var month = 0
+        for (i in 0 until monthLengthAggregated.size) {
+            if (dayOfYear > monthLengthAggregated[i] && dayOfYear <= monthLengthAggregated[i + 1]) {
+                month = i
+            }
+        }
+        val dayOfMonth = dayOfYear - monthLengthAggregated[month]
+        return DateHolder(year, month, dayOfMonth)
+    }
+
+    internal fun isPersianLeapYear(persianYear: Int): Boolean =
+            ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
+
+    private fun ceil(double1: Double, double2: Double): Long {
+        return (double1 - double2 * Math.floor(double1 / double2)).toLong()
+    }
+
+    // Conversion Methods --------------------------------------------------------------------------
 
     @Suppress("ReplaceWithOperatorAssignment", "JoinDeclarationAndAssignment")
     internal fun gregorianToPersian(gregorian: DateHolder): DateHolder {
@@ -131,113 +243,5 @@ object PersianCalendarUtils {
 
         return DateHolder(gregorianYear, gregorianMonth, gregorianDay)
     }
-
-    private fun ceil(double1: Double, double2: Double): Long {
-        return (double1 - double2 * Math.floor(double1 / double2)).toLong()
-    }
-
-    private val gregorianMonthLength = intArrayOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
-    private val normalMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29)
-    private val leapYearMonthLength = intArrayOf(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30)
-
-    private val normalMonthLengthAggregated = intArrayOf(0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 365)
-    private val leapYearMonthLengthAggregated = intArrayOf(0, 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 366)
-
-    internal val monthNames = arrayOf(
-            "\u0641\u0631\u0648\u0631\u062f\u06cc\u0646", // Farvardin
-            "\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a", // Ordibehesht
-            "\u062e\u0631\u062f\u0627\u062f", // Khordad
-            "\u062a\u06cc\u0631", // Tir
-            "\u0645\u0631\u062f\u0627\u062f", // Mordad
-            "\u0634\u0647\u0631\u06cc\u0648\u0631", // Shahrivar
-            "\u0645\u0647\u0631", // Mehr
-            "\u0622\u0628\u0627\u0646", // Aban
-            "\u0622\u0630\u0631", // Azar
-            "\u062f\u06cc", // Dey
-            "\u0628\u0647\u0645\u0646", // Bahman
-            "\u0627\u0633\u0641\u0646\u062f" // Esfand
-    )
-
-    internal val weekDays = arrayOf(
-            "\u0634\u0646\u0628\u0647", // Shanbeh
-            "\u06cc\u06a9\u200c\u0634\u0646\u0628\u0647", // Yekshanbeh
-            "\u062f\u0648\u0634\u0646\u0628\u0647", // Doshanbeh
-            "\u0633\u0647\u200c\u0634\u0646\u0628\u0647", // Sehshanbeh
-            "\u0686\u0647\u0627\u0631\u0634\u0646\u0628\u0647", // Chaharshanbeh
-            "\u067e\u0646\u062c\u200c\u0634\u0646\u0628\u0647", // Panjshanbeh
-            "\u062c\u0645\u0639\u0647" // jom'e
-    )
-
-    internal val eras = arrayOf(
-            "\u0642\u0628\u0644\u0020\u0627\u0632\u0020\u0645\u06cc\u0644\u0627\u062f", // AD
-            "\u0628\u0639\u062f\u0020\u0627\u0632\u0020\u0645\u06cc\u0644\u0627\u062f" // BC
-    )
-
-    internal val amPm = arrayOf(
-            "\u0642\u0628\u0644\u0020\u0627\u0632\u0020\u0638\u0647\u0631", // AM
-            "\u0628\u0639\u062f\u0020\u0627\u0632\u0020\u0638\u0647\u0631" // PM
-    )
-
-    internal val shortMonthNames = arrayOf(
-            "\u0641\u0631", // Farvardin
-            "\u0627\u0631\u062f", // Ordibehesht
-            "\u062e\u0631\u062f", // Khordad
-            "\u062a\u06cc\u0631", // Tir
-            "\u0645\u0631", // Mordad
-            "\u0634\u0647\u0631", // Shahrivar
-            "\u0645\u0647\u0631", // Mehr
-            "\u0622\u0628", // Aban
-            "\u0622\u0630\u0631", // Azar
-            "\u062f\u06cc", // Dey
-            "\u0628\u0647", // Bahman
-            "\u0627\u0633" // Esfand
-    )
-
-    internal val shortWeekDays = arrayOf(
-            "\u0634", // Shanbeh
-            "\u06cc", // Yekshanbeh
-            "\u062f", // Doshanbeh
-            "\u0633", // Sehshanbeh
-            "\u0686", // Chaharshanbeh
-            "\u067e", // Panjshanbeh
-            "\u062c" // jom'e
-    )
-
-    fun monthLength(year: Int, month: Int): Int =
-            if (isPersianLeapYear(year))
-                leapYearMonthLength[month]
-            else normalMonthLength[month]
-
-    fun yearLength(year: Int): Int =
-            if (isPersianLeapYear(year))
-                leapYearMonthLengthAggregated[12]
-            else normalMonthLengthAggregated[12]
-
-    fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
-            if (isPersianLeapYear(year))
-                leapYearMonthLengthAggregated[month] + dayOfMonth
-            else normalMonthLengthAggregated[month] + dayOfMonth
-
-    internal fun dayOfYear(year: Int, dayOfYear: Int): DateHolder {
-        val monthLengthAggregated = if (isPersianLeapYear(year))
-            leapYearMonthLengthAggregated
-        else normalMonthLengthAggregated
-
-        var month = 0
-        for (i in 0 until monthLengthAggregated.size) {
-            if (dayOfYear > monthLengthAggregated[i] && dayOfYear <= monthLengthAggregated[i + 1]) {
-                month = i
-            }
-        }
-        val dayOfMonth = dayOfYear - monthLengthAggregated[month]
-        return DateHolder(year, month, dayOfMonth)
-    }
-
-    fun monthName(month: Int): String = monthNames[month]
-
-    fun weekDayName(dayOfWeek: Int): String = weekDays[dayOfWeek]
-
-    internal fun isPersianLeapYear(persianYear: Int): Boolean =
-            ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
 
 }

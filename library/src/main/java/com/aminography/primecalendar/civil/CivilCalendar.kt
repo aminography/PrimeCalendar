@@ -45,44 +45,6 @@ class CivilCalendar(
         setInternalFirstDayOfWeek(firstDayOfWeek)
     }
 
-    // ---------------------------------------------------------------------------------------------
-
-//    override fun add(field: Int, amount: Int) {
-//        super.add(field, amount)
-//        invalidate()
-//    }
-//
-//    override fun set(field: Int, value: Int) {
-//        super.set(field, value)
-//        invalidate()
-//    }
-//
-//    override fun set(year: Int, month: Int, dayOfMonth: Int) {
-//        super.set(year, month, dayOfMonth)
-//        invalidate()
-//    }
-//
-//    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int) {
-//        super.set(year, month, dayOfMonth, hourOfDay, minute)
-//        invalidate()
-//    }
-//
-//    override fun set(year: Int, month: Int, dayOfMonth: Int, hourOfDay: Int, minute: Int, second: Int) {
-//        super.set(year, month, dayOfMonth, hourOfDay, minute, second)
-//        invalidate()
-//    }
-//
-//    override fun roll(field: Int, amount: Int) {
-//        super.roll(field, amount)
-//        invalidate()
-//    }
-//
-//    override fun invalidate() {
-//        civilYear = get(YEAR)
-//        civilMonth = get(MONTH)
-//        civilDayOfMonth = get(DAY_OF_MONTH)
-//    }
-
     override val minimum: Map<Int, Int>
         get() = mapOf(
                 WEEK_OF_YEAR to 1,
@@ -126,8 +88,6 @@ class CivilCalendar(
     }
 
     // ---------------------------------------------------------------------------------------------
-
-//    override fun dayOfYear(): Int = get(DAY_OF_YEAR)
 
     override fun monthLength(year: Int, month: Int): Int =
             CivilCalendarUtils.monthLength(year, month)

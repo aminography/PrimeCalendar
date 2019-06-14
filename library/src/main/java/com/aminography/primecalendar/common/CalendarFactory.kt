@@ -6,6 +6,8 @@ import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 
 /**
+ * A factory class which creates calendar objects based on desired type.
+ *
  * @author aminography
  */
 object CalendarFactory {
