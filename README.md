@@ -1,15 +1,7 @@
 # `PrimeCalendar` :zap:
 
-PrimeCalendar provides all `java.util.Calendar` functionalities for Persian and Hijri dates. Also it is possible to convert dates to each other.
-  
-# Under Development: Documentations will be added soon!  
-.  
-.  
-.  
-.  
-.  
-  
-**`PrimeCalendar`** makes working with Civil /Persian/Hijri dates easier as well as their conversion to each other.
+PrimeCalendar provides all `java.util.Calendar` functionalities for Persian and Hijri dates.
+Also it is possible to convert dates to each other.
   
 ![](static/prime_logo.png)
   
