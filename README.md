@@ -52,7 +52,21 @@ Add the following lines to your `pom.xml` file:
 
 Usage
 -----
-A
+Calendar objects can be instantiated by the class constructors or using [`CalendarFactory`](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/common/CalendarFactory.kt).
+
+Java:
+```java
+PersianCalendar calendar = new PersianCalendar();
+// or
+PersianCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
+```
+
+Kotlin:
+```kotlin
+val calendar = PersianCalendar()
+// or
+val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
+```
 
 ### • Functionalities
 A
