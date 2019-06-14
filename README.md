@@ -86,16 +86,14 @@ A
 > ```
 
 > **Kotlin**
-> ```java
-> // Converting calendar instance to PersianCalendar:
-> val persian = calendar.toPersian()
->
-> // Converting calendar instance to HijriCalendar:
-> val hijri = calendar.toHijri()
->
-> // Converting calendar instance to CivilCalendar:
-> val civil = calendar.toCivil()
-> ```
+```kotlin
+// Converting calendar instance to PersianCalendar:
+val persian = calendar.toPersian()
+// Converting calendar instance to HijriCalendar:
+val hijri = calendar.toHijri()
+// Converting calendar instance to CivilCalendar:
+val civil = calendar.toCivil()
+```
 
 
 License
