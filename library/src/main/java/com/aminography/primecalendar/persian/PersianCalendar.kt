@@ -14,10 +14,18 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class PersianCalendar(
+class PersianCalendar constructor(
         timeZone: TimeZone = TimeZone.getDefault(),
-        locale: Locale = Locale("fa")
+        locale: Locale = Locale(DEFAULT_LOCALE)
 ) : BaseCalendar(timeZone, locale) {
+
+    constructor(
+            timeZone: TimeZone = TimeZone.getDefault()
+    ) : this(timeZone, Locale(DEFAULT_LOCALE))
+
+    constructor(
+            locale: Locale = Locale(DEFAULT_LOCALE)
+    ) : this(TimeZone.getDefault(), locale)
 
     override val monthName: String
         get() = PersianCalendarUtils.monthName(internalMonth, locale)
@@ -105,7 +113,7 @@ class PersianCalendar(
     override fun configSymbols(symbols: DateFormatSymbols) {
         symbols.apply {
             when (locale.language) {
-                "fa" -> {
+                DEFAULT_LOCALE -> {
                     eras = PersianCalendarUtils.eras
                     months = PersianCalendarUtils.monthNames
                     shortMonths = PersianCalendarUtils.shortMonthNames
@@ -146,4 +154,9 @@ class PersianCalendar(
     override fun toPersian(): PersianCalendar = this
 
     override fun toHijri(): HijriCalendar = convertPersianToHijri(this)
+
+    companion object {
+        internal const val DEFAULT_LOCALE = "fa"
+    }
+
 }

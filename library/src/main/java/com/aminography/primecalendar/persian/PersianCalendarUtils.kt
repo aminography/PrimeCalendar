@@ -1,6 +1,7 @@
 package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.common.DateHolder
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.DEFAULT_LOCALE
 import java.util.*
 import java.util.Calendar.*
 
@@ -142,21 +143,21 @@ object PersianCalendarUtils {
 
     fun monthName(month: Int, locale: Locale): String {
         return when (locale.language) {
-            "fa" -> monthNames[month]
+            DEFAULT_LOCALE -> monthNames[month]
             else -> monthNamesEn[month]
         }
     }
 
     fun shortMonthName(month: Int, locale: Locale): String {
         return when (locale.language) {
-            "fa" -> shortMonthNames[month]
+            DEFAULT_LOCALE -> shortMonthNames[month]
             else -> shortMonthNamesEn[month]
         }
     }
 
     fun weekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            "fa" -> weekDays
+            DEFAULT_LOCALE -> weekDays
             else -> weekDaysEn
         }
         return when (weekDay) {
@@ -173,7 +174,7 @@ object PersianCalendarUtils {
 
     fun shortWeekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            "fa" -> shortWeekDays
+            DEFAULT_LOCALE -> shortWeekDays
             else -> shortWeekDaysEn
         }
         return when (weekDay) {

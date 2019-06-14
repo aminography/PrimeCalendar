@@ -15,10 +15,18 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class HijriCalendar(
+class HijriCalendar constructor(
         timeZone: TimeZone = TimeZone.getDefault(),
-        locale: Locale = Locale("ar")
+        locale: Locale = Locale(DEFAULT_LOCALE)
 ) : BaseCalendar(timeZone, locale) {
+
+    constructor(
+            timeZone: TimeZone = TimeZone.getDefault()
+    ) : this(timeZone, Locale(DEFAULT_LOCALE))
+
+    constructor(
+            locale: Locale = Locale(DEFAULT_LOCALE)
+    ) : this(TimeZone.getDefault(), locale)
 
     override val monthName: String
         get() = HijriCalendarUtils.monthName(internalMonth, locale)
@@ -106,7 +114,7 @@ class HijriCalendar(
     override fun configSymbols(symbols: DateFormatSymbols) {
         symbols.apply {
             when (locale.language) {
-                "ar" -> {
+                DEFAULT_LOCALE -> {
                     eras = HijriCalendarUtils.eras
                     months = HijriCalendarUtils.monthNames
                     shortMonths = HijriCalendarUtils.shortMonthNames
@@ -147,5 +155,9 @@ class HijriCalendar(
     override fun toPersian(): PersianCalendar = convertHijriToPersian(this)
 
     override fun toHijri(): HijriCalendar = this
+
+    companion object {
+        internal const val DEFAULT_LOCALE = "ar"
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.aminography.primecalendar.hijri
 
 import com.aminography.primecalendar.common.DateHolder
+import com.aminography.primecalendar.hijri.HijriCalendar.Companion.DEFAULT_LOCALE
 import org.threeten.bp.LocalDate
 import org.threeten.bp.chrono.HijrahDate
 import org.threeten.bp.temporal.ChronoField
@@ -144,21 +145,21 @@ object HijriCalendarUtils {
 
     fun monthName(month: Int, locale: Locale): String {
         return when (locale.language) {
-            "ar" -> monthNames[month]
+            DEFAULT_LOCALE -> monthNames[month]
             else -> monthNamesEn[month]
         }
     }
 
     fun shortMonthName(month: Int, locale: Locale): String {
         return when (locale.language) {
-            "ar" -> shortMonthNames[month]
+            DEFAULT_LOCALE -> shortMonthNames[month]
             else -> shortMonthNamesEn[month]
         }
     }
 
     fun weekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            "ar" -> weekDays
+            DEFAULT_LOCALE -> weekDays
             else -> weekDaysEn
         }
         return when (weekDay) {
@@ -175,7 +176,7 @@ object HijriCalendarUtils {
 
     fun shortWeekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            "ar" -> shortWeekDays
+            DEFAULT_LOCALE -> shortWeekDays
             else -> shortWeekDaysEn
         }
         return when (weekDay) {
