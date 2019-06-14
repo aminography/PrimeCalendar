@@ -9,8 +9,8 @@ Download
 --------
 ## Gradle
 Add the following lines to your `build.gradle` file:
+
 ```gradle
-  
 repositories {
     jcenter()
 }
