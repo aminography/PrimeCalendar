@@ -2,33 +2,22 @@ package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
-import com.aminography.primecalendar.common.*
+import com.aminography.primecalendar.common.CalendarType
+import com.aminography.primecalendar.common.DateHolder
+import com.aminography.primecalendar.common.convertPersianToCivil
+import com.aminography.primecalendar.common.convertPersianToHijri
 import com.aminography.primecalendar.hijri.HijriCalendar
 import java.text.DateFormatSymbols
+import java.util.*
 import java.util.Calendar.*
 
 /**
  * @author aminography
  */
-class PersianCalendar : BaseCalendar() {
-
-    override var year: Int
-        get() = internalYear
-        set(value) {
-            set(value, internalMonth, internalDayOfMonth)
-        }
-
-    override var month: Int
-        get() = internalMonth
-        set(value) {
-            set(internalYear, value, internalDayOfMonth)
-        }
-
-    override var dayOfMonth: Int
-        get() = internalDayOfMonth
-        set(value) {
-            set(internalYear, internalMonth, value)
-        }
+class PersianCalendar(
+        timeZone: TimeZone = TimeZone.getDefault(),
+        locale: Locale = Locale.getDefault()
+) : BaseCalendar(timeZone, locale) {
 
     override val monthName: String
         get() = PersianCalendarUtils.monthNames[internalMonth]

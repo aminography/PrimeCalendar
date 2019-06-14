@@ -2,15 +2,19 @@ package com.aminography.primecalendar.base
 
 import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.common.CalendarFactory
+import java.util.*
 import java.util.Calendar.*
 
 /**
- * `BaseCalendar` is an abstract subclass of [PrimeCalendar] and provides some methods which are
- * generalized for its child's calendar type.
+ * `BaseCalendar` is an abstract subclass of [PrimeCalendar] providing some methods which are
+ * implemented in such a way that they don't depend on calendar type.
  *
  * @author aminography
  */
-abstract class BaseCalendar : PrimeCalendar() {
+abstract class BaseCalendar(
+        timeZone: TimeZone,
+        locale: Locale
+) : PrimeCalendar(timeZone, locale) {
 
     /**
      * A map of minimum feasible values for calendar fields depending on type of calendar.
@@ -333,7 +337,7 @@ abstract class BaseCalendar : PrimeCalendar() {
 
     /**
      * Sets the values for the calendar fields [YEAR], [MONTH], [DAY_OF_MONTH], [HOUR_OF_DAY], and [MINUTE].
-     * Previous values of other fields are retained.  If this is not desired, call [clear] first.
+     * Previous values of other fields are retained. If this is not desired, call [clear] first.
      *
      * @param year the value used to set the [YEAR] calendar field.
      * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
@@ -353,7 +357,7 @@ abstract class BaseCalendar : PrimeCalendar() {
 
     /**
      * Sets the values for the calendar fields [YEAR], [MONTH], [DAY_OF_MONTH], [HOUR_OF_DAY], [MINUTE], and [SECOND].
-     * Previous values of other fields are retained.  If this is not desired, call [clear] first.
+     * Previous values of other fields are retained. If this is not desired, call [clear] first.
      *
      * @param year the value used to set the [YEAR] calendar field.
      * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.

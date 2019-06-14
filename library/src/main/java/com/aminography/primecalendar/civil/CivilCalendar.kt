@@ -14,25 +14,10 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class CivilCalendar : /*PrimeCalendar()*/ BaseCalendar() {
-
-    override var year: Int
-        get() = internalYear
-        set(value) {
-            set(value, internalMonth, internalDayOfMonth)
-        }
-
-    override var month: Int
-        get() = internalMonth
-        set(value) {
-            set(internalYear, value, internalDayOfMonth)
-        }
-
-    override var dayOfMonth: Int
-        get() = internalDayOfMonth
-        set(value) {
-            set(internalYear, internalMonth, value)
-        }
+class CivilCalendar(
+        timeZone: TimeZone = TimeZone.getDefault(),
+        locale: Locale = Locale.getDefault()
+) : BaseCalendar(timeZone, locale) {
 
     override val monthName: String
         get() = internalCalendar.getDisplayName(MONTH, LONG, Locale.ENGLISH)
