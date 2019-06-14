@@ -5,6 +5,39 @@ Also it is possible to convert dates to each other.
   
 ![](static/prime_logo.png)
   
+Download
+--------
+##Gradle
+Add the following lines to your `build.gradle` file:
+```gradle
+  
+repositories {
+    jcenter()
+}
+  
+dependencies {
+    implementation 'com.aminography:primecalendar:1.2.5'
+}
+```
+
+##Maven
+Add the following lines to your `pom.xml` file:
+
+```maven
+<repositories>
+    <repository>
+        <id>jcenter</id>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>com.aminography</groupId>
+        <artifactId>primecalendar</artifactId>
+        <version>1.2.5</version>
+    </dependency>
+</dependencies>
 
 License
 --------
