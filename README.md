@@ -7,7 +7,7 @@ Also it is possible to convert dates to each other.
   
 Download
 --------
-##Gradle
+## Gradle
 Add the following lines to your `build.gradle` file:
 ```gradle
   
@@ -20,10 +20,10 @@ dependencies {
 }
 ```
 
-##Maven
+## Maven
 Add the following lines to your `pom.xml` file:
 
-```maven
+```xml
 <repositories>
     <repository>
         <id>jcenter</id>
@@ -38,6 +38,7 @@ Add the following lines to your `pom.xml` file:
         <version>1.2.5</version>
     </dependency>
 </dependencies>
+```
 
 License
 --------
