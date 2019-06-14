@@ -2,7 +2,13 @@
 
 **`PrimeCalendar`** provides all [`java.util.Calendar`](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html) functionalities for `Persian` and `Hijri` dates.
 **`PrimeCalendar`** can be used in every **JVM-based** projects such as **Java/kotlin** applications, **Android** apps, etc.
-  
+
+  | Class | Draggability | Expandability |
+  | --- | --- | --- |
+  | [PersianCalendar](1) | --- | --- |
+  | HijriCalendar | --- | --- |
+  | CivilCalendar | --- | --- |
+
 ![](static/prime_logo.png)
   
 Download
@@ -59,3 +65,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+[1]: https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/persian/PersianCalendar.kt
