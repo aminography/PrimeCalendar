@@ -55,18 +55,18 @@ Usage
 Calendar objects can be instantiated by the class constructors or using [`CalendarFactory`](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/common/CalendarFactory.kt).
 
 > **Java**
-> ```java
-> PrimeCalendar calendar = new PersianCalendar();
-> // or
-> PrimeCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
-> ```
+```java
+PrimeCalendar calendar = new PersianCalendar();
+// or
+PrimeCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
+```
 
 > **Kotlin**
-> ```kotlin
-> val calendar = PersianCalendar()
-> // or
-> val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
-> ```
+```kotlin
+val calendar = PersianCalendar()
+// or
+val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
+```
 
 ### • Functionalities
 A
@@ -74,23 +74,25 @@ A
 ### • Date Conversion
 
 > **Java**
-> ```java
-> // Converting calendar instance to PersianCalendar:
-> PersianCalendar persian = calendar.toPersian();
->
-> // Converting calendar instance to HijriCalendar:
-> HijriCalendar hijri = calendar.toHijri();
->
-> // Converting calendar instance to CivilCalendar:
-> CivilCalendar civil = calendar.toCivil();
-> ```
+```java
+// Converting calendar instance to PersianCalendar:
+PersianCalendar persian = calendar.toPersian();
+
+// Converting calendar instance to HijriCalendar:
+HijriCalendar hijri = calendar.toHijri();
+
+// Converting calendar instance to CivilCalendar:
+CivilCalendar civil = calendar.toCivil();
+```
 
 > **Kotlin**
 ```kotlin
 // Converting calendar instance to PersianCalendar:
 val persian = calendar.toPersian()
+
 // Converting calendar instance to HijriCalendar:
 val hijri = calendar.toHijri()
+
 // Converting calendar instance to CivilCalendar:
 val civil = calendar.toCivil()
 ```
