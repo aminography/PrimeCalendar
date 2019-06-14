@@ -86,7 +86,7 @@ A
 > ```
 
 > **Kotlin**
-> ```kotlin
+> ```
 > // Converting calendar instance to PersianCalendar:
 > val persian = calendar.toPersian()
 >
