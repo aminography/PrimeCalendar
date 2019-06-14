@@ -1,5 +1,9 @@
 package com.aminography.primecalendar.sample;
 
+import com.aminography.primecalendar.common.CalendarFactory;
+import com.aminography.primecalendar.common.CalendarType;
+import com.aminography.primecalendar.persian.PersianCalendar;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,5 +19,11 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void aaaaa() {
+        PersianCalendar calendar = (PersianCalendar) CalendarFactory.newInstance(CalendarType.PERSIAN);
+    }
+
 
 }

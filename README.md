@@ -56,9 +56,9 @@ Calendar objects can be instantiated by the class constructors or using [`Calend
 
 Java:
 ```java
-PersianCalendar calendar = new PersianCalendar();
+PrimeCalendar calendar = new PersianCalendar();
 // or
-PersianCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
+PrimeCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
 ```
 
 Kotlin:
