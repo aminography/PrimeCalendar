@@ -15,7 +15,7 @@ This library contains three types of calendar systems as well as their conversio
   
 Download
 --------
-To download **`PrimeCalendar`** using build tool systems:
+**`PrimeCalendar`** is available on bintray to download using build tools systems.
 
 ### • Gradle
 Add the following lines to your `build.gradle` file:
