@@ -54,8 +54,10 @@ Usage
 -----
 A
 
-Functionalities
----------------
+### • Functionalities
+A
+
+### • Date Conversion
 A
 
 
