@@ -75,15 +75,25 @@ A
 
 > **Java**
 > ```java
+> // Converting calendar instance to PersianCalendar:
 > PersianCalendar persian = calendar.toPersian();
+>
+> // Converting calendar instance to HijriCalendar:
 > HijriCalendar hijri = calendar.toHijri();
+>
+> // Converting calendar instance to CivilCalendar:
 > CivilCalendar civil = calendar.toCivil();
 > ```
 
 > **Kotlin**
 > ```kotlin
+> // Converting calendar instance to PersianCalendar:
 > val persian = calendar.toPersian()
+>
+> // Converting calendar instance to HijriCalendar:
 > val hijri = calendar.toHijri()
+>
+> // Converting calendar instance to CivilCalendar:
 > val civil = calendar.toCivil()
 > ```
 
