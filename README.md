@@ -70,6 +70,13 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 
 ### • Functionalities
 A
+```kotlin
+val persian = PersianCalendar()
+persian.set(1398, 2, 24)
+println(persian.longDateString) // -> جمعه, 24 خرداد 1398
+
+
+```
 
 ### • Date Conversion
 Converting dates in different types is possible simply by calling converter methods.

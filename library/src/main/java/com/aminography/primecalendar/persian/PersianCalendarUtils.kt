@@ -1,6 +1,8 @@
 package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.common.DateHolder
+import java.util.*
+import java.util.Calendar.*
 
 /**
  * @author aminography
@@ -77,6 +79,114 @@ object PersianCalendarUtils {
             "\u067e", // Panjshanbeh
             "\u062c" // jom'e
     )
+
+    internal val monthNamesEn = arrayOf(
+            "Farvardin", // Farvardin
+            "Ordibehesht", // Ordibehesht
+            "Khordad", // Khordad
+            "Tir", // Tir
+            "Mordad", // Mordad
+            "Shahrivar", // Shahrivar
+            "Mehr", // Mehr
+            "Aban", // Aban
+            "Azar", // Azar
+            "Dey", // Dey
+            "Bahman", // Bahman
+            "Esfand" // Esfand
+    )
+
+    internal val weekDaysEn = arrayOf(
+            "Saturday", // Shanbeh
+            "Sunday", // Yekshanbeh
+            "Monday", // Doshanbeh
+            "Tuesday", // Sehshanbeh
+            "Wednesday", // Chaharshanbeh
+            "Thursday", // Panjshanbeh
+            "Friday" // jom'e
+    )
+
+    internal val erasEn = arrayOf(
+            "AD", // AD
+            "BC" // BC
+    )
+
+    internal val amPmEn = arrayOf(
+            "AM", // AM
+            "PM" // PM
+    )
+
+    internal val shortMonthNamesEn = arrayOf(
+            "Far", // Farvardin
+            "Ord", // Ordibehesht
+            "Kho", // Khordad
+            "Tir", // Tir
+            "Mor", // Mordad
+            "Sha", // Shahrivar
+            "Meh", // Mehr
+            "Aba", // Aban
+            "Aza", // Azar
+            "Dey", // Dey
+            "Bah", // Bahman
+            "Esf" // Esfand
+    )
+
+    internal val shortWeekDaysEn = arrayOf(
+            "Sa", // Shanbeh
+            "Su", // Yekshanbeh
+            "Mo", // Doshanbeh
+            "Tu", // Sehshanbeh
+            "We", // Chaharshanbeh
+            "Th", // Panjshanbeh
+            "Fr" // jom'e
+    )
+
+    fun monthName(month: Int, locale: Locale): String {
+        return when (locale.language) {
+            "fa" -> monthNames[month]
+            else -> monthNamesEn[month]
+        }
+    }
+
+    fun shortMonthName(month: Int, locale: Locale): String {
+        return when (locale.language) {
+            "fa" -> shortMonthNames[month]
+            else -> shortMonthNamesEn[month]
+        }
+    }
+
+    fun weekDayName(weekDay: Int, locale: Locale): String {
+        val array = when (locale.language) {
+            "fa" -> weekDays
+            else -> weekDaysEn
+        }
+        return when (weekDay) {
+            SATURDAY -> array[0]
+            SUNDAY -> array[1]
+            MONDAY -> array[2]
+            TUESDAY -> array[3]
+            WEDNESDAY -> array[4]
+            THURSDAY -> array[5]
+            FRIDAY -> array[6]
+            else -> throw IllegalArgumentException()
+        }
+    }
+
+    fun shortWeekDayName(weekDay: Int, locale: Locale): String {
+        val array = when (locale.language) {
+            "fa" -> shortWeekDays
+            else -> shortWeekDaysEn
+        }
+        return when (weekDay) {
+            SATURDAY -> array[0]
+            SUNDAY -> array[1]
+            MONDAY -> array[2]
+            TUESDAY -> array[3]
+            WEDNESDAY -> array[4]
+            THURSDAY -> array[5]
+            FRIDAY -> array[6]
+            else -> throw IllegalArgumentException()
+        }
+    }
 
     // Internal Calculation Methods ----------------------------------------------------------------
 

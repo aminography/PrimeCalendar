@@ -4,6 +4,8 @@ import com.aminography.primecalendar.common.DateHolder
 import org.threeten.bp.LocalDate
 import org.threeten.bp.chrono.HijrahDate
 import org.threeten.bp.temporal.ChronoField
+import java.util.*
+import java.util.Calendar.*
 
 /**
  * @author aminography
@@ -79,6 +81,114 @@ object HijriCalendarUtils {
             "\u062e\u0645", // al-Khamis
             "\u062c\u0645" // al-Jumu'ah
     )
+
+    internal val monthNamesEn = arrayOf(
+            "Muharram", // Muharram
+            "Safar", // Safar
+            "Rabiʿ al-Awwal", // Rabiʿ al-Awwal
+            "Rabiʿ ath-Thani", // Rabiʿ ath-Thani
+            "Jumada al-Ula", // Jumada al-Ula
+            "Jumada al-Akhirah", // Jumada al-Akhirah
+            "Rajab", // Rajab
+            "Sha'ban", // Sha'ban
+            "Ramadan", // Ramadan
+            "Shawwal", // Shawwal
+            "Dhu al-Qa'dah", // Dhu al-Qa'dah
+            "Dhu al-Hijjah" // Dhu al-Hijjah
+    )
+
+    internal val weekDaysEn = arrayOf(
+            "Saturday", // as-Sabt
+            "Sunday", // al-Ahad
+            "Monday", // al-Ithnayn
+            "Tuesday", // ath-Thulatha'
+            "Wednesday", // al-Arba'a'
+            "Thursday", // al-Khamis
+            "Friday" // al-Jumu'ah
+    )
+
+    internal val erasEn = arrayOf(
+            "\u0628\u0639\u062f\u0020\u0627\u0644\u0645\u064a\u0644\u0627\u062f", // AD
+            "\u0642\u0628\u0644\u0020\u0627\u0644\u0645\u064a\u0644\u0627\u062f" // BC
+    )
+
+    internal val amPmEn = arrayOf(
+            "AM", // AM
+            "PM" // PM
+    )
+
+    internal val shortMonthNamesEn = arrayOf(
+            "Muh", // Muharram
+            "Saf", // Safar
+            "R Aw", // Rabiʿ al-Awwal
+            "R Th", // Rabiʿ ath-Thani
+            "J Ul", // Jumada al-Ula
+            "J Ak", // Jumada al-Akhirah
+            "Raj", // Rajab
+            "Shb", // Sha'ban
+            "Ram", // Ramadan
+            "Shw", // Shawwal
+            "D Qa", // Dhu al-Qa'dah
+            "D Hj" // Dhu al-Hijjah
+    )
+
+    internal val shortWeekDaysEn = arrayOf(
+            "Sa", // as-Sabt
+            "Su", // al-Ahad
+            "Mo", // al-Ithnayn
+            "Tu", // ath-Thulatha'
+            "We", // al-Arba'a'
+            "Th", // al-Khamis
+            "Fr" // al-Jumu'ah
+    )
+
+    fun monthName(month: Int, locale: Locale): String {
+        return when (locale.language) {
+            "ar" -> monthNames[month]
+            else -> monthNamesEn[month]
+        }
+    }
+
+    fun shortMonthName(month: Int, locale: Locale): String {
+        return when (locale.language) {
+            "ar" -> shortMonthNames[month]
+            else -> shortMonthNamesEn[month]
+        }
+    }
+
+    fun weekDayName(weekDay: Int, locale: Locale): String {
+        val array = when (locale.language) {
+            "ar" -> weekDays
+            else -> weekDaysEn
+        }
+        return when (weekDay) {
+            SATURDAY -> array[0]
+            SUNDAY -> array[1]
+            MONDAY -> array[2]
+            TUESDAY -> array[3]
+            WEDNESDAY -> array[4]
+            THURSDAY -> array[5]
+            FRIDAY -> array[6]
+            else -> throw IllegalArgumentException()
+        }
+    }
+
+    fun shortWeekDayName(weekDay: Int, locale: Locale): String {
+        val array = when (locale.language) {
+            "ar" -> shortWeekDays
+            else -> shortWeekDaysEn
+        }
+        return when (weekDay) {
+            SATURDAY -> array[0]
+            SUNDAY -> array[1]
+            MONDAY -> array[2]
+            TUESDAY -> array[3]
+            WEDNESDAY -> array[4]
+            THURSDAY -> array[5]
+            FRIDAY -> array[6]
+            else -> throw IllegalArgumentException()
+        }
+    }
 
     // Internal Calculation Methods ----------------------------------------------------------------
 

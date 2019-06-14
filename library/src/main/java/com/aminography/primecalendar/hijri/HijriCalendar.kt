@@ -17,23 +17,20 @@ import java.util.Calendar.*
  */
 class HijriCalendar(
         timeZone: TimeZone = TimeZone.getDefault(),
-        locale: Locale = Locale.getDefault()
+        locale: Locale = Locale("ar")
 ) : BaseCalendar(timeZone, locale) {
 
     override val monthName: String
-        get() = HijriCalendarUtils.monthNames[internalMonth]
+        get() = HijriCalendarUtils.monthName(internalMonth, locale)
+
+    override val monthNameShort: String
+        get() = HijriCalendarUtils.shortMonthName(internalMonth, locale)
 
     override val weekDayName: String
-        get() = when (get(DAY_OF_WEEK)) {
-            SATURDAY -> HijriCalendarUtils.weekDays[0]
-            SUNDAY -> HijriCalendarUtils.weekDays[1]
-            MONDAY -> HijriCalendarUtils.weekDays[2]
-            TUESDAY -> HijriCalendarUtils.weekDays[3]
-            WEDNESDAY -> HijriCalendarUtils.weekDays[4]
-            THURSDAY -> HijriCalendarUtils.weekDays[5]
-            FRIDAY -> HijriCalendarUtils.weekDays[6]
-            else -> throw IllegalArgumentException()
-        }
+        get() = HijriCalendarUtils.weekDayName(internalCalendar.get(DAY_OF_WEEK), locale)
+
+    override val weekDayNameShort: String
+        get() = HijriCalendarUtils.shortWeekDayName(internalCalendar.get(DAY_OF_WEEK), locale)
 
     override val monthLength: Int
         get() = HijriCalendarUtils.monthLength(internalYear, internalMonth)
@@ -108,12 +105,24 @@ class HijriCalendar(
 
     override fun configSymbols(symbols: DateFormatSymbols) {
         symbols.apply {
-            eras = HijriCalendarUtils.eras
-            months = HijriCalendarUtils.monthNames
-            shortMonths = HijriCalendarUtils.shortMonthNames
-            weekdays = HijriCalendarUtils.weekDays
-            shortWeekdays = HijriCalendarUtils.shortWeekDays
-            amPmStrings = HijriCalendarUtils.amPm
+            when (locale.language) {
+                "ar" -> {
+                    eras = HijriCalendarUtils.eras
+                    months = HijriCalendarUtils.monthNames
+                    shortMonths = HijriCalendarUtils.shortMonthNames
+                    weekdays = HijriCalendarUtils.weekDays
+                    shortWeekdays = HijriCalendarUtils.shortWeekDays
+                    amPmStrings = HijriCalendarUtils.amPm
+                }
+                else -> {
+                    eras = HijriCalendarUtils.erasEn
+                    months = HijriCalendarUtils.monthNamesEn
+                    shortMonths = HijriCalendarUtils.shortMonthNamesEn
+                    weekdays = HijriCalendarUtils.weekDaysEn
+                    shortWeekdays = HijriCalendarUtils.shortWeekDaysEn
+                    amPmStrings = HijriCalendarUtils.amPmEn
+                }
+            }
         }
     }
 

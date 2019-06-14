@@ -25,7 +25,7 @@ import java.util.Calendar.*
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class PrimeCalendar(
         timeZone: TimeZone,
-        locale: Locale
+        internal val locale: Locale
 ) : IConverter {
 
     /**
@@ -88,9 +88,19 @@ abstract class PrimeCalendar(
     abstract val monthName: String
 
     /**
+     * A property which returns name of the current month in abbreviation manner.
+     */
+    abstract val monthNameShort: String
+
+    /**
      * A property which returns name of the current week day.
      */
     abstract val weekDayName: String
+
+    /**
+     * A property which returns name of the current week day in abbreviation manner.
+     */
+    abstract val weekDayNameShort: String
 
     /**
      * A property which returns length of the current month.

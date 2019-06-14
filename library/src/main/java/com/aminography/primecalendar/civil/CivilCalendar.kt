@@ -20,10 +20,16 @@ class CivilCalendar(
 ) : BaseCalendar(timeZone, locale) {
 
     override val monthName: String
-        get() = internalCalendar.getDisplayName(MONTH, LONG, Locale.ENGLISH)
+        get() = internalCalendar.getDisplayName(MONTH, LONG, locale)
+
+    override val monthNameShort: String
+        get() = internalCalendar.getDisplayName(MONTH, SHORT, locale)
 
     override val weekDayName: String
-        get() = internalCalendar.getDisplayName(DAY_OF_WEEK, LONG, Locale.ENGLISH)
+        get() = internalCalendar.getDisplayName(DAY_OF_WEEK, LONG, locale)
+
+    override val weekDayNameShort: String
+        get() = internalCalendar.getDisplayName(DAY_OF_WEEK, SHORT, locale)
 
     override val monthLength: Int
         get() = CivilCalendarUtils.monthLength(internalYear, internalMonth)

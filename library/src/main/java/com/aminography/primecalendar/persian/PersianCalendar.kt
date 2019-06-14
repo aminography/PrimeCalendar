@@ -16,23 +16,20 @@ import java.util.Calendar.*
  */
 class PersianCalendar(
         timeZone: TimeZone = TimeZone.getDefault(),
-        locale: Locale = Locale.getDefault()
+        locale: Locale = Locale("fa")
 ) : BaseCalendar(timeZone, locale) {
 
     override val monthName: String
-        get() = PersianCalendarUtils.monthNames[internalMonth]
+        get() = PersianCalendarUtils.monthName(internalMonth, locale)
+
+    override val monthNameShort: String
+        get() = PersianCalendarUtils.shortMonthName(internalMonth, locale)
 
     override val weekDayName: String
-        get() = when (get(DAY_OF_WEEK)) {
-            SATURDAY -> PersianCalendarUtils.weekDays[0]
-            SUNDAY -> PersianCalendarUtils.weekDays[1]
-            MONDAY -> PersianCalendarUtils.weekDays[2]
-            TUESDAY -> PersianCalendarUtils.weekDays[3]
-            WEDNESDAY -> PersianCalendarUtils.weekDays[4]
-            THURSDAY -> PersianCalendarUtils.weekDays[5]
-            FRIDAY -> PersianCalendarUtils.weekDays[6]
-            else -> throw IllegalArgumentException()
-        }
+        get() = PersianCalendarUtils.weekDayName(internalCalendar.get(DAY_OF_WEEK), locale)
+
+    override val weekDayNameShort: String
+        get() = PersianCalendarUtils.shortWeekDayName(internalCalendar.get(DAY_OF_WEEK), locale)
 
     override val monthLength: Int
         get() = PersianCalendarUtils.monthLength(internalYear, internalMonth)
@@ -107,12 +104,24 @@ class PersianCalendar(
 
     override fun configSymbols(symbols: DateFormatSymbols) {
         symbols.apply {
-            eras = PersianCalendarUtils.eras
-            months = PersianCalendarUtils.monthNames
-            shortMonths = PersianCalendarUtils.shortMonthNames
-            weekdays = PersianCalendarUtils.weekDays
-            shortWeekdays = PersianCalendarUtils.shortWeekDays
-            amPmStrings = PersianCalendarUtils.amPm
+            when (locale.language) {
+                "fa" -> {
+                    eras = PersianCalendarUtils.eras
+                    months = PersianCalendarUtils.monthNames
+                    shortMonths = PersianCalendarUtils.shortMonthNames
+                    weekdays = PersianCalendarUtils.weekDays
+                    shortWeekdays = PersianCalendarUtils.shortWeekDays
+                    amPmStrings = PersianCalendarUtils.amPm
+                }
+                else -> {
+                    eras = PersianCalendarUtils.erasEn
+                    months = PersianCalendarUtils.monthNamesEn
+                    shortMonths = PersianCalendarUtils.shortMonthNamesEn
+                    weekdays = PersianCalendarUtils.weekDaysEn
+                    shortWeekdays = PersianCalendarUtils.shortWeekDaysEn
+                    amPmStrings = PersianCalendarUtils.amPmEn
+                }
+            }
         }
     }
 
@@ -137,5 +146,4 @@ class PersianCalendar(
     override fun toPersian(): PersianCalendar = this
 
     override fun toHijri(): HijriCalendar = convertPersianToHijri(this)
-
 }
