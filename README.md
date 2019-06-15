@@ -76,7 +76,9 @@ A
 
 | Type | Method | Descriptions |
 | --- | --- | --- |
-| void | add(int field, int amount) | Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules. |
+| void | **add**(int field, int amount) | --- |
+| boolean | **after**(Object whenCalendar) | --- |
+| boolean | **before**(Object whenCalendar) | --- |
 
 
 ```kotlin
