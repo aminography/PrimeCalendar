@@ -743,8 +743,8 @@ abstract class PrimeCalendar(
      *
      * @see compareTo(Calendar)
      */
-    fun before(whenCalendar: PrimeCalendar): Boolean {
-        return compareTo(whenCalendar) < 0
+    fun before(whenCalendar: Any): Boolean {
+        return whenCalendar is PrimeCalendar && compareTo(whenCalendar) < 0
     }
 
     /**
@@ -757,8 +757,8 @@ abstract class PrimeCalendar(
      *
      * @see compareTo(Calendar)
      */
-    fun after(whenCalendar: PrimeCalendar): Boolean {
-        return compareTo(whenCalendar) > 0
+    fun after(whenCalendar: Any): Boolean {
+        return whenCalendar is PrimeCalendar && compareTo(whenCalendar) > 0
     }
 
     /**
