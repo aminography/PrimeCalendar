@@ -82,7 +82,7 @@ println(persian.longDateString) // -> جمعه, 24 خرداد 1398
 ```
 
 ### • Date Conversion
-Converting dates in different types is possible simply by calling converter methods.
+Conversion of dates to different types is possible by calling the converter methods.
 
 > **Java**
 ```java
