@@ -76,7 +76,7 @@ A
 ```kotlin
 val persian = PersianCalendar()
 persian.set(1398, 2, 24)
-println(persian.longDateString) // -> جمعه, 24 خرداد 1398
+println(persian.longDateString) // -> Friday, 24 Khordad 1398
 
 
 ```
