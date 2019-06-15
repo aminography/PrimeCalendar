@@ -73,6 +73,12 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 
 ### • Functionalities
 A
+
+| Type | Method | Descriptions |
+| --- | --- | --- |
+| void | add(int field, int amount) | Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules. |
+
+
 ```kotlin
 val persian = PersianCalendar()
 persian.set(1398, 2, 24)
