@@ -112,10 +112,12 @@ A
 | String | **toString**() |
 
 <table>
+
   <tr>
     <td><b>Method Signature</b></td>
     <td><b>Return Type</b></td>
   </tr>
+  
   <tr>
     <td><b>add</b> (int field, int amount)</td>
     <td>void</td>
@@ -123,6 +125,7 @@ A
   <tr>
     <td colspan="2"><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules .</i></td>
   </tr>
+  
   <tr>
     <td><b>after</b> (Object whenCalendar)</td>
     <td>boolean</td>
@@ -130,6 +133,7 @@ A
   <tr>
     <td colspan="2"><i>Returns whether this Calendar represents a time after the time represented by the specified Object.</i></td>
   </tr>
+  
   <tr>
     <td><b>before</b> (Object whenCalendar)</td>
     <td>boolean</td>
@@ -137,6 +141,23 @@ A
   <tr>
     <td colspan="2"><i>Returns whether this Calendar represents a time before the time represented by the specified Object.</i></td>
   </tr>
+  
+  <tr>
+    <td><b>clear</b> ()</td>
+    <td>void</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Sets all the calendar field values and the time value (millisecond offset from the Epoch) of this Calendar undefined.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>clear</b> (int field)</td>
+    <td>void</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Sets the given calendar field value and the time value (millisecond offset from the Epoch) of this Calendar undefined.</i></td>
+  </tr>
+  
 </table>
 
 
