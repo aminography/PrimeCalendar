@@ -118,6 +118,16 @@ persian.set(1398, 2, 24)
 println(persian.longDateString) // -> Friday, 24 Khordad 1398
 ```
 
+<table>
+  <tr>
+    <td>One</td>
+    <td>Two</td>
+  </tr>
+  <tr>
+    <td colspan="2">Three</td>
+  </tr>
+</table>
+
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
 
