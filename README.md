@@ -158,6 +158,22 @@ A
     <td colspan="2"><i>Sets the given calendar field value and the time value (millisecond offset from the Epoch) of this Calendar undefined.</i></td>
   </tr>
   
+  <tr>
+    <td><b>• clone</b> ()</td>
+    <td>void</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Creates and returns a copy of this object.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• compareTo</b> (PrimeCalendar anotherCalendar)</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Compares the time values (millisecond offsets from the Epoch) represented by two PrimeCalendar objects.</i></td>
+  </tr>
+  
 </table>
 
 
