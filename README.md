@@ -113,11 +113,15 @@ A
 
 <table>
   <tr>
+    <td><b>Return Type</b></td>
+    <td><b>Method Signature</b></td>
+  </tr>
+  <tr>
     <td>void</td>
     <td><b>add</b> (int field, int amount)</td>
   </tr>
   <tr>
-    <td colspan="2"><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules.</i></td>
+    <td colspan="2"><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules .</i></td>
   </tr>
   <tr>
     <td>boolean</td>
