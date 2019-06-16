@@ -174,6 +174,54 @@ A
     <td colspan="2"><i>Compares the time values (millisecond offsets from the Epoch) represented by two PrimeCalendar objects.</i></td>
   </tr>
   
+  <tr>
+    <td><b>• equals</b> (Object object)</td>
+    <td>boolean</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Compares this Calendar to the specified Object.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• get</b> (int field)</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Returns the value of the given calendar field.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getActualMaximum</b> (int field)</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Returns the maximum value that the specified calendar field could have, given the time value of this Calendar.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getActualMinimum</b> (int field)</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Returns the minimum value that the specified calendar field could have, given the time value of this Calendar.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getDisplayName</b> (int field, int style, Locale locale)</td>
+    <td>String</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Returns the string representation of the calendar field value in the given style and locale.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getDisplayNames</b> (int field, int style, Locale locale)</td>
+    <td>Map<String, Integer></td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Returns a Map containing all names of the calendar field in the given style and locale and their corresponding field values.</i></td>
+  </tr>
+  
 </table>
 
 
