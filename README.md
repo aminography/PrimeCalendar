@@ -85,8 +85,6 @@ A
 val persian = PersianCalendar()
 persian.set(1398, 2, 24)
 println(persian.longDateString) // -> Friday, 24 Khordad 1398
-
-
 ```
 
 ### • Date Conversion
