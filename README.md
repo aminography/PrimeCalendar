@@ -130,6 +130,13 @@ A
   <tr>
     <td colspan="2"><i>Returns whether this Calendar represents a time after the time represented by the specified Object.</i></td>
   </tr>
+  <tr>
+    <td><b>before</b> (Object whenCalendar)</td>
+    <td>boolean</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Returns whether this Calendar represents a time before the time represented by the specified Object.</i></td>
+  </tr>
 </table>
 
 
