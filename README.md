@@ -270,6 +270,126 @@ A
     <td colspan="2"><i>Returns a Date object representing this Calendar's time value (millisecond offset from the Epoch").</i></td>
   </tr>
   
+  <tr>
+    <td><b>• getTimeInMillis</b> ()</td>
+    <td>long</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns this Calendar's time value in milliseconds.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getTimeZone</b> ()</td>
+    <td>TimeZone</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Gets the time zone.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• hashCode</b> ()</td>
+    <td>int</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns a hash code for this calendar.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• isSet</b> (int field)</td>
+    <td>boolean</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Determines if the given calendar field has a value set, including cases that the value has been set by internal fields calculations triggered by a get method call.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• roll</b> (int field, boolean up)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Adds or subtracts (up/down) a single unit of time on the given time field without changing larger fields.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• roll</b> (int field, int amount)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Adds the specified (signed) amount to the specified calendar field without changing larger fields.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• set</b> (int field, int value)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets the given calendar field to the given value.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• set</b> (int year, int month, int dayOfMonth)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets the values for the calendar fields YEAR, MONTH, and DAY_OF_MONTH.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• set</b> (int year, int month, int dayOfMonth, int hourOfDay, int minute)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets the values for the calendar fields YEAR, MONTH, DAY_OF_MONTH, HOUR_OF_DAY, and MINUTE.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• set</b> (int year, int month, int dayOfMonth, int hourOfDay, int minute, int second)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets the values for the fields YEAR, MONTH, DAY_OF_MONTH, HOUR, MINUTE, and SECOND.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• setFirstDayOfWeek</b> (int value)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets what the first day of the week is; e.g., SUNDAY in the U.S., MONDAY in France.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• setTime</b> (Date date)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets this Calendar's time with the given Date.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• setTimeInMillis</b> (long millis)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets this Calendar's current time from the given long value.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• setTimeZone</b> (TimeZone value)</td>
+    <td>void</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Sets the time zone with the given time zone value.</i></td>
+  </tr>  
+  
+  <tr>
+    <td><b>• toString</b> ()</td>
+    <td>String</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Return a string representation of this calendar.</i></td>
+  </tr>  
+  
 </table>
 
 
