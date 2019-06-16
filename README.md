@@ -113,19 +113,19 @@ A
 
 <table>
   <tr>
-    <td><b>Return Type</b></td>
     <td><b>Method Signature</b></td>
+    <td><b>Return Type</b></td>
   </tr>
   <tr>
-    <td>void</td>
     <td><b>add</b> (int field, int amount)</td>
+    <td>void</td>
   </tr>
   <tr>
     <td colspan="2"><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules .</i></td>
   </tr>
   <tr>
-    <td>boolean</td>
     <td><b>after</b> (Object whenCalendar)</td>
+    <td>boolean</td>
   </tr>
   <tr>
     <td colspan="2"><i>Returns whether this Calendar represents a time after the time represented by the specified Object.</i></td>
