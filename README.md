@@ -111,22 +111,29 @@ A
 | void | **setTimeZone**(TimeZone value) |
 | String | **toString**() |
 
+<table>
+  <tr>
+    <td>void</td>
+    <td>**add** (int field, int amount)</td>
+  </tr>
+  <tr>
+    <td colspan="2">*Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules.*</td>
+  </tr>
+  <tr>
+    <td>boolean</td>
+    <td>**after** (Object whenCalendar)</td>
+  </tr>
+  <tr>
+    <td colspan="2">*Returns whether this Calendar represents a time after the time represented by the specified Object.*</td>
+  </tr>
+</table>
+
 
 ```kotlin
 val persian = PersianCalendar()
 persian.set(1398, 2, 24)
 println(persian.longDateString) // -> Friday, 24 Khordad 1398
 ```
-
-<table>
-  <tr>
-    <td>One</td>
-    <td>Two</td>
-  </tr>
-  <tr>
-    <td colspan="2">Three</td>
-  </tr>
-</table>
 
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
