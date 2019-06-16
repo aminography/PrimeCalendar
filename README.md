@@ -121,14 +121,14 @@ A
     <td>void</td>
   </tr>
   <tr>
-    <td colspan="2"><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules .</i></td>
+    <td colspan="2"><small><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules .</i></small></td>
   </tr>
   <tr>
     <td><b>after</b> (Object whenCalendar)</td>
     <td>boolean</td>
   </tr>
   <tr>
-    <td colspan="2"><i>Returns whether this Calendar represents a time after the time represented by the specified Object.</i></td>
+    <td colspan="2"><i><small>Returns whether this Calendar represents a time after the time represented by the specified Object.</i></small></td>
   </tr>
 </table>
 
