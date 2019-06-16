@@ -109,7 +109,7 @@ A
 | void | **setTime**(Date date) | --- |
 | void | **setTimeInMillis**(long millis) | --- |
 | void | **setTimeZone**(TimeZone value) | --- |
-| String | **toString**() |
+| String | **toString**() | --- |
 
 
 ```kotlin
