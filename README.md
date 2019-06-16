@@ -75,7 +75,7 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 A
 
 | Return Type | Method Signature |
-| -
+| --- | --- |
 | void | **add**(int field, int amount) |
 | boolean | **after**(Object whenCalendar) |
 | boolean | **before**(Object whenCalendar) |
