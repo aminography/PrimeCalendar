@@ -222,6 +222,54 @@ A
     <td colspan="2"><i>Returns a Map containing all names of the calendar field in the given style and locale and their corresponding field values.</i></td>
   </tr>
   
+  <tr>
+    <td><b>• getFirstDayOfWeek</b> ()</td>
+    <td>int</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Gets what the first day of the week is; e.g., SUNDAY in the U.S., MONDAY in France.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getGreatestMinimum</b> (int field)</td>
+    <td>int</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns the highest minimum value for the given calendar field of this Calendar instance.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getLeastMaximum</b> (int field)</td>
+    <td>int</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns the lowest maximum value for the given calendar field of this Calendar instance.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getMaximum</b> (int field)</td>
+    <td>int</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns the maximum value for the given calendar field of this Calendar instance.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getMinimum</b> (int field)</td>
+    <td>int</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns the minimum value for the given calendar field of this Calendar instance.</i></td>
+  </tr>
+  
+  <tr>
+    <td><b>• getTime</b> ()</td>
+    <td>Date</td>
+   </tr>
+  <tr>
+    <td colspan="2"><i>Returns a Date object representing this Calendar's time value (millisecond offset from the Epoch").</i></td>
+  </tr>
+  
 </table>
 
 
