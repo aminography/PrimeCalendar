@@ -119,7 +119,7 @@ A
   </tr>
   
   <tr>
-    <td><b>add</b> (int field, int amount)</td>
+    <td><b>• add</b> (int field, int amount)</td>
     <td>void</td>
   </tr>
   <tr>
@@ -127,7 +127,7 @@ A
   </tr>
   
   <tr>
-    <td><b>after</b> (Object whenCalendar)</td>
+    <td><b>• after</b> (Object whenCalendar)</td>
     <td>boolean</td>
   </tr>
   <tr>
@@ -135,7 +135,7 @@ A
   </tr>
   
   <tr>
-    <td><b>before</b> (Object whenCalendar)</td>
+    <td><b>• before</b> (Object whenCalendar)</td>
     <td>boolean</td>
   </tr>
   <tr>
@@ -143,7 +143,7 @@ A
   </tr>
   
   <tr>
-    <td><b>clear</b> ()</td>
+    <td><b>• clear</b> ()</td>
     <td>void</td>
   </tr>
   <tr>
@@ -151,7 +151,7 @@ A
   </tr>
   
   <tr>
-    <td><b>clear</b> (int field)</td>
+    <td><b>• clear</b> (int field)</td>
     <td>void</td>
   </tr>
   <tr>
