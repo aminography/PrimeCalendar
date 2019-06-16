@@ -114,17 +114,17 @@ A
 <table>
   <tr>
     <td>void</td>
-    <td>**add** (int field, int amount)</td>
+    <td><b>add</b> (int field, int amount)</td>
   </tr>
   <tr>
-    <td colspan="2">*Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules.*</td>
+    <td colspan="2"><i>Adds or subtracts the specified amount of time to the given calendar field, based on the calendar's rules.</i></td>
   </tr>
   <tr>
     <td>boolean</td>
-    <td>**after** (Object whenCalendar)</td>
+    <td><b>after</b> (Object whenCalendar)</td>
   </tr>
   <tr>
-    <td colspan="2">*Returns whether this Calendar represents a time after the time represented by the specified Object.*</td>
+    <td colspan="2"><i>Returns whether this Calendar represents a time after the time represented by the specified Object.</i></td>
   </tr>
 </table>
 
