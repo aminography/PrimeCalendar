@@ -79,6 +79,37 @@ A
 | void | **add**(int field, int amount) | --- |
 | boolean | **after**(Object whenCalendar) | --- |
 | boolean | **before**(Object whenCalendar) | --- |
+| void | **clear**() | --- |
+| void | **clear**(int field) | --- |
+| void | **clone**() | --- |
+| int | **compareTo**(PrimeCalendar anotherCalendar) | --- |
+| boolean | **equals**(Object object) | --- |
+| int | **get**(int field) | --- |
+| int | **getActualMaximum**(int field) | --- |
+| int | **getActualMinimum**(int field) | --- |
+| String | **getDisplayName**(int field, int style, Locale locale) | --- |
+| Map<String, Integer> | **getDisplayNames**(int field, int style, Locale locale) | --- |
+| int | **getFirstDayOfWeek**() | --- |
+| int | **getGreatestMinimum**(int field) | --- |
+| int | **getLeastMaximum**(int field) | --- |
+| int | **getMaximum**(int field) | --- |
+| int | **getMinimum**(int field) | --- |
+| Date | **getTime**() | --- |
+| long | **getTimeInMillis**() | --- |
+| TimeZone | **getTimeZone**() | --- |
+| int | **hashCode**() | --- |
+| boolean | **isSet**(int field) | --- |
+| void | **roll**(int field, boolean up) | --- |
+| void | **roll**(int field, int amount) | --- |
+| void | **set**(int field, int value) | --- |
+| void | **set**(int year, int month, int dayOfMonth) | --- |
+| void | **set**(int year, int month, int dayOfMonth, int hourOfDay, int minute) | --- |
+| void | **set**(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second) | --- |
+| void | **setFirstDayOfWeek**(int value) | --- |
+| void | **setTime**(Date date) | --- |
+| void | **setTimeInMillis**(long millis) | --- |
+| void | **setTimeZone**(TimeZone value) | --- |
+| String | **toString**() | --- |
 
 
 ```kotlin
