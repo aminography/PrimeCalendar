@@ -70,11 +70,6 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 
 ### • Locale
 
-
-### • Functionalities
-To see list of all methods and fields, see the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
-
-
 ```kotlin
 val persian = PersianCalendar()
 persian.set(1398, 2, 23)
@@ -91,6 +86,8 @@ println(persian.longDateString)
 It prints: 
 > Thursday, 23 Khordad 1398
 
+### • Functionalities
+To see list of all methods and fields, see the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
 
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
