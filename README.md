@@ -17,7 +17,7 @@ Download
 --------
 **`PrimeCalendar`** is available on bintray to download using build tools systems.
 
-#### • Gradle
+### • Gradle
 Add the following lines to your `build.gradle` file:
 
 ```gradle
@@ -30,7 +30,7 @@ dependencies {
 }
 ```
 
-#### • Maven
+### • Maven
 Add the following lines to your `pom.xml` file:
 
 ```xml
