@@ -17,13 +17,15 @@ class ExampleUnitTest {
 //        assertEquals(4, 2 + 2)
 
         val civil = CivilCalendar()
-        civil.set(2019, 5, 17)
+        civil.set(Calendar.YEAR, 2019)
+        civil.set(Calendar.MONTH, 5)
+        civil.set(Calendar.DAY_OF_MONTH, 17)
         println(civil.longDateString)
 
-        civil.add(Calendar.DAY_OF_MONTH, 18)
+        civil.add(Calendar.WEEK_OF_YEAR, 14)
         println(civil.longDateString)
 
-        civil.add(Calendar.DAY_OF_WEEK, -3)
+        civil.roll(Calendar.DAY_OF_WEEK, -3)
         println(civil.longDateString)
     }
 
