@@ -254,9 +254,9 @@ class ExampleUnitTest {
 
     @Test
     fun Test() {
-        val calendar = PersianCalendar()
-//        calendar.set(2019, -120, 1)
-        println("Date: ${calendar.longDateString}")
+        val persian = PersianCalendar()
+        persian.set(1398, 2, 23)
+        println(persian.longDateString)
     }
 
 }

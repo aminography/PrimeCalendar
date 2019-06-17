@@ -77,9 +77,10 @@ To see list of all methods and fields, see the [wiki](https://github.com/aminogr
 
 ```kotlin
 val persian = PersianCalendar()
-persian.set(1398, 2, 24)
-println(persian.longDateString) // -> Friday, 24 Khordad 1398
+persian.set(1398, 2, 23)
+println(persian.longDateString)
 ```
+> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
