@@ -82,6 +82,7 @@ println(civil.longDateString)
 civil.add(Calendar.DAY_OF_WEEK, -3)
 println(civil.longDateString)
 
+----------------------
 > Monday, 17 June 2019
 > Friday, 5 July 2019
 > Tuesday, 2 July 2019
@@ -121,6 +122,7 @@ When you're using Persian and Hijri calendars, you can localize digits, month na
 val persian = PersianCalendar()
 println(persian.longDateString)
 
+---------------------------
 > پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 ```
 
@@ -128,6 +130,7 @@ println(persian.longDateString)
 val persian = PersianCalendar(Locale.ENGLISH)
 println(persian.longDateString)
 
+---------------------------
 > Thursday, 23 Khordad 1398
 ```
 
