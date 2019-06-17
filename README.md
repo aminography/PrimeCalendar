@@ -72,7 +72,6 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 
 ```kotlin
 val persian = PersianCalendar()
-persian.set(1398, 2, 23)
 println(persian.longDateString)
 
 > پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
@@ -80,7 +79,6 @@ println(persian.longDateString)
 
 ```kotlin
 val persian = PersianCalendar(Locale.ENGLISH)
-persian.set(1398, 2, 23)
 println(persian.longDateString)
 
 > Thursday, 23 Khordad 1398
