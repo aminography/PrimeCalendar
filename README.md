@@ -75,7 +75,7 @@ val persian = PersianCalendar()
 persian.set(1398, 2, 23)
 println(persian.longDateString)
 
-Result> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
+> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 ```
 
 ```kotlin
@@ -83,7 +83,7 @@ val persian = PersianCalendar(Locale.ENGLISH)
 persian.set(1398, 2, 23)
 println(persian.longDateString)
 
-Result> Thursday, 23 Khordad 1398
+> Thursday, 23 Khordad 1398
 ```
 
 ### • Functionalities
