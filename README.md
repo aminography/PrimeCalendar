@@ -69,6 +69,7 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 ```
 
 ### • Locale
+When you're using Persian and Hijri calendars, you can localize digits, month names, and week day names by passing locale in constructor.
 
 ```kotlin
 val persian = PersianCalendar()
