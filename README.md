@@ -127,7 +127,7 @@ println(persian.longDateString)
 
 Third Party Libraries
 ---------------------
-**ThreeTen-Backport** (https://www.threeten.org/threetenbp)
+**• ThreeTen-Backport** (https://www.threeten.org/threetenbp)
 
 License
 --------
