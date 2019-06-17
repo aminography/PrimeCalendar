@@ -72,7 +72,7 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 
 
 ### • Functionalities
-Methods
+To see list of all methods and fields, see the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
 
 
 ```kotlin
@@ -126,5 +126,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-[1]: https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/persian/PersianCalendar.kt
