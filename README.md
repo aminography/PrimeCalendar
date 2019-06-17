@@ -68,25 +68,24 @@ val calendar = PersianCalendar()
 val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 ```
 
-### • Locale
-When you're using Persian and Hijri calendars, you can localize digits, month names, and week day names by passing locale in constructor.
-
-```kotlin
-val persian = PersianCalendar()
-println(persian.longDateString)
-
-> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
-```
-
-```kotlin
-val persian = PersianCalendar(Locale.ENGLISH)
-println(persian.longDateString)
-
-> Thursday, 23 Khordad 1398
-```
-
 ### • Functionalities
 Almost all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, etc. To see list of methods and fields, refer to the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
+
+```kotlin
+val civil = CivilCalendar()
+civil.set(2019, 5, 17)
+println(civil.longDateString)
+
+civil.add(Calendar.DAY_OF_MONTH, 18)
+println(civil.longDateString)
+
+civil.add(Calendar.DAY_OF_WEEK, -3)
+println(civil.longDateString)
+
+> Monday, 17 June 2019
+> Friday, 5 July 2019
+> Tuesday, 2 July 2019
+```
 
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
@@ -115,6 +114,22 @@ val hijri = calendar.toHijri()
 val civil = calendar.toCivil()
 ```
 
+### • Locale
+When you're using Persian and Hijri calendars, you can localize digits, month names, and week day names by passing locale in constructor.
+
+```kotlin
+val persian = PersianCalendar()
+println(persian.longDateString)
+
+> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
+```
+
+```kotlin
+val persian = PersianCalendar(Locale.ENGLISH)
+println(persian.longDateString)
+
+> Thursday, 23 Khordad 1398
+```
 
 License
 --------
