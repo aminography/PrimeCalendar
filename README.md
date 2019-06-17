@@ -75,18 +75,16 @@ val persian = PersianCalendar()
 persian.set(1398, 2, 23)
 println(persian.longDateString)
 
-> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
+Result> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 ```
-It prints: 
 
 ```kotlin
 val persian = PersianCalendar(Locale.ENGLISH)
 persian.set(1398, 2, 23)
 println(persian.longDateString)
 
-> Thursday, 23 Khordad 1398
+Result> Thursday, 23 Khordad 1398
 ```
-It prints: 
 
 ### • Functionalities
 To see list of all methods and fields, see the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
