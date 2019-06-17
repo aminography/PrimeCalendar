@@ -74,14 +74,16 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 val persian = PersianCalendar()
 persian.set(1398, 2, 23)
 println(persian.longDateString)
+
+> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 ```
 It prints: 
-> پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 
 ```kotlin
 val persian = PersianCalendar(Locale.ENGLISH)
 persian.set(1398, 2, 23)
 println(persian.longDateString)
+
 > Thursday, 23 Khordad 1398
 ```
 It prints: 
