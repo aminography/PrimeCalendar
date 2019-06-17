@@ -82,6 +82,14 @@ println(persian.longDateString)
 ```
 > پنج‌شنبه، ۲۳ خرداد ۱۳۹۸
 
+```kotlin
+val persian = PersianCalendar(Locale.ENGLISH)
+persian.set(1398, 2, 23)
+println(persian.longDateString)
+```
+> Thursday, 23 Khordad 1398
+
+
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
 

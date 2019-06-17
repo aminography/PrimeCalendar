@@ -254,7 +254,7 @@ class ExampleUnitTest {
 
     @Test
     fun Test() {
-        val persian = PersianCalendar()
+        val persian = PersianCalendar(Locale.ENGLISH)
         persian.set(1398, 2, 23)
         println(persian.longDateString)
     }
