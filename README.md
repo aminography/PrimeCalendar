@@ -85,7 +85,7 @@ println(civil.longDateString)
 civil.roll(Calendar.DAY_OF_WEEK, -3)
 println(civil.longDateString)
 
-----------------------
+---------------------------
 > Monday, 17 June 2019
 > Thursday, 11 July 2019
 > Thursday, 17 October 2019
