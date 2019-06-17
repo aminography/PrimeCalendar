@@ -69,7 +69,7 @@ val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 ```
 
 ### • Functionalities
-Almost all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, etc. To see list of methods and fields, refer to the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
+Almost all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, etc. To see list of methods and fields, refer to the [wiki page](https://github.com/aminography/PrimeCalendar/wiki).
 
 ```kotlin
 val civil = CivilCalendar()
@@ -93,21 +93,8 @@ println(civil.longDateString)
 ```
 
 ### • Date Conversion
-Conversion of dates to different types is possible by calling the converter methods.
+Conversion of dates to each other is simply possible by calling the converter methods.
 
-> **Java**
-```java
-// Converting calendar instance to PersianCalendar:
-PersianCalendar persian = calendar.toPersian();
-
-// Converting calendar instance to HijriCalendar:
-HijriCalendar hijri = calendar.toHijri();
-
-// Converting calendar instance to CivilCalendar:
-CivilCalendar civil = calendar.toCivil();
-```
-
-> **Kotlin**
 ```kotlin
 // Converting calendar instance to PersianCalendar:
 val persian = calendar.toPersian()
@@ -120,7 +107,7 @@ val civil = calendar.toCivil()
 ```
 
 ### • Locale
-When you're using Persian and Hijri calendars, you can localize digits, month names, and week day names by passing locale in constructor.
+You can localize digits, month names, and week day names by passing locale in constructor. For Persian and Hijri calendars, the default locale is set to Farsi and Arabic respectively.
 
 ```kotlin
 val persian = PersianCalendar()
