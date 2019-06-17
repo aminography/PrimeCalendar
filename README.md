@@ -86,7 +86,7 @@ println(persian.longDateString)
 ```
 
 ### • Functionalities
-Almost all of standard `Calendar` functionalities are implemented in `PrimeCalendar` including set, add, roll, etc. To see list methods and fields, refer to the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
+Almost all of the standard `Calendar` functionalities are implemented in `PrimeCalendar` including set, add, roll, etc. To see list of methods and fields, refer to the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
 
 ### • Date Conversion
 Conversion of dates to different types is possible by calling the converter methods.
