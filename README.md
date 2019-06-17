@@ -73,9 +73,10 @@ Almost all of the standard `Calendar` functionalities are implemented in **`Prim
 
 ```kotlin
 val civil = CivilCalendar()
-civil.set(Calendar.YEAR, 2019)
-civil.set(Calendar.MONTH, 5)
-civil.set(Calendar.DAY_OF_MONTH, 17)
+civil.set(2019, 5, 17)
+println(civil.longDateString)
+
+civil.set(Calendar.DAY_OF_YEAR, 192)
 println(civil.longDateString)
 
 civil.add(Calendar.WEEK_OF_YEAR, 14)
@@ -86,8 +87,9 @@ println(civil.longDateString)
 
 ----------------------
 > Monday, 17 June 2019
-> Monday, 23 September 2019
-> Friday, 27 September 2019
+> Thursday, 11 July 2019
+> Thursday, 17 October 2019
+> Monday, 14 October 2019
 ```
 
 ### • Date Conversion
