@@ -129,7 +129,11 @@ abstract class PrimeCalendar(
      * `Friday, 14 June 2019`
      */
     val longDateString: String
-        get() = "$weekDayName, $dayOfMonth $monthName $year"
+        get() = weekDayName +
+                "${comma(locale)} " +
+                "${localizeNumber(locale, dayOfMonth)} " +
+                "$monthName " +
+                localizeNumber(locale, year)
 
     /**
      * A property which returns a short description of the current calendar time.
@@ -138,7 +142,11 @@ abstract class PrimeCalendar(
      * `14/6/2019`
      */
     val shortDateString: String
-        get() = "${normalize(year)}$delimiter${normalize(month + 1)}$delimiter${normalize(dayOfMonth)}"
+        get() = normalize(locale, year) +
+                delimiter +
+                normalize(locale, month + 1) +
+                delimiter +
+                normalize(locale, dayOfMonth)
 
     /**
      * A property which returns month name and day of month in current calendar time.
@@ -147,7 +155,8 @@ abstract class PrimeCalendar(
      * `June 14`
      */
     val monthDayString: String
-        get() = "$monthName ${normalize(dayOfMonth)}"
+        get() = "$monthName " +
+                normalize(locale, dayOfMonth)
 
     // Open Functions ------------------------------------------------------------------------------
 
@@ -159,23 +168,23 @@ abstract class PrimeCalendar(
     }
 
     /**
-     * Sets the given calendar field to the given value in the internal calendar instance.
-     *
-     * @param year the value used to set the [YEAR] calendar field.
-     * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
-     * @param dayOfMonth the value used to set the [DAY_OF_MONTH] calendar field.
-     */
-    open fun set(field: Int, value: Int) {
-        internalCalendar.set(field, value)
-    }
-
-    /**
      * Sets the values for the calendar fields [YEAR], [MONTH], and [DAY_OF_MONTH]
      * in the internal calendar instance.
      *
      * @param field the given calendar field.
      * @param value the value to be set for the given calendar field.
      * @throws ArrayIndexOutOfBoundsException if the specified field is out of range ([field &lt; 0 || field &gt;= FIELD_COUNT]).
+     */
+    open fun set(field: Int, value: Int) {
+        internalCalendar.set(field, value)
+    }
+
+    /**
+     * Sets the given calendar field to the given value in the internal calendar instance.
+     *
+     * @param year the value used to set the [YEAR] calendar field.
+     * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
+     * @param dayOfMonth the value used to set the [DAY_OF_MONTH] calendar field.
      */
     open fun set(year: Int, month: Int, dayOfMonth: Int) {
         internalCalendar.set(year, month, dayOfMonth)
@@ -359,7 +368,7 @@ abstract class PrimeCalendar(
     /**
      * Sets the time zone with the given time zone value.
      *
-     * @param value the given time zone.
+     * @param zone the given time zone.
      */
     fun setTimeZone(zone: TimeZone) {
         internalCalendar.timeZone = zone
