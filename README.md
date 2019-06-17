@@ -82,9 +82,9 @@ It prints:
 val persian = PersianCalendar(Locale.ENGLISH)
 persian.set(1398, 2, 23)
 println(persian.longDateString)
+> Thursday, 23 Khordad 1398
 ```
 It prints: 
-> Thursday, 23 Khordad 1398
 
 ### • Functionalities
 To see list of all methods and fields, see the [wiki](https://github.com/aminography/PrimeCalendar/wiki) page.
