@@ -25,7 +25,7 @@ import java.util.Calendar.*
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class PrimeCalendar(
         timeZone: TimeZone,
-        internal val locale: Locale
+        val locale: Locale
 ) : IConverter {
 
     /**

@@ -26,7 +26,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.9'
+    implementation 'com.aminography:primecalendar:1.2.10'
 }
 ```
 
@@ -45,7 +45,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.2.9</version>
+        <version>1.2.10</version>
     </dependency>
 </dependencies>
 ```
