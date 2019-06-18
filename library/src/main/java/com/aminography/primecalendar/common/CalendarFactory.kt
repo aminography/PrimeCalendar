@@ -34,4 +34,22 @@ object CalendarFactory {
         }
     }
 
+    @JvmStatic
+    fun newInstance(type: CalendarType, timeZone: TimeZone): PrimeCalendar {
+        return when (type) {
+            CalendarType.CIVIL -> CivilCalendar(timeZone)
+            CalendarType.PERSIAN -> PersianCalendar(timeZone)
+            CalendarType.HIJRI -> HijriCalendar(timeZone)
+        }
+    }
+
+    @JvmStatic
+    fun newInstance(type: CalendarType, timeZone: TimeZone, locale: Locale): PrimeCalendar {
+        return when (type) {
+            CalendarType.CIVIL -> CivilCalendar(timeZone, locale)
+            CalendarType.PERSIAN -> PersianCalendar(timeZone, locale)
+            CalendarType.HIJRI -> HijriCalendar(timeZone, locale)
+        }
+    }
+
 }
