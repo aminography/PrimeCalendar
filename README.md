@@ -50,6 +50,8 @@ Add the following lines to your `pom.xml` file:
 </dependencies>
 ```
 
+<br/>
+
 Usage
 -----
 Calendar objects can be instantiated by the class constructors or using [`CalendarFactory`](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/common/CalendarFactory.kt).
@@ -67,6 +69,8 @@ val calendar = PersianCalendar()
 // or
 val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
 ```
+
+<br/>
 
 ### • Functionalities
 Almost all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, etc. To see list of methods and fields, refer to the [wiki page](https://github.com/aminography/PrimeCalendar/wiki).
@@ -92,6 +96,8 @@ println(civil.longDateString)
 > Monday, 14 October 2019
 ```
 
+<br/>
+
 ### • Date Conversion
 Conversion of dates to each other is simply possible by calling the converter methods.
 
@@ -105,6 +111,8 @@ val hijri = calendar.toHijri()
 // Converting calendar instance to CivilCalendar:
 val civil = calendar.toCivil()
 ```
+
+<br/>
 
 ### • Locale
 You can localize digits, month names, and week day names by passing locale in constructor. For Persian and Hijri calendars, the default locale is set to Farsi and Arabic respectively.
@@ -125,9 +133,13 @@ println(persian.longDateString)
 > Thursday, 23 Khordad 1398
 ```
 
+<br/>
+
 Third Party Libraries
 ---------------------
 **• ThreeTen-Backport** (https://www.threeten.org/threetenbp)
+
+<br/>
 
 License
 --------
