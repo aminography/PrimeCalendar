@@ -65,9 +65,9 @@ PrimeCalendar calendar = CalendarFactory.newInstance(CalendarType.PERSIAN);
 
 > **Kotlin**
 ```kotlin
-val calendar = PersianCalendar()
+val calendar = HijriCalendar()
 // or
-val calendar = CalendarFactory.newInstance(CalendarType.PERSIAN)
+val calendar = CalendarFactory.newInstance(CalendarType.HIJRI)
 ```
 
 <br/>
