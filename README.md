@@ -15,7 +15,7 @@ This library contains three types of calendar systems as well as their conversio
   
 Download
 --------
-**`PrimeCalendar`** is available on bintray to download using build tools systems.
+**`PrimeCalendar`** is available on [bintray](https://bintray.com/aminography/maven/PrimeCalendar) to download using build tools systems.
 
 ### • Gradle
 Add the following lines to your `build.gradle` file:
