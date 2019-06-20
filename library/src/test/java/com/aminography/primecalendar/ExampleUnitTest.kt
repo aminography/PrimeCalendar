@@ -1,6 +1,7 @@
 package com.aminography.primecalendar
 
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -254,9 +255,13 @@ class ExampleUnitTest {
 
     @Test
     fun Test() {
-        val persian = PersianCalendar(Locale.ENGLISH)
-        persian.set(1398, 2, 23)
+        val persian = PersianCalendar()
         println(persian.longDateString)
+
+        val hijri = HijriCalendar()
+        println(persian.longDateString)
+
+        println("${persian < hijri}")
     }
 
 }
