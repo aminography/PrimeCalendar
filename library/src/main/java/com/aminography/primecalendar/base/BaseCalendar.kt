@@ -103,8 +103,8 @@ abstract class BaseCalendar(
                 invalidate()
             }
             YEAR -> {
-                val min = getActualMinimum(field)
-                val max = getActualMaximum(field)
+                val min = getMinimum(field)
+                val max = getMaximum(field)
                 when (value) {
                     in min..max -> {
                         var d = internalDayOfMonth
@@ -287,7 +287,14 @@ abstract class BaseCalendar(
      * @see set(int,int,int,int,int,int)
      */
     override fun set(year: Int, month: Int, dayOfMonth: Int) {
-        internalYear = year
+        val yearMin = getMinimum(YEAR)
+        val yearMax = getMaximum(YEAR)
+        when (year) {
+            in yearMin..yearMax -> {
+                internalYear = year
+            }
+            else -> throw IllegalArgumentException("${fieldName(YEAR)}=$year is out of feasible range. [Min: $yearMin , Max: $yearMax]")
+        }
 
         val monthMin = 0
         val monthMax = 11
@@ -326,7 +333,8 @@ abstract class BaseCalendar(
         store()
 
         if (finalMove != 0) {
-            add(DATE, finalMove)
+            super.add(DATE, finalMove)
+            invalidate()
         }
     }
 
