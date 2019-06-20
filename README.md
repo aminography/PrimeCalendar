@@ -120,21 +120,21 @@ There is a different way to use `get`, `set`, and `add` methods. Using operators
 > get
 ```kotlin
 val year = calendar.get(Calendar.YEAR)
-// equivalent code:
+// equivalent operation:
 val year = calendar[Calendar.YEAR]
 ```
 
 > set
 ```kotlin
 calendar.set(Calendar.MONTH, 7)
-// equivalent code:
+// equivalent operation:
 calendar[Calendar.MONTH] = 7
 ```
 
 > add
 ```kotlin
 calendar.add(Calendar.DAY_OF_MONTH, 27)
-// equivalent code:
+// equivalent operation:
 calendar[Calendar.DAY_OF_MONTH] += 27
 ```
 
