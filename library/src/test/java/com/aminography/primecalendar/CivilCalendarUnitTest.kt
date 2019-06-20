@@ -342,11 +342,13 @@ class CivilCalendarUnitTest {
     @Test
     fun add_MONTH_negativeValues() {
         val civil = CivilCalendar().apply {
-            add(MONTH, -17)
+            set(2019, 5, 30)
+            add(MONTH, -4)
             print(DAY_OF_YEAR)
         }
         val gregorian = getInstance().apply {
-            add(MONTH, -17)
+            set(2019, 5, 30)
+            add(MONTH, -4)
             print(DAY_OF_YEAR)
         }
         assertEquals(civil, gregorian)

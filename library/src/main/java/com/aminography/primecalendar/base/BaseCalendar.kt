@@ -107,49 +107,51 @@ abstract class BaseCalendar(
                 val max = getActualMaximum(field)
                 when (value) {
                     in min..max -> {
+                        var d = internalDayOfMonth
+                        if (d > monthLength(value, internalMonth)) d = monthLength(value, internalMonth)
+
                         internalYear = value
+                        internalDayOfMonth = d
                         store()
                     }
                     else -> throw IllegalArgumentException("${fieldName(field)}=$value is out of feasible range. [Min: $min , Max: $max]")
                 }
             }
-            MONTH -> { // Fortunately, add() contains day of month checking
-                val min = getActualMinimum(field)
-                val max = getActualMaximum(field)
-                when {
-                    value in min..max -> {
-                        internalMonth = value
-                        store()
-                    }
-                    value < min -> {
-                        internalMonth = min
-                        store()
-                        add(field, value - min)
-                    }
-                    value > max -> {
-                        internalMonth = max
-                        store()
-                        add(field, value - max)
-                    }
+            MONTH -> {
+                val move = value - internalMonth
+
+                val y: Int
+                val m: Int
+                var d: Int = internalDayOfMonth
+
+                if (move > 0) {
+                    y = internalYear + (internalMonth + move) / 12
+                    m = (internalMonth + move) % 12
+                } else {
+                    y = internalYear - (12 - (internalMonth + move + 1)) / 12
+                    m = (12 + (internalMonth + move) % 12) % 12
                 }
+                if (d > monthLength(y, m)) d = monthLength(y, m)
+
+                internalYear = y
+                internalMonth = m
+                internalDayOfMonth = d
+                store()
             }
             DAY_OF_MONTH -> { // also DATE
                 val min = getActualMinimum(field)
                 val max = getActualMaximum(field)
-                when {
-                    value in min..max -> {
+                when (value) {
+                    in min..max -> {
                         internalDayOfMonth = value
                         store()
                     }
-                    value < min -> {
-                        internalDayOfMonth = min
+                    else -> {
+                        val limit = if (value < min) min else max
+                        internalDayOfMonth = limit
                         store()
-                        add(field, value - min)
-                    }
-                    value > max -> {
-                        internalDayOfMonth = max
-                        store()
-                        add(field, value - max)
+                        super.add(field, value - limit)
+                        invalidate()
                     }
                 }
             }
@@ -186,8 +188,8 @@ abstract class BaseCalendar(
             DAY_OF_YEAR -> {
                 val min = getActualMinimum(field)
                 val max = getActualMaximum(field)
-                when {
-                    value in min..max -> {
+                when (value) {
+                    in min..max -> {
                         dayOfYear(internalYear, value).let {
                             internalYear = it.year
                             internalMonth = it.month
@@ -195,23 +197,16 @@ abstract class BaseCalendar(
                             store()
                         }
                     }
-                    value < min -> {
-                        dayOfYear(internalYear, min).let {
+                    else -> {
+                        val limit = if (value < min) min else max
+                        dayOfYear(internalYear, limit).let {
                             internalYear = it.year
                             internalMonth = it.month
                             internalDayOfMonth = it.dayOfMonth
                             store()
                         }
-                        add(field, value - min)
-                    }
-                    value > max -> {
-                        dayOfYear(internalYear, max).let {
-                            internalYear = it.year
-                            internalMonth = it.month
-                            internalDayOfMonth = it.dayOfMonth
-                            store()
-                        }
-                        add(field, value - max)
+                        super.add(field, value - limit)
+                        invalidate()
                     }
                 }
             }
@@ -391,44 +386,7 @@ abstract class BaseCalendar(
      */
     override fun add(field: Int, amount: Int) {
         if (amount == 0) return
-        if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
-
-        when (field) {
-            YEAR -> {
-                val y = internalYear + amount
-                val m = internalMonth
-                var d = internalDayOfMonth
-                if (d > monthLength(y, m)) d = monthLength(y, m)
-
-                internalYear = y
-                internalMonth = m
-                internalDayOfMonth = d
-                store()
-            }
-            MONTH -> {
-                val y: Int
-                val m: Int
-                var d: Int = internalDayOfMonth
-
-                if (amount > 0) {
-                    y = internalYear + (internalMonth + amount) / 12
-                    m = (internalMonth + amount) % 12
-                } else {
-                    y = internalYear - (12 - (internalMonth + amount + 1)) / 12
-                    m = (12 + (internalMonth + amount) % 12) % 12
-                }
-                if (d > monthLength(y, m)) d = monthLength(y, m)
-
-                internalYear = y
-                internalMonth = m
-                internalDayOfMonth = d
-                store()
-            }
-            else -> {
-                super.add(field, amount)
-                invalidate()
-            }
-        }
+        this[field] += amount
     }
 
     /**
