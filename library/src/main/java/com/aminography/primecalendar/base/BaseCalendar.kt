@@ -61,7 +61,7 @@ abstract class BaseCalendar(
      *
      * @see set(int,int)
      */
-    override fun get(field: Int): Int {
+    override operator fun get(field: Int): Int {
         return when (field) {
             ERA -> super.get(ERA)
             YEAR -> internalYear
@@ -94,7 +94,7 @@ abstract class BaseCalendar(
      * @see set(int,int,int,int,int,int)
      * @see get(int)
      */
-    override fun set(field: Int, value: Int) {
+    override operator fun set(field: Int, value: Int) {
         if (field < 0 || field > MILLISECOND) throw IllegalArgumentException()
 
         when (field) {

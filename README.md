@@ -26,7 +26,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.10'
+    implementation 'com.aminography:primecalendar:1.2.11'
 }
 ```
 
@@ -45,7 +45,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.2.10</version>
+        <version>1.2.11</version>
     </dependency>
 </dependencies>
 ```
@@ -110,6 +110,32 @@ val hijri = calendar.toHijri()
 
 // Converting calendar instance to CivilCalendar:
 val civil = calendar.toCivil()
+```
+
+<br/>
+
+### • Operators
+There is a different way to use `get`, `set`, and `add`. Using operators you can do it simpler:
+
+> get
+```kotlin
+val year = calendar.get(Calendar.YEAR)
+// equivalent code:
+val year = calendar[Calendar.YEAR]
+```
+
+> set
+```kotlin
+calendar.set(Calendar.MONTH, 7)
+// equivalent code:
+calendar[Calendar.MONTH] = 7
+```
+
+> add
+```kotlin
+calendar.add(Calendar.DAY_OF_MONTH, 27)
+// equivalent code:
+calendar[Calendar.DAY_OF_MONTH] += 27
 ```
 
 <br/>
