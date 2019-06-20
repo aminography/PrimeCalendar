@@ -163,7 +163,7 @@ abstract class PrimeCalendar(
     /**
      * Returns the value of the given calendar field from the internal calendar instance.
      */
-    open fun get(field: Int): Int {
+    open operator fun get(field: Int): Int {
         return internalCalendar.get(field)
     }
 
@@ -175,7 +175,7 @@ abstract class PrimeCalendar(
      * @param value the value to be set for the given calendar field.
      * @throws ArrayIndexOutOfBoundsException if the specified field is out of range ([field &lt; 0 || field &gt;= FIELD_COUNT]).
      */
-    open fun set(field: Int, value: Int) {
+    open operator fun set(field: Int, value: Int) {
         internalCalendar.set(field, value)
     }
 
