@@ -115,7 +115,7 @@ val civil = calendar.toCivil()
 <br/>
 
 ### • Operators
-There is a different way to use `get`, `set`, and `add`. Using operators you can do it simpler:
+There is a different way to use `get`, `set`, and `add` methods. Using operators you can do it simpler:
 
 > get
 ```kotlin
