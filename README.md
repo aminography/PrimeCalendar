@@ -140,7 +140,7 @@ calendar[Calendar.DAY_OF_MONTH] += 27
 
 <br/>
 
-### • Locale
+### • Localization
 You can localize digits, month names, and week day names by passing locale in constructor. For Persian and Hijri calendars, the default locale is set to Farsi and Arabic respectively.
 
 ```kotlin
