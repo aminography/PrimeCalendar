@@ -1,4 +1,6 @@
 # `PrimeCalendar` :zap:
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PrimeCalendar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7744)
+[![Download](https://api.bintray.com/packages/aminography/maven/PrimeCalendar/images/download.svg) ](https://bintray.com/aminography/maven/PrimeCalendar/_latestVersion)
 
 **`PrimeCalendar`** provides all the [`java.util.Calendar`](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html) functionalities for `Persian` and `Hijri` dates.
 **`PrimeCalendar`** can be used in every **JVM-based** projects such as **Java/kotlin** applications, **Android** apps, etc.
