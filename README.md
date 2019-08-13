@@ -116,7 +116,7 @@ val civil = calendar.toCivil()
 
 <br/>
 
-### • Operators
+### • Kotlin Operators
 There is a different way to use `get`, `set`, and `add` methods. Using operators you can do it much simpler.
 Suppose that the `calendar` is an instance of `PrimeCalendar`:
 
