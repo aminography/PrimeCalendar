@@ -1,7 +1,7 @@
 package com.aminography.primecalendar.common
 
 /**
- * Defines types of calendar systems.
+ * Defines type of calendar systems.
  *
  * @author aminography
  */
