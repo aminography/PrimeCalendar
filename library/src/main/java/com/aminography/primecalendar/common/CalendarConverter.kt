@@ -1,45 +1,30 @@
 package com.aminography.primecalendar.common
 
+import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 
 /**
+ * Defines methods providing conversion between calendar types.
+ *
  * @author aminography
  */
 
-internal fun convertCivilToPersian(civilCalendar: CivilCalendar): PersianCalendar {
-    val persianCalendar = PersianCalendar()
-    persianCalendar.timeInMillis = civilCalendar.timeInMillis
-    return persianCalendar
-}
+/**
+ * Returns an instance of [CivilCalendar] which is equivalent to the time of the current calendar.
+ */
+fun PrimeCalendar.toCivil(): CivilCalendar =
+        CivilCalendar().also { it.timeInMillis = timeInMillis }
 
-internal fun convertCivilToHijri(civilCalendar: CivilCalendar): HijriCalendar {
-    val hijriCalendar = HijriCalendar()
-    hijriCalendar.timeInMillis = civilCalendar.timeInMillis
-    return hijriCalendar
-}
+/**
+ * Returns an instance of [PersianCalendar] which is equivalent to the time of the current calendar.
+ */
+fun PrimeCalendar.toPersian(): PersianCalendar =
+        PersianCalendar().also { it.timeInMillis = timeInMillis }
 
-internal fun convertPersianToCivil(persianCalendar: PersianCalendar): CivilCalendar {
-    val civilCalendar = CivilCalendar()
-    civilCalendar.timeInMillis = persianCalendar.timeInMillis
-    return civilCalendar
-}
-
-internal fun convertPersianToHijri(persianCalendar: PersianCalendar): HijriCalendar {
-    val hijriCalendar = HijriCalendar()
-    hijriCalendar.timeInMillis = persianCalendar.timeInMillis
-    return hijriCalendar
-}
-
-internal fun convertHijriToCivil(hijriCalendar: HijriCalendar): CivilCalendar {
-    val civilCalendar = CivilCalendar()
-    civilCalendar.timeInMillis = hijriCalendar.timeInMillis
-    return civilCalendar
-}
-
-internal fun convertHijriToPersian(hijriCalendar: HijriCalendar): PersianCalendar {
-    val persianCalendar = PersianCalendar()
-    persianCalendar.timeInMillis = hijriCalendar.timeInMillis
-    return persianCalendar
-}
+/**
+ * Returns an instance of [HijriCalendar] which is equivalent to the time of the current calendar.
+ */
+fun PrimeCalendar.toHijri(): HijriCalendar =
+        HijriCalendar().also { it.timeInMillis = timeInMillis }

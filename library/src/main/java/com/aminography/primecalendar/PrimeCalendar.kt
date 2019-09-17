@@ -26,7 +26,7 @@ import java.util.Calendar.*
 abstract class PrimeCalendar(
         timeZone: TimeZone,
         val locale: Locale
-) : IConverter {
+) {
 
     /**
      * An internal instance of [Calendar] which is responsible to handle

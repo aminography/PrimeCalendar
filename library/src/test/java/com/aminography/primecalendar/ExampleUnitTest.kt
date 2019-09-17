@@ -1,6 +1,8 @@
 package com.aminography.primecalendar
 
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.common.toCivil
+import com.aminography.primecalendar.common.toHijri
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import org.junit.Assert.assertEquals

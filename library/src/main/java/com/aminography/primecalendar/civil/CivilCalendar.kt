@@ -3,10 +3,6 @@ package com.aminography.primecalendar.civil
 import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
-import com.aminography.primecalendar.common.convertCivilToHijri
-import com.aminography.primecalendar.common.convertCivilToPersian
-import com.aminography.primecalendar.hijri.HijriCalendar
-import com.aminography.primecalendar.persian.PersianCalendar
 import java.text.DateFormatSymbols
 import java.util.*
 import java.util.Calendar.*
@@ -117,13 +113,5 @@ class CivilCalendar constructor(
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
             CivilCalendarUtils.dayOfYear(year, dayOfYear)
-
-    // ---------------------------------------------------------------------------------------------
-
-    override fun toCivil(): CivilCalendar = this
-
-    override fun toPersian(): PersianCalendar = convertCivilToPersian(this)
-
-    override fun toHijri(): HijriCalendar = convertCivilToHijri(this)
 
 }

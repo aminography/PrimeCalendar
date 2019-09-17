@@ -1,12 +1,8 @@
 package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.base.BaseCalendar
-import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
-import com.aminography.primecalendar.common.convertPersianToCivil
-import com.aminography.primecalendar.common.convertPersianToHijri
-import com.aminography.primecalendar.hijri.HijriCalendar
 import java.text.DateFormatSymbols
 import java.util.*
 import java.util.Calendar.*
@@ -149,14 +145,6 @@ class PersianCalendar constructor(
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
             PersianCalendarUtils.dayOfYear(year, dayOfYear)
-
-    // ---------------------------------------------------------------------------------------------
-
-    override fun toCivil(): CivilCalendar = convertPersianToCivil(this)
-
-    override fun toPersian(): PersianCalendar = this
-
-    override fun toHijri(): HijriCalendar = convertPersianToHijri(this)
 
     companion object {
         internal const val DEFAULT_LOCALE = "fa"
