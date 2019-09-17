@@ -3,6 +3,7 @@ package com.aminography.primecalendar.common
 import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.hijri.HijriCalendar
+import com.aminography.primecalendar.japanese.JapaneseCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import java.util.*
 
@@ -22,6 +23,7 @@ object CalendarFactory {
             CalendarType.CIVIL -> CivilCalendar()
             CalendarType.PERSIAN -> PersianCalendar()
             CalendarType.HIJRI -> HijriCalendar()
+            CalendarType.JAPANESE -> JapaneseCalendar()
         }
     }
 
@@ -31,6 +33,7 @@ object CalendarFactory {
             CalendarType.CIVIL -> CivilCalendar(locale)
             CalendarType.PERSIAN -> PersianCalendar(locale)
             CalendarType.HIJRI -> HijriCalendar(locale)
+            CalendarType.JAPANESE -> JapaneseCalendar(locale)
         }
     }
 
@@ -40,6 +43,7 @@ object CalendarFactory {
             CalendarType.CIVIL -> CivilCalendar(timeZone)
             CalendarType.PERSIAN -> PersianCalendar(timeZone)
             CalendarType.HIJRI -> HijriCalendar(timeZone)
+            CalendarType.JAPANESE -> JapaneseCalendar(timeZone)
         }
     }
 
@@ -49,6 +53,7 @@ object CalendarFactory {
             CalendarType.CIVIL -> CivilCalendar(timeZone, locale)
             CalendarType.PERSIAN -> PersianCalendar(timeZone, locale)
             CalendarType.HIJRI -> HijriCalendar(timeZone, locale)
+            CalendarType.JAPANESE -> JapaneseCalendar(timeZone, locale)
         }
     }
 

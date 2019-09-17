@@ -4,6 +4,7 @@ import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.toCivil
 import com.aminography.primecalendar.common.toHijri
 import com.aminography.primecalendar.hijri.HijriCalendar
+import com.aminography.primecalendar.japanese.JapaneseCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -34,8 +35,6 @@ class ExampleUnitTest {
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
         println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
-
-
     }
 
     @Test
@@ -236,6 +235,22 @@ class ExampleUnitTest {
         assertEquals(hijri.year, 1411)
         assertEquals(hijri.month, 11)
         assertEquals(hijri.dayOfMonth, 23)
+    }
+
+    @Test
+    fun japaneseToCivilConversion() {
+        val japanese = JapaneseCalendar()
+        japanese.set(Calendar.YEAR, 2019)
+        japanese.set(Calendar.MONTH, 8)
+        japanese.set(Calendar.DAY_OF_MONTH, 17)
+        println("Japanese Date: ${japanese.longDateString}")
+
+        val civil = japanese.toCivil()
+        println("Civil Date: ${civil.longDateString}")
+
+        assertEquals(civil.year, 2019)
+        assertEquals(civil.month, 8)
+        assertEquals(civil.dayOfMonth, 17)
     }
 
     @Test

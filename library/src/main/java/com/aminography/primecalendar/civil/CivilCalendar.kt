@@ -53,11 +53,6 @@ class CivilCalendar constructor(
     override val calendarType: CalendarType
         get() = CalendarType.CIVIL
 
-    init {
-        invalidate()
-        setInternalFirstDayOfWeek(firstDayOfWeek)
-    }
-
     override val minimum: Map<Int, Int>
         get() = mapOf(
                 WEEK_OF_YEAR to 1,
@@ -84,6 +79,11 @@ class CivilCalendar constructor(
                 DAY_OF_YEAR to 365,
                 DAY_OF_WEEK_IN_MONTH to 4
         )
+
+    init {
+        invalidate()
+        setInternalFirstDayOfWeek(firstDayOfWeek)
+    }
 
     // ---------------------------------------------------------------------------------------------
 

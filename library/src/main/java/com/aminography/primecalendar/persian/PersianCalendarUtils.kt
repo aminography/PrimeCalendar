@@ -4,6 +4,7 @@ import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.persian.PersianCalendar.Companion.DEFAULT_LOCALE
 import java.util.*
 import java.util.Calendar.*
+import kotlin.math.floor
 
 /**
  * @author aminography
@@ -22,63 +23,63 @@ object PersianCalendarUtils {
     // Symbol Name Arrays --------------------------------------------------------------------------
 
     internal val monthNames = arrayOf(
-            "\u0641\u0631\u0648\u0631\u062f\u06cc\u0646", // Farvardin
-            "\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a", // Ordibehesht
-            "\u062e\u0631\u062f\u0627\u062f", // Khordad
-            "\u062a\u06cc\u0631", // Tir
-            "\u0645\u0631\u062f\u0627\u062f", // Mordad
-            "\u0634\u0647\u0631\u06cc\u0648\u0631", // Shahrivar
-            "\u0645\u0647\u0631", // Mehr
-            "\u0622\u0628\u0627\u0646", // Aban
-            "\u0622\u0630\u0631", // Azar
-            "\u062f\u06cc", // Dey
-            "\u0628\u0647\u0645\u0646", // Bahman
-            "\u0627\u0633\u0641\u0646\u062f" // Esfand
+            "فروردین", // Farvardin
+            "اردیبهشت", // Ordibehesht
+            "خرداد", // Khordad
+            "تیر", // Tir
+            "مرداد", // Mordad
+            "شهریور", // Shahrivar
+            "مهر", // Mehr
+            "آبان", // Aban
+            "آذر", // Azar
+            "دی", // Dey
+            "بهمن", // Bahman
+            "اسفند" // Esfand
     )
 
     internal val weekDays = arrayOf(
-            "\u0634\u0646\u0628\u0647", // Shanbeh
-            "\u06cc\u06a9\u200c\u0634\u0646\u0628\u0647", // Yekshanbeh
-            "\u062f\u0648\u0634\u0646\u0628\u0647", // Doshanbeh
-            "\u0633\u0647\u200c\u0634\u0646\u0628\u0647", // Sehshanbeh
-            "\u0686\u0647\u0627\u0631\u0634\u0646\u0628\u0647", // Chaharshanbeh
-            "\u067e\u0646\u062c\u200c\u0634\u0646\u0628\u0647", // Panjshanbeh
-            "\u062c\u0645\u0639\u0647" // jom'e
+            "شنبه", // Shanbeh
+            "یکشنبه", // Yekshanbeh
+            "دوشنبه", // Doshanbeh
+            "سه\u200Cشنبه", // Sehshanbeh
+            "چهارشنبه", // Chaharshanbeh
+            "پنجشنبه", // Panjshanbeh
+            "جمعه" // jom'e
     )
 
     internal val eras = arrayOf(
-            "\u0642\u0628\u0644\u0020\u0627\u0632\u0020\u0645\u06cc\u0644\u0627\u062f", // AD
-            "\u0628\u0639\u062f\u0020\u0627\u0632\u0020\u0645\u06cc\u0644\u0627\u062f" // BC
+            "قبل از میلاد", // AD
+            "بعد از میلاد" // BC
     )
 
     internal val amPm = arrayOf(
-            "\u0642\u0628\u0644\u0020\u0627\u0632\u0020\u0638\u0647\u0631", // AM
-            "\u0628\u0639\u062f\u0020\u0627\u0632\u0020\u0638\u0647\u0631" // PM
+            "قبل از ظهر", // AM
+            "بعد از ظهر" // PM
     )
 
     internal val shortMonthNames = arrayOf(
-            "\u0641\u0631", // Farvardin
-            "\u0627\u0631\u062f", // Ordibehesht
-            "\u062e\u0631\u062f", // Khordad
-            "\u062a\u06cc\u0631", // Tir
-            "\u0645\u0631", // Mordad
-            "\u0634\u0647\u0631", // Shahrivar
-            "\u0645\u0647\u0631", // Mehr
-            "\u0622\u0628", // Aban
-            "\u0622\u0630\u0631", // Azar
-            "\u062f\u06cc", // Dey
-            "\u0628\u0647", // Bahman
-            "\u0627\u0633" // Esfand
+            "فر", // Farvardin
+            "ارد", // Ordibehesht
+            "خرد", // Khordad
+            "تیر", // Tir
+            "مر", // Mordad
+            "شهر", // Shahrivar
+            "مهر", // Mehr
+            "آب", // Aban
+            "آذر", // Azar
+            "دی", // Dey
+            "به", // Bahman
+            "اس" // Esfand
     )
 
     internal val shortWeekDays = arrayOf(
-            "\u0634", // Shanbeh
-            "\u06cc", // Yekshanbeh
-            "\u062f", // Doshanbeh
-            "\u0633", // Sehshanbeh
-            "\u0686", // Chaharshanbeh
-            "\u067e", // Panjshanbeh
-            "\u062c" // jom'e
+            "ش", // Shanbeh
+            "ی", // Yekshanbeh
+            "د", // Doshanbeh
+            "س", // Sehshanbeh
+            "چ", // Chaharshanbeh
+            "پ", // Panjshanbeh
+            "ج" // jom'e
     )
 
     internal val monthNamesEn = arrayOf(
@@ -212,7 +213,7 @@ object PersianCalendarUtils {
         else normalMonthLengthAggregated
 
         var month = 0
-        for (i in 0 until monthLengthAggregated.size) {
+        for (i in monthLengthAggregated.indices) {
             if (dayOfYear > monthLengthAggregated[i] && dayOfYear <= monthLengthAggregated[i + 1]) {
                 month = i
             }
@@ -225,7 +226,7 @@ object PersianCalendarUtils {
             ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
 
     private fun ceil(double1: Double, double2: Double): Long {
-        return (double1 - double2 * Math.floor(double1 / double2)).toLong()
+        return (double1 - double2 * floor(double1 / double2)).toLong()
     }
 
     // Conversion Methods --------------------------------------------------------------------------
@@ -249,7 +250,7 @@ object PersianCalendarUtils {
         gregorian.year = gregorian.year - 1600
         gregorian.dayOfMonth = gregorian.dayOfMonth - 1
 
-        gregorianDayNo = 365 * gregorian.year + Math.floor(((gregorian.year + 3) / 4).toDouble()).toInt() - Math.floor(((gregorian.year + 99) / 100).toDouble()).toInt() + Math.floor(((gregorian.year + 399) / 400).toDouble()).toInt()
+        gregorianDayNo = 365 * gregorian.year + floor(((gregorian.year + 3) / 4).toDouble()).toInt() - floor(((gregorian.year + 99) / 100).toDouble()).toInt() + floor(((gregorian.year + 399) / 400).toDouble()).toInt()
         i = 0
         while (i < gregorian.month) {
             gregorianDayNo += gregorianMonthLength[i]
@@ -264,14 +265,14 @@ object PersianCalendarUtils {
 
         persianDayNo = gregorianDayNo - 79
 
-        persianNP = Math.floor((persianDayNo / 12053).toDouble()).toInt()
+        persianNP = floor((persianDayNo / 12053).toDouble()).toInt()
         persianDayNo = persianDayNo % 12053
 
         persianYear = 979 + 33 * persianNP + 4 * (persianDayNo / 1461)
         persianDayNo = persianDayNo % 1461
 
         if (persianDayNo >= 366) {
-            persianYear += Math.floor(((persianDayNo - 1) / 365).toDouble()).toInt()
+            persianYear += floor(((persianDayNo - 1) / 365).toDouble()).toInt()
             persianDayNo = (persianDayNo - 1) % 365
         }
 
@@ -305,7 +306,7 @@ object PersianCalendarUtils {
         persian.year = persian.year - 979
         persian.dayOfMonth = persian.dayOfMonth - 1
 
-        persianDayNo = 365 * persian.year + (persian.year / 33) * 8 + Math.floor(((persian.year % 33 + 3) / 4).toDouble()).toInt()
+        persianDayNo = 365 * persian.year + (persian.year / 33) * 8 + floor(((persian.year % 33 + 3) / 4).toDouble()).toInt()
         i = 0
         while (i < persian.month) {
             persianDayNo += normalMonthLength[i]
@@ -316,14 +317,14 @@ object PersianCalendarUtils {
 
         gregorianDayNo = persianDayNo + 79
 
-        gregorianYear = 1600 + 400 * Math.floor((gregorianDayNo / 146097).toDouble()).toInt() /* 146097 = 365*400 + 400/4 - 400/100 + 400/400 */
+        gregorianYear = 1600 + 400 * floor((gregorianDayNo / 146097).toDouble()).toInt() /* 146097 = 365*400 + 400/4 - 400/100 + 400/400 */
         gregorianDayNo = gregorianDayNo % 146097
 
         leap = 1
         if (gregorianDayNo >= 36525)
         /* 36525 = 365*100 + 100/4 */ {
             gregorianDayNo--
-            gregorianYear += 100 * Math.floor((gregorianDayNo / 36524).toDouble()).toInt() /* 36524 = 365*100 + 100/4 - 100/100 */
+            gregorianYear += 100 * floor((gregorianDayNo / 36524).toDouble()).toInt() /* 36524 = 365*100 + 100/4 - 100/100 */
             gregorianDayNo = gregorianDayNo % 36524
 
             if (gregorianDayNo >= 365) {
@@ -333,14 +334,14 @@ object PersianCalendarUtils {
             }
         }
 
-        gregorianYear += 4 * Math.floor((gregorianDayNo / 1461).toDouble()).toInt() /* 1461 = 365*4 + 4/4 */
+        gregorianYear += 4 * floor((gregorianDayNo / 1461).toDouble()).toInt() /* 1461 = 365*4 + 4/4 */
         gregorianDayNo = gregorianDayNo % 1461
 
         if (gregorianDayNo >= 366) {
             leap = 0
 
             gregorianDayNo--
-            gregorianYear += Math.floor((gregorianDayNo / 365).toDouble()).toInt()
+            gregorianYear += floor((gregorianDayNo / 365).toDouble()).toInt()
             gregorianDayNo = gregorianDayNo % 365
         }
 

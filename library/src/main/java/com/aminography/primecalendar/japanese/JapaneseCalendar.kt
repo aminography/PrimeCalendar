@@ -43,16 +43,16 @@ class JapaneseCalendar constructor(
         get() = JapaneseCalendarUtils.monthLength(internalYear, internalMonth)
 
     override val isLeapYear: Boolean
-        get() = JapaneseCalendarUtils.isHijriLeapYear(internalYear)
+        get() = JapaneseCalendarUtils.isJapaneseLeapYear(internalYear)
 
-    override var firstDayOfWeek: Int = SATURDAY
+    override var firstDayOfWeek: Int = SUNDAY
         set(value) {
             field = value
             setInternalFirstDayOfWeek(value)
         }
 
     override val calendarType: CalendarType
-        get() = CalendarType.HIJRI
+        get() = CalendarType.JAPANESE
 
     override val minimum: Map<Int, Int>
         get() = mapOf(
@@ -65,20 +65,20 @@ class JapaneseCalendar constructor(
 
     override val maximum: Map<Int, Int>
         get() = mapOf(
-                WEEK_OF_YEAR to 52,
+                WEEK_OF_YEAR to 53, // Why not 54?
                 WEEK_OF_MONTH to 6,
-                DAY_OF_MONTH to 30,
-                DAY_OF_YEAR to 355,
-                DAY_OF_WEEK_IN_MONTH to 5
+                DAY_OF_MONTH to 31,
+                DAY_OF_YEAR to 366,
+                DAY_OF_WEEK_IN_MONTH to 6 // Why not 5?
         )
 
     override val leastMaximum: Map<Int, Int>
         get() = mapOf(
-                WEEK_OF_YEAR to 51,
-                WEEK_OF_MONTH to 5,
-                DAY_OF_MONTH to 29,
-                DAY_OF_YEAR to 354,
-                DAY_OF_WEEK_IN_MONTH to 5
+                WEEK_OF_YEAR to 52, // Why not 53?
+                WEEK_OF_MONTH to 4,
+                DAY_OF_MONTH to 28,
+                DAY_OF_YEAR to 365,
+                DAY_OF_WEEK_IN_MONTH to 4
         )
 
     init {
@@ -89,7 +89,7 @@ class JapaneseCalendar constructor(
     // ---------------------------------------------------------------------------------------------
 
     override fun store() {
-        JapaneseCalendarUtils.hijriToGregorian(
+        JapaneseCalendarUtils.japaneseToGregorian(
                 DateHolder(internalYear, internalMonth, internalDayOfMonth)
         ).let {
             internalCalendar.set(it.year, it.month, it.dayOfMonth)
@@ -97,7 +97,7 @@ class JapaneseCalendar constructor(
     }
 
     override fun invalidate() {
-        JapaneseCalendarUtils.gregorianToHijri(
+        JapaneseCalendarUtils.gregorianToJapanese(
                 DateHolder(
                         internalCalendar.get(YEAR),
                         internalCalendar.get(MONTH),
@@ -148,7 +148,7 @@ class JapaneseCalendar constructor(
             JapaneseCalendarUtils.dayOfYear(year, dayOfYear)
 
     companion object {
-        internal const val DEFAULT_LOCALE = "jp"
+        internal const val DEFAULT_LOCALE = "ja"
     }
 
 }

@@ -38,7 +38,7 @@ object CivilCalendarUtils {
         else normalMonthLengthAggregated
 
         var month = 0
-        for (i in 0 until monthLengthAggregated.size) {
+        for (i in monthLengthAggregated.indices) {
             if (dayOfYear > monthLengthAggregated[i] && dayOfYear <= monthLengthAggregated[i + 1]) {
                 month = i
             }
