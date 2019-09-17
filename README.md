@@ -2,7 +2,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PrimeCalendar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7744)
 [![Download](https://api.bintray.com/packages/aminography/maven/PrimeCalendar/images/download.svg) ](https://bintray.com/aminography/maven/PrimeCalendar/_latestVersion)
 
-**`PrimeCalendar`** provides all the [`java.util.Calendar`](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html) functionalities for `Persian` and `Hijri` dates.
+**`PrimeCalendar`** provides all the [`java.util.Calendar`](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html) functionalities for `Persian`, `Hijri`, and `Japanese` dates.
 **`PrimeCalendar`** can be used in every **JVM-based** projects such as **Java/kotlin** applications, **Android** apps, etc.
 
 This library contains three types of calendar systems as well as their conversion to each other.
@@ -11,7 +11,8 @@ This library contains three types of calendar systems as well as their conversio
   | --- | --- | --- |
   |[Iranian](https://en.wikipedia.org/wiki/Iranian_calendars)| [PersianCalendar](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/persian/PersianCalendar.kt) | The most accurate solar calendar in use today. |
   |[Islamic](https://en.wikipedia.org/wiki/Islamic_calendar)| [HijriCalendar](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/hijri/HijriCalendar.kt) | A lunar calendar consisting of 12 lunar months in a year of 354 or 355 days. |
-  |[Gregorian](https://en.wikipedia.org/wiki/Gregorian_calendar)| [CivilCalendar](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/civil/CivilCalendar.kt) | The common calendar used in most of the world. |
+  |[Gregorian](https://en.wikipedia.org/wiki/Gregorian_calendar)| [CivilCalendar](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/civil/CivilCalendar.kt) | The common calendar which is used in most of the world. |
+  |[Japanese](https://en.wikipedia.org/wiki/Japanese_calendar)| [JapaneseCalendar](https://github.com/aminography/PrimeCalendar/blob/master/library/src/main/java/com/aminography/primecalendar/japanese/JapaneseCalendar.kt) | The calendar which is used in Japan. |
 
 ![](static/prime_logo.png)
   
@@ -28,7 +29,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.13'
+    implementation 'com.aminography:primecalendar:1.2.14'
 }
 ```
 
@@ -112,6 +113,9 @@ val hijri = calendar.toHijri()
 
 // Converting calendar instance to CivilCalendar:
 val civil = calendar.toCivil()
+
+// Converting calendar instance to JapaneseCalendar:
+val japanese = calendar.toJapanese()
 ```
 
 <br/>
