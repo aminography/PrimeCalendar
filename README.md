@@ -3,7 +3,7 @@
 [![Download](https://api.bintray.com/packages/aminography/maven/PrimeCalendar/images/download.svg) ](https://bintray.com/aminography/maven/PrimeCalendar/_latestVersion)
 
 **`PrimeCalendar`** provides all the [`java.util.Calendar`](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html) functionalities for `Persian`, `Hijri`, and `Japanese` dates.
-**`PrimeCalendar`** can be used in every **JVM-based** projects such as **Java/kotlin** applications, **Android** apps, etc.<br/>
+**`PrimeCalendar`** can be used in every **JVM-based** projects such as **Java/kotlin** applications, **Android** apps, *etc*.  
 
 This library contains three types of calendar systems as well as their conversion to each other.
 
@@ -76,7 +76,7 @@ val calendar = CalendarFactory.newInstance(CalendarType.HIJRI)
 <br/>
 
 ### • Functionalities
-Exactly all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, *etc*. 
+Exactly all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, *etc*.  
 To see list of [**methods**](https://github.com/aminography/PrimeCalendar/wiki#methods) and [**fields**](https://github.com/aminography/PrimeCalendar/wiki#fields), refer to the [wiki page](https://github.com/aminography/PrimeCalendar/wiki).
 
 ```kotlin
