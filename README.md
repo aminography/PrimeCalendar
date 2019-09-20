@@ -76,7 +76,7 @@ val calendar = CalendarFactory.newInstance(CalendarType.HIJRI)
 <br/>
 
 ### • Functionalities
-Almost all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, etc. To see list of [**methods**](https://github.com/aminography/PrimeCalendar/wiki#methods) and [**fields**](https://github.com/aminography/PrimeCalendar/wiki#fields), refer to the [wiki page](https://github.com/aminography/PrimeCalendar/wiki).
+Exactly all of the standard `Calendar` functionalities are implemented in **`PrimeCalendar`** including `set`, `add`, `roll`, etc. To see list of [**methods**](https://github.com/aminography/PrimeCalendar/wiki#methods) and [**fields**](https://github.com/aminography/PrimeCalendar/wiki#fields), refer to the [wiki page](https://github.com/aminography/PrimeCalendar/wiki).
 
 ```kotlin
 val civil = CivilCalendar()
