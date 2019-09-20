@@ -48,7 +48,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.2.13</version>
+        <version>1.2.14</version>
     </dependency>
 </dependencies>
 ```
