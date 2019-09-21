@@ -1,6 +1,10 @@
 package com.aminography.primecalendar
 
+import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.*
+import com.aminography.primecalendar.hijri.HijriCalendar
+import com.aminography.primecalendar.japanese.JapaneseCalendar
+import com.aminography.primecalendar.persian.PersianCalendar
 import java.text.DateFormatSymbols
 import java.util.*
 import java.util.Calendar.*
@@ -407,6 +411,32 @@ abstract class PrimeCalendar(
             internalCalendar.timeInMillis = value
             invalidate()
         }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns an instance of [CivilCalendar] which is equivalent to the time of the current calendar.
+     */
+    fun toCivil(): CivilCalendar =
+            CivilCalendar().also { it.timeInMillis = timeInMillis }
+
+    /**
+     * Returns an instance of [PersianCalendar] which is equivalent to the time of the current calendar.
+     */
+    fun toPersian(): PersianCalendar =
+            PersianCalendar().also { it.timeInMillis = timeInMillis }
+
+    /**
+     * Returns an instance of [HijriCalendar] which is equivalent to the time of the current calendar.
+     */
+    fun toHijri(): HijriCalendar =
+            HijriCalendar().also { it.timeInMillis = timeInMillis }
+
+    /**
+     * Returns an instance of [JapaneseCalendar] which is equivalent to the time of the current calendar.
+     */
+    fun toJapanese(): JapaneseCalendar =
+            JapaneseCalendar().also { it.timeInMillis = timeInMillis }
 
     // ---------------------------------------------------------------------------------------------
 
