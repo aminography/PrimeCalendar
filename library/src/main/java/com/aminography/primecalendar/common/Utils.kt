@@ -7,22 +7,24 @@ import java.util.*
  */
 
 internal const val delimiter = "/"
+internal const val FA = "fa"
+internal const val AR = "ar"
 
 internal fun normalize(locale: Locale, number: Int): String = when (locale.language) {
-    "fa" -> toPersianDigits(if (number <= 9) "0$number" else "$number")
-    "ar" -> toPersianDigits(if (number <= 9) "0$number" else "$number")
+    FA -> toPersianDigits(if (number <= 9) "0$number" else "$number")
+    AR -> toPersianDigits(if (number <= 9) "0$number" else "$number")
     else -> if (number <= 9) "0$number" else "$number"
 }
 
 internal fun comma(locale: Locale): String = when (locale.language) {
-    "fa" -> "،"
-    "ar" -> "،"
+    FA -> "،"
+    AR -> "،"
     else -> ","
 }
 
 internal fun localizeNumber(locale: Locale, number: Int): String = when (locale.language) {
-    "fa" -> toPersianDigits(number)
-    "ar" -> toPersianDigits(number)
+    FA -> toPersianDigits(number)
+    AR -> toPersianDigits(number)
     else -> "$number"
 }
 
