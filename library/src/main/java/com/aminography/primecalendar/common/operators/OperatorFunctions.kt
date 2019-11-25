@@ -9,6 +9,8 @@ import java.util.*
  * Experimental design.
  */
 
+operator fun PrimeCalendar.invoke() = timeInMillis
+
 operator fun PrimeCalendar.plus(unit: PrimeUnit): PrimeCalendar {
     return clone().also {
         it.add(unit.field, unit.value)
