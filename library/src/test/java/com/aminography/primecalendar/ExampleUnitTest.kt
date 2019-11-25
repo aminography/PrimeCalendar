@@ -1,6 +1,10 @@
 package com.aminography.primecalendar
 
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.common.operators.Month
+import com.aminography.primecalendar.common.operators.Year
+import com.aminography.primecalendar.common.operators.minusAssign
+import com.aminography.primecalendar.common.operators.plusAssign
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.japanese.JapaneseCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
@@ -277,6 +281,14 @@ class ExampleUnitTest {
         println(persian.longDateString)
 
         println("${persian < hijri}")
+    }
+
+    @Test
+    fun operators() {
+        val calendar = CivilCalendar()
+        println(calendar.longDateString)
+        calendar -= Month(5)
+        println(calendar.longDateString)
     }
 
 }
