@@ -230,6 +230,7 @@ object PersianCalendarUtils {
     }
 
     // Conversion Methods --------------------------------------------------------------------------
+    // Based on: Calendrical Calculations by Edward M. Reingold
 
     @Suppress("ReplaceWithOperatorAssignment", "JoinDeclarationAndAssignment")
     internal fun gregorianToPersian(gregorian: DateHolder): DateHolder {
