@@ -2,7 +2,9 @@ package com.aminography.primecalendar
 
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.operators.Month
+import com.aminography.primecalendar.common.operators.Year
 import com.aminography.primecalendar.common.operators.minusAssign
+import com.aminography.primecalendar.common.operators.plus
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.japanese.JapaneseCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
@@ -288,6 +290,9 @@ class ExampleUnitTest {
         calendar -= Month(5)
         println(calendar.longDateString)
 //        println(calendar())
+
+        val calendar2 = calendar + Year(2)
+        println("${calendar < calendar2}")
     }
 
 }

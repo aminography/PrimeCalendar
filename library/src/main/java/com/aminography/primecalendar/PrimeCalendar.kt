@@ -30,7 +30,7 @@ import java.util.Calendar.*
 abstract class PrimeCalendar(
         timeZone: TimeZone,
         val locale: Locale
-) {
+) : Comparable<PrimeCalendar> {
 
     /**
      * An internal instance of [Calendar] which is responsible to handle
@@ -804,7 +804,7 @@ abstract class PrimeCalendar(
      * Compares the time values (millisecond offsets from the <a
      * href="#Epoch">Epoch</a>) represented by two `Calendar` objects.
      *
-     * @param anotherCalendar the `Calendar` to be compared.
+     * @param other the `Calendar` to be compared.
      * @return the value `0` if the time represented by the argument
      * is equal to the time represented by this `Calendar`; a value
      * less than `0` if the time of this `Calendar` is
@@ -817,13 +817,13 @@ abstract class PrimeCalendar(
      * specified `Calendar` object can't be obtained due to
      * any invalid calendar values.
      */
-    operator fun compareTo(anotherCalendar: PrimeCalendar): Int {
-        return compareTo(anotherCalendar.timeInMillis)
+    override operator fun compareTo(other: PrimeCalendar): Int {
+        return compareTo(other.timeInMillis)
     }
 
-    private operator fun compareTo(t: Long): Int {
+    private operator fun compareTo(otherTime: Long): Int {
         val thisTime = timeInMillis
-        return if (thisTime > t) 1 else if (thisTime == t) 0 else -1
+        return if (thisTime > otherTime) 1 else if (thisTime == otherTime) 0 else -1
     }
 
     /**
