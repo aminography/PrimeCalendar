@@ -507,10 +507,10 @@ abstract class PrimeCalendar(
      * @return week of month.
      */
     internal fun weekOfMonth(): Int {
-        CalendarFactory.newInstance(calendarType).also { base ->
+        return CalendarFactory.newInstance(calendarType).let { base ->
             base.set(year, month, 1)
-            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(dayOfMonth, baseDayOfWeek)
+            val baseDayOfWeek = adjustDayOfWeekOffset(base[DAY_OF_WEEK])
+            weekNumber(dayOfMonth, baseDayOfWeek)
         }
     }
 
@@ -520,10 +520,10 @@ abstract class PrimeCalendar(
      * @return week of year.
      */
     internal fun weekOfYear(): Int {
-        CalendarFactory.newInstance(calendarType).also { base ->
+        return CalendarFactory.newInstance(calendarType).let { base ->
             base.set(year, 0, 1)
-            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
-            return weekNumber(dayOfYear(), baseDayOfWeek)
+            val baseDayOfWeek = adjustDayOfWeekOffset(base[DAY_OF_WEEK])
+            weekNumber(dayOfYear(), baseDayOfWeek)
         }
     }
 
@@ -681,13 +681,11 @@ abstract class PrimeCalendar(
         val symbols = DateFormatSymbols.getInstance(locale)
         configSymbols(symbols)
 
-        getFieldStrings(field, style, symbols)?.let {
+        return getFieldStrings(field, style, symbols)?.let {
             val fieldValue = get(field)
-            if (fieldValue < it.size) {
-                return it[fieldValue]
-            }
+            if (fieldValue < it.size) it[fieldValue]
+            else null
         }
-        return null
     }
 
     /**
@@ -737,15 +735,14 @@ abstract class PrimeCalendar(
         val symbols = DateFormatSymbols.getInstance(locale)
         configSymbols(symbols)
 
-        getFieldStrings(field, style, symbols)?.let {
-            val names = HashMap<String, Int>()
-            for (i in it.indices) {
-                if (it[i].isEmpty()) continue
-                names[it[i]] = i
+        return getFieldStrings(field, style, symbols)?.let {
+            HashMap<String, Int>().also { names ->
+                for (i in it.indices) {
+                    if (it[i].isEmpty()) continue
+                    names[it[i]] = i
+                }
             }
-            return names
         }
-        return null
     }
 
     private fun checkDisplayNameParams(field: Int, style: Int, minStyle: Int, maxStyle: Int, locale: Locale?, vararg fields: Int): Boolean {

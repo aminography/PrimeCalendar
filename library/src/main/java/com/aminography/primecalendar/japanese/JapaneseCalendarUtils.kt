@@ -11,6 +11,7 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
+@Suppress("SpellCheckingInspection")
 object JapaneseCalendarUtils {
 
     // Month Length Arrays -------------------------------------------------------------------------

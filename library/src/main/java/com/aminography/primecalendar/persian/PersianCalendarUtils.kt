@@ -9,6 +9,7 @@ import kotlin.math.floor
 /**
  * @author aminography
  */
+@Suppress("SpellCheckingInspection")
 object PersianCalendarUtils {
 
     // Month Length Arrays -------------------------------------------------------------------------

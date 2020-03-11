@@ -12,6 +12,7 @@ import java.util.*
  *
  * @author aminography
  */
+@Suppress("unused")
 object CalendarFactory {
 
     @JvmStatic

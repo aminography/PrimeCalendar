@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.aminography.primecalendar.common.operators
 
 import com.aminography.primecalendar.PrimeCalendar

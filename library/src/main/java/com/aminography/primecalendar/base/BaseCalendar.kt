@@ -158,7 +158,7 @@ abstract class BaseCalendar(
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(internalYear, 0, 1) // set base to first day of year
-                    val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                    val baseDayOfWeek = adjustDayOfWeekOffset(base[DAY_OF_WEEK])
                     val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
@@ -173,7 +173,7 @@ abstract class BaseCalendar(
             WEEK_OF_MONTH -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(internalYear, internalMonth, 1) // set base to first day of month
-                    val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                    val baseDayOfWeek = adjustDayOfWeekOffset(base[DAY_OF_WEEK])
                     val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                     val move = (value - 1) * 7 + (dayOfWeek - baseDayOfWeek)
@@ -231,7 +231,7 @@ abstract class BaseCalendar(
                     value == 0 -> {
                         CalendarFactory.newInstance(calendarType).also { base ->
                             base.set(internalYear, internalMonth, 1)  // set base to first day of month
-                            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                            val baseDayOfWeek = adjustDayOfWeekOffset(base[DAY_OF_WEEK])
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                             var move = (dayOfWeek - baseDayOfWeek)
@@ -247,7 +247,7 @@ abstract class BaseCalendar(
                     value < 0 -> {
                         CalendarFactory.newInstance(calendarType).also { base ->
                             base.set(internalYear, internalMonth, monthLength)  // set base to last day of month
-                            val baseDayOfWeek = adjustDayOfWeekOffset(base.get(DAY_OF_WEEK))
+                            val baseDayOfWeek = adjustDayOfWeekOffset(base[DAY_OF_WEEK])
                             val dayOfWeek = adjustDayOfWeekOffset(get(DAY_OF_WEEK))
 
                             val offsetDiff = dayOfWeek - baseDayOfWeek
@@ -718,7 +718,7 @@ abstract class BaseCalendar(
             WEEK_OF_YEAR -> {
                 CalendarFactory.newInstance(calendarType).also { base ->
                     base.set(internalYear, internalMonth, internalDayOfMonth) // set base to current date
-                    base.set(DAY_OF_YEAR, yearLength(year))
+                    base[DAY_OF_YEAR] = yearLength(year)
                 }.weekOfYear()
             }
             WEEK_OF_MONTH -> {

@@ -44,12 +44,12 @@ class ExampleUnitTest {
         val calendar = PersianCalendar()
         calendar.dayOfMonth = 1
         println(calendar.longDateString)
-        println("DAY_OF_WEEK: ${calendar.get(Calendar.DAY_OF_WEEK)}")
+        println("DAY_OF_WEEK: ${calendar[Calendar.DAY_OF_WEEK]}")
 
         calendar.roll(Calendar.DAY_OF_WEEK, -1)
 
         println(calendar.longDateString)
-        println("DAY_OF_WEEK: ${calendar.get(Calendar.DAY_OF_WEEK)}")
+        println("DAY_OF_WEEK: ${calendar[Calendar.DAY_OF_WEEK]}")
     }
 
     @Test
@@ -58,12 +58,12 @@ class ExampleUnitTest {
         calendar.month = 0
         calendar.dayOfMonth = 1
         println(calendar.longDateString)
-        println("DAY_OF_YEAR: ${calendar.get(Calendar.DAY_OF_YEAR)}")
+        println("DAY_OF_YEAR: ${calendar[Calendar.DAY_OF_YEAR]}")
 
         calendar.roll(Calendar.DAY_OF_YEAR, -1)
 
         println(calendar.longDateString)
-        println("DAY_OF_YEAR: ${calendar.get(Calendar.DAY_OF_YEAR)}")
+        println("DAY_OF_YEAR: ${calendar[Calendar.DAY_OF_YEAR]}")
 
         println(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH))
     }
@@ -74,12 +74,12 @@ class ExampleUnitTest {
         calendar.month = 11
         calendar.dayOfMonth = 28
         println(calendar.longDateString)
-        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+        println("WEEK_OF_YEAR: ${calendar[Calendar.WEEK_OF_YEAR]}")
 
         calendar.roll(Calendar.WEEK_OF_YEAR, 1)
 
         println(calendar.longDateString)
-        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+        println("WEEK_OF_YEAR: ${calendar[Calendar.WEEK_OF_YEAR]}")
     }
 
     @Test
@@ -91,13 +91,13 @@ class ExampleUnitTest {
         val civil = CivilCalendar()
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
-        println("WEEK_OF_MONTH: ${civil.get(Calendar.WEEK_OF_MONTH)}")
+        println("WEEK_OF_MONTH: ${civil[Calendar.WEEK_OF_MONTH]}")
 
         calendar.roll(Calendar.WEEK_OF_MONTH, -1)
 
         civil.timeInMillis = calendar.timeInMillis
         println(civil.longDateString)
-        println("WEEK_OF_MONTH: ${civil.get(Calendar.WEEK_OF_MONTH)}")
+        println("WEEK_OF_MONTH: ${civil[Calendar.WEEK_OF_MONTH]}")
     }
 
     @Test
@@ -106,12 +106,12 @@ class ExampleUnitTest {
         calendar.month = 0
         calendar.dayOfMonth = 27
         println(calendar.longDateString)
-        println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        println("WEEK_OF_MONTH: ${calendar[Calendar.WEEK_OF_MONTH]}")
 
         calendar.roll(Calendar.WEEK_OF_MONTH, 1)
 
         println(calendar.longDateString)
-        println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        println("WEEK_OF_MONTH: ${calendar[Calendar.WEEK_OF_MONTH]}")
     }
 
     @Test
@@ -120,12 +120,12 @@ class ExampleUnitTest {
         calendar.month = 0
         calendar.dayOfMonth = 7
         println(calendar.longDateString)
-        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+        println("DAY_OF_WEEK_IN_MONTH: ${calendar[Calendar.DAY_OF_WEEK_IN_MONTH]}")
 
         calendar.roll(Calendar.DAY_OF_WEEK_IN_MONTH, -1)
 
         println(calendar.longDateString)
-        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+        println("DAY_OF_WEEK_IN_MONTH: ${calendar[Calendar.DAY_OF_WEEK_IN_MONTH]}")
     }
 
     @Test
@@ -157,12 +157,12 @@ class ExampleUnitTest {
         calendar.dayOfMonth = 31
 
         println(calendar.longDateString)
-        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+        println("DAY_OF_WEEK_IN_MONTH: ${calendar[Calendar.DAY_OF_WEEK_IN_MONTH]}")
 
-        calendar.set(Calendar.DAY_OF_WEEK_IN_MONTH, -2)
+        calendar[Calendar.DAY_OF_WEEK_IN_MONTH] = -2
 
         println(calendar.longDateString)
-        println("DAY_OF_WEEK_IN_MONTH: ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+        println("DAY_OF_WEEK_IN_MONTH: ${calendar[Calendar.DAY_OF_WEEK_IN_MONTH]}")
     }
 
     @Test
@@ -180,13 +180,13 @@ class ExampleUnitTest {
         calendar.dayOfMonth = 1
 
         println(calendar.longDateString)
-        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+        println("WEEK_OF_YEAR: ${calendar[Calendar.WEEK_OF_YEAR]}")
 
-        calendar.set(Calendar.WEEK_OF_YEAR, -1)
+        calendar[Calendar.WEEK_OF_YEAR] = -1
 //        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
 
         println(calendar.longDateString)
-        println("WEEK_OF_YEAR: ${calendar.get(Calendar.WEEK_OF_YEAR)}")
+        println("WEEK_OF_YEAR: ${calendar[Calendar.WEEK_OF_YEAR]}")
     }
 
     @Test
@@ -202,19 +202,19 @@ class ExampleUnitTest {
 
 //        calendar.set(Calendar.DAY_OF_YEAR, 365)
 
-        calendar.set(Calendar.WEEK_OF_MONTH, -1)
+        calendar[Calendar.WEEK_OF_MONTH] = -1
 
         println(calendar.longDateString)
-        println("WEEK_OF_MONTH: ${calendar.get(Calendar.WEEK_OF_MONTH)}")
+        println("WEEK_OF_MONTH: ${calendar[Calendar.WEEK_OF_MONTH]}")
     }
 
     @Test
     fun persianToCivilConversion() {
         val persian = PersianCalendar()
 //        persian.set(1370, 3, 15)
-        persian.set(Calendar.YEAR, 1370)
-        persian.set(Calendar.MONTH, 3)
-        persian.set(Calendar.DAY_OF_MONTH, 15)
+        persian[Calendar.YEAR] = 1370
+        persian[Calendar.MONTH] = 3
+        persian[Calendar.DAY_OF_MONTH] = 15
         println("Persian Date: ${persian.longDateString}")
 
         val civil = persian.toCivil()
@@ -242,9 +242,9 @@ class ExampleUnitTest {
     @Test
     fun japaneseToCivilConversion() {
         val japanese = JapaneseCalendar()
-        japanese.set(Calendar.YEAR, 2019)
-        japanese.set(Calendar.MONTH, 8)
-        japanese.set(Calendar.DAY_OF_MONTH, 17)
+        japanese[Calendar.YEAR] = 2019
+        japanese[Calendar.MONTH] = 8
+        japanese[Calendar.DAY_OF_MONTH] = 17
         println("Japanese Date: ${japanese.longDateString}")
 
         val civil = japanese.toCivil()
@@ -256,7 +256,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun May31Test() {
+    fun may31Test() {
         val calendar = CivilCalendar()
         calendar.set(2019, 4, 31)
 //        calendar.set(Calendar.YEAR, 2019)
@@ -273,7 +273,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun Test() {
+    fun test() {
         val persian = PersianCalendar()
         println(persian.longDateString)
 

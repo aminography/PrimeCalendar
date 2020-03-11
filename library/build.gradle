@@ -18,6 +18,7 @@ compileTestKotlin {
 }
 
 dependencies {
+    //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'org.threeten:threetenbp:1.4.0'
 

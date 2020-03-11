@@ -579,9 +579,9 @@ class CivilCalendarUnitTest {
     }
 
     private fun assertEquals(civil: CivilCalendar, gregorian: Calendar) {
-        assertEquals(civil.get(YEAR), gregorian.get(YEAR))
-        assertEquals(civil.get(MONTH), gregorian.get(MONTH))
-        assertEquals(civil.get(DAY_OF_MONTH), gregorian.get(DAY_OF_MONTH))
+        assertEquals(civil[YEAR], gregorian.get(YEAR))
+        assertEquals(civil[MONTH], gregorian.get(MONTH))
+        assertEquals(civil[DAY_OF_MONTH], gregorian.get(DAY_OF_MONTH))
     }
 
     private val Calendar.longDateString: String
