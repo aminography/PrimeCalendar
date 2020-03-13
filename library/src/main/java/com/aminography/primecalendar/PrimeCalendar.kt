@@ -28,8 +28,8 @@ import java.util.Calendar.*
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class PrimeCalendar(
-        timeZone: TimeZone,
-        val locale: Locale
+    timeZone: TimeZone,
+    val locale: Locale
 ) : Comparable<PrimeCalendar> {
 
     /**
@@ -134,10 +134,10 @@ abstract class PrimeCalendar(
      */
     val longDateString: String
         get() = weekDayName +
-                "${comma(locale)} " +
-                "${localizeNumber(locale, dayOfMonth)} " +
-                "$monthName " +
-                localizeNumber(locale, year)
+            "${comma(locale)} " +
+            "${localizeNumber(locale, dayOfMonth)} " +
+            "$monthName " +
+            localizeNumber(locale, year)
 
     /**
      * A property which returns a short description of the current calendar time.
@@ -147,10 +147,10 @@ abstract class PrimeCalendar(
      */
     val shortDateString: String
         get() = normalize(locale, year) +
-                delimiter +
-                normalize(locale, month + 1) +
-                delimiter +
-                normalize(locale, dayOfMonth)
+            delimiter +
+            normalize(locale, month + 1) +
+            delimiter +
+            normalize(locale, dayOfMonth)
 
     /**
      * A property which returns month name and day of month in current calendar time.
@@ -160,7 +160,7 @@ abstract class PrimeCalendar(
      */
     val monthDayString: String
         get() = "$monthName " +
-                normalize(locale, dayOfMonth)
+            normalize(locale, dayOfMonth)
 
     // Open Functions ------------------------------------------------------------------------------
 
@@ -418,25 +418,25 @@ abstract class PrimeCalendar(
      * Returns an instance of [CivilCalendar] which is equivalent to the time of the current calendar.
      */
     fun toCivil(): CivilCalendar =
-            CivilCalendar().also { it.timeInMillis = timeInMillis }
+        CivilCalendar().also { it.timeInMillis = timeInMillis }
 
     /**
      * Returns an instance of [PersianCalendar] which is equivalent to the time of the current calendar.
      */
     fun toPersian(): PersianCalendar =
-            PersianCalendar().also { it.timeInMillis = timeInMillis }
+        PersianCalendar().also { it.timeInMillis = timeInMillis }
 
     /**
      * Returns an instance of [HijriCalendar] which is equivalent to the time of the current calendar.
      */
     fun toHijri(): HijriCalendar =
-            HijriCalendar().also { it.timeInMillis = timeInMillis }
+        HijriCalendar().also { it.timeInMillis = timeInMillis }
 
     /**
      * Returns an instance of [JapaneseCalendar] which is equivalent to the time of the current calendar.
      */
     fun toJapanese(): JapaneseCalendar =
-            JapaneseCalendar().also { it.timeInMillis = timeInMillis }
+        JapaneseCalendar().also { it.timeInMillis = timeInMillis }
 
     // ---------------------------------------------------------------------------------------------
 
@@ -879,23 +879,23 @@ abstract class PrimeCalendar(
 
     companion object {
         private val FIELD_NAME = arrayOf(
-                "ERA",
-                "YEAR",
-                "MONTH",
-                "WEEK_OF_YEAR",
-                "WEEK_OF_MONTH",
-                "DAY_OF_MONTH",
-                "DAY_OF_YEAR",
-                "DAY_OF_WEEK",
-                "DAY_OF_WEEK_IN_MONTH",
-                "AM_PM",
-                "HOUR",
-                "HOUR_OF_DAY",
-                "MINUTE",
-                "SECOND",
-                "MILLISECOND",
-                "ZONE_OFFSET",
-                "DST_OFFSET"
+            "ERA",
+            "YEAR",
+            "MONTH",
+            "WEEK_OF_YEAR",
+            "WEEK_OF_MONTH",
+            "DAY_OF_MONTH",
+            "DAY_OF_YEAR",
+            "DAY_OF_WEEK",
+            "DAY_OF_WEEK_IN_MONTH",
+            "AM_PM",
+            "HOUR",
+            "HOUR_OF_DAY",
+            "MINUTE",
+            "SECOND",
+            "MILLISECOND",
+            "ZONE_OFFSET",
+            "DST_OFFSET"
         )
 
         /**

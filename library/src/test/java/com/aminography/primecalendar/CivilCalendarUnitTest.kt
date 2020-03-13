@@ -586,6 +586,6 @@ class CivilCalendarUnitTest {
 
     private val Calendar.longDateString: String
         get() = "${getDisplayName(DAY_OF_WEEK, LONG, Locale.ENGLISH)},  " +
-                "${get(DAY_OF_MONTH)}  ${getDisplayName(MONTH, LONG, Locale.ENGLISH)}  ${get(YEAR)}"
+            "${get(DAY_OF_MONTH)}  ${getDisplayName(MONTH, LONG, Locale.ENGLISH)}  ${get(YEAR)}"
 
 }

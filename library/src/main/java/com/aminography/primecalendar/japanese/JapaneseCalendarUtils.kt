@@ -25,123 +25,123 @@ object JapaneseCalendarUtils {
     // Symbol Name Arrays --------------------------------------------------------------------------
 
     internal val monthNames = arrayOf(
-            "1月", // Ichigatsu
-            "2月", // Nigatsu
-            "3月", // Sangatsu
-            "4月", // Shigatsu
-            "5月", // Gogatsu
-            "6月", // Rokugatsu
-            "7月", // Shichigatsu
-            "8月", // Hachigatsu
-            "9月", // Kugatsu
-            "10月", // Jūgatsu
-            "11月", // Jūichigatsu
-            "12月" // Jūnigatsu
+        "1月", // Ichigatsu
+        "2月", // Nigatsu
+        "3月", // Sangatsu
+        "4月", // Shigatsu
+        "5月", // Gogatsu
+        "6月", // Rokugatsu
+        "7月", // Shichigatsu
+        "8月", // Hachigatsu
+        "9月", // Kugatsu
+        "10月", // Jūgatsu
+        "11月", // Jūichigatsu
+        "12月" // Jūnigatsu
     )
 
     internal val weekDays = arrayOf(
-            "土曜日", // Doyōbi
-            "日曜日", // Nichiyōbi
-            "月曜日", // Getsuyōbi
-            "火曜日", // Kayōbi
-            "水曜日", // Suiyōbi
-            "木曜日", // Mokuyōbi
-            "金曜日" // Kin'yōbi
+        "土曜日", // Doyōbi
+        "日曜日", // Nichiyōbi
+        "月曜日", // Getsuyōbi
+        "火曜日", // Kayōbi
+        "水曜日", // Suiyōbi
+        "木曜日", // Mokuyōbi
+        "金曜日" // Kin'yōbi
     )
 
     internal val eras = arrayOf(
-            "西暦", // AD
-            "紀元前" // BC
+        "西暦", // AD
+        "紀元前" // BC
     )
 
     internal val amPm = arrayOf(
-            "午前", // AM
-            "午後" // PM
+        "午前", // AM
+        "午後" // PM
     )
 
     internal val shortMonthNames = arrayOf(
-            "1月", // Ichigatsu
-            "2月", // Nigatsu
-            "3月", // Sangatsu
-            "4月", // Shigatsu
-            "5月", // Gogatsu
-            "6月", // Rokugatsu
-            "7月", // Shichigatsu
-            "8月", // Hachigatsu
-            "9月", // Kugatsu
-            "10月", // Jūgatsu
-            "11月", // Jūichigatsu
-            "12月" // Jūnigatsu
+        "1月", // Ichigatsu
+        "2月", // Nigatsu
+        "3月", // Sangatsu
+        "4月", // Shigatsu
+        "5月", // Gogatsu
+        "6月", // Rokugatsu
+        "7月", // Shichigatsu
+        "8月", // Hachigatsu
+        "9月", // Kugatsu
+        "10月", // Jūgatsu
+        "11月", // Jūichigatsu
+        "12月" // Jūnigatsu
     )
 
     internal val shortWeekDays = arrayOf(
-            "土", // Doyōbi
-            "日", // Nichiyōbi
-            "月", // Getsuyōbi
-            "火", // Kayōbi
-            "水", // Suiyōbi
-            "木", // Mokuyōbi
-            "金" // Kin'yōbi
+        "土", // Doyōbi
+        "日", // Nichiyōbi
+        "月", // Getsuyōbi
+        "火", // Kayōbi
+        "水", // Suiyōbi
+        "木", // Mokuyōbi
+        "金" // Kin'yōbi
     )
 
     internal val monthNamesEn = arrayOf(
-            "Ichigatsu", // Ichigatsu
-            "Nigatsu", // Nigatsu
-            "Sangatsu", // Sangatsu
-            "Shigatsu", // Shigatsu
-            "Gogatsu", // Gogatsu
-            "Rokugatsu", // Rokugatsu
-            "Shichigatsu", // Shichigatsu
-            "Hachigatsu", // Hachigatsu
-            "Kugatsu", // Kugatsu
-            "Jūgatsu", // Jūgatsu
-            "Jūichigatsu", // Jūichigatsu
-            "Jūnigatsu" // Jūnigatsu
+        "Ichigatsu", // Ichigatsu
+        "Nigatsu", // Nigatsu
+        "Sangatsu", // Sangatsu
+        "Shigatsu", // Shigatsu
+        "Gogatsu", // Gogatsu
+        "Rokugatsu", // Rokugatsu
+        "Shichigatsu", // Shichigatsu
+        "Hachigatsu", // Hachigatsu
+        "Kugatsu", // Kugatsu
+        "Jūgatsu", // Jūgatsu
+        "Jūichigatsu", // Jūichigatsu
+        "Jūnigatsu" // Jūnigatsu
     )
 
     internal val weekDaysEn = arrayOf(
-            "Saturday", // Doyōbi
-            "Sunday", // Nichiyōbi
-            "Monday", // Getsuyōbi
-            "Tuesday", // Kayōbi
-            "Wednesday", // Suiyōbi
-            "Thursday", // Mokuyōbi
-            "Friday" // Kin'yōbi
+        "Saturday", // Doyōbi
+        "Sunday", // Nichiyōbi
+        "Monday", // Getsuyōbi
+        "Tuesday", // Kayōbi
+        "Wednesday", // Suiyōbi
+        "Thursday", // Mokuyōbi
+        "Friday" // Kin'yōbi
     )
 
     internal val erasEn = arrayOf(
-            "AD", // AD
-            "BC" // BC
+        "AD", // AD
+        "BC" // BC
     )
 
     internal val amPmEn = arrayOf(
-            "AM", // AM
-            "PM" // PM
+        "AM", // AM
+        "PM" // PM
     )
 
     internal val shortMonthNamesEn = arrayOf(
-            "Ichi", // Ichigatsu
-            "Ni", // Nigatsu
-            "San", // Sangatsu
-            "Shi", // Shigatsu
-            "Go", // Gogatsu
-            "Roku", // Rokugatsu
-            "Shichi", // Shichigatsu
-            "Hachi", // Hachigatsu
-            "Ku", // Kugatsu
-            "Jū", // Jūgatsu
-            "Jūichi", // Jūichigatsu
-            "Jūni" // Jūnigatsu
+        "Ichi", // Ichigatsu
+        "Ni", // Nigatsu
+        "San", // Sangatsu
+        "Shi", // Shigatsu
+        "Go", // Gogatsu
+        "Roku", // Rokugatsu
+        "Shichi", // Shichigatsu
+        "Hachi", // Hachigatsu
+        "Ku", // Kugatsu
+        "Jū", // Jūgatsu
+        "Jūichi", // Jūichigatsu
+        "Jūni" // Jūnigatsu
     )
 
     internal val shortWeekDaysEn = arrayOf(
-            "Sa", // Doyōbi
-            "Su", // Nichiyōbi
-            "Mo", // Getsuyōbi
-            "Tu", // Kayōbi
-            "We", // Suiyōbi
-            "Th", // Mokuyōbi
-            "Fr" // Kin'yōbi
+        "Sa", // Doyōbi
+        "Su", // Nichiyōbi
+        "Mo", // Getsuyōbi
+        "Tu", // Kayōbi
+        "We", // Suiyōbi
+        "Th", // Mokuyōbi
+        "Fr" // Kin'yōbi
     )
 
     fun monthName(month: Int, locale: Locale): String {
@@ -195,19 +195,19 @@ object JapaneseCalendarUtils {
     // Internal Calculation Methods ----------------------------------------------------------------
 
     fun monthLength(year: Int, month: Int): Int =
-            if (isJapaneseLeapYear(year))
-                leapYearMonthLength[month]
-            else normalMonthLength[month]
+        if (isJapaneseLeapYear(year))
+            leapYearMonthLength[month]
+        else normalMonthLength[month]
 
     fun yearLength(year: Int): Int =
-            if (isJapaneseLeapYear(year))
-                leapYearMonthLengthAggregated[12]
-            else normalMonthLengthAggregated[12]
+        if (isJapaneseLeapYear(year))
+            leapYearMonthLengthAggregated[12]
+        else normalMonthLengthAggregated[12]
 
     internal fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
-            if (isJapaneseLeapYear(year))
-                leapYearMonthLengthAggregated[month] + dayOfMonth
-            else normalMonthLengthAggregated[month] + dayOfMonth
+        if (isJapaneseLeapYear(year))
+            leapYearMonthLengthAggregated[month] + dayOfMonth
+        else normalMonthLengthAggregated[month] + dayOfMonth
 
     internal fun dayOfYear(year: Int, dayOfYear: Int): DateHolder {
         val monthLengthAggregated = if (isJapaneseLeapYear(year))
@@ -225,7 +225,7 @@ object JapaneseCalendarUtils {
     }
 
     internal fun isJapaneseLeapYear(year: Int): Boolean =
-            ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)
+        ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)
 
     // Conversion Methods --------------------------------------------------------------------------
 

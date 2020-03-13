@@ -12,8 +12,8 @@ import java.util.Calendar.*
  * @author aminography
  */
 abstract class BaseCalendar(
-        timeZone: TimeZone,
-        locale: Locale
+    timeZone: TimeZone,
+    locale: Locale
 ) : PrimeCalendar(timeZone, locale) {
 
     /**
@@ -492,15 +492,15 @@ abstract class BaseCalendar(
                 array[woy - 1] = day
                 for (i in woy until maxWoy) {
                     array[i] =
-                            if (array[i - 1] + 7 <= maxDay)
-                                array[i - 1] + 7
-                            else maxDay
+                        if (array[i - 1] + 7 <= maxDay)
+                            array[i - 1] + 7
+                        else maxDay
                 }
                 for (i in (woy - 2) downTo 0) {
                     array[i] =
-                            if (array[i + 1] - 7 >= 1)
-                                array[i + 1] - 7
-                            else 1
+                        if (array[i + 1] - 7 >= 1)
+                            array[i + 1] - 7
+                        else 1
                 }
 
                 var targetIndex = (woy - 1 + amount) % maxWoy
@@ -524,15 +524,15 @@ abstract class BaseCalendar(
                 array[wom - 1] = day
                 for (i in wom until maxWom) {
                     array[i] =
-                            if (array[i - 1] + 7 <= maxDay)
-                                array[i - 1] + 7
-                            else maxDay
+                        if (array[i - 1] + 7 <= maxDay)
+                            array[i - 1] + 7
+                        else maxDay
                 }
                 for (i in (wom - 2) downTo 0) {
                     array[i] =
-                            if (array[i + 1] - 7 >= 1)
-                                array[i + 1] - 7
-                            else 1
+                        if (array[i + 1] - 7 >= 1)
+                            array[i + 1] - 7
+                        else 1
                 }
 
                 var targetIndex = (wom - 1 + amount) % maxWom

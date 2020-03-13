@@ -11,16 +11,16 @@ import java.util.Calendar.*
  * @author aminography
  */
 class CivilCalendar constructor(
-        timeZone: TimeZone = TimeZone.getDefault(),
-        locale: Locale = Locale.getDefault()
+    timeZone: TimeZone = TimeZone.getDefault(),
+    locale: Locale = Locale.getDefault()
 ) : BaseCalendar(timeZone, locale) {
 
     constructor(
-            timeZone: TimeZone = TimeZone.getDefault()
+        timeZone: TimeZone = TimeZone.getDefault()
     ) : this(timeZone, Locale.getDefault())
 
     constructor(
-            locale: Locale = Locale.getDefault()
+        locale: Locale = Locale.getDefault()
     ) : this(TimeZone.getDefault(), locale)
 
     constructor(
@@ -55,29 +55,29 @@ class CivilCalendar constructor(
 
     override val minimum: Map<Int, Int>
         get() = mapOf(
-                WEEK_OF_YEAR to 1,
-                WEEK_OF_MONTH to 0,
-                DAY_OF_MONTH to 1,
-                DAY_OF_YEAR to 1,
-                DAY_OF_WEEK_IN_MONTH to 1
+            WEEK_OF_YEAR to 1,
+            WEEK_OF_MONTH to 0,
+            DAY_OF_MONTH to 1,
+            DAY_OF_YEAR to 1,
+            DAY_OF_WEEK_IN_MONTH to 1
         )
 
     override val maximum: Map<Int, Int>
         get() = mapOf(
-                WEEK_OF_YEAR to 53, // Why not 54?
-                WEEK_OF_MONTH to 6,
-                DAY_OF_MONTH to 31,
-                DAY_OF_YEAR to 366,
-                DAY_OF_WEEK_IN_MONTH to 6 // Why not 5?
+            WEEK_OF_YEAR to 53, // Why not 54?
+            WEEK_OF_MONTH to 6,
+            DAY_OF_MONTH to 31,
+            DAY_OF_YEAR to 366,
+            DAY_OF_WEEK_IN_MONTH to 6 // Why not 5?
         )
 
     override val leastMaximum: Map<Int, Int>
         get() = mapOf(
-                WEEK_OF_YEAR to 52, // Why not 53?
-                WEEK_OF_MONTH to 4,
-                DAY_OF_MONTH to 28,
-                DAY_OF_YEAR to 365,
-                DAY_OF_WEEK_IN_MONTH to 4
+            WEEK_OF_YEAR to 52, // Why not 53?
+            WEEK_OF_MONTH to 4,
+            DAY_OF_MONTH to 28,
+            DAY_OF_YEAR to 365,
+            DAY_OF_WEEK_IN_MONTH to 4
         )
 
     init {
@@ -103,15 +103,15 @@ class CivilCalendar constructor(
     // ---------------------------------------------------------------------------------------------
 
     override fun monthLength(year: Int, month: Int): Int =
-            CivilCalendarUtils.monthLength(year, month)
+        CivilCalendarUtils.monthLength(year, month)
 
     override fun yearLength(year: Int): Int =
-            CivilCalendarUtils.yearLength(year)
+        CivilCalendarUtils.yearLength(year)
 
     override fun dayOfYear(): Int =
-            CivilCalendarUtils.dayOfYear(year, month, dayOfMonth)
+        CivilCalendarUtils.dayOfYear(year, month, dayOfMonth)
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
-            CivilCalendarUtils.dayOfYear(year, dayOfYear)
+        CivilCalendarUtils.dayOfYear(year, dayOfYear)
 
 }

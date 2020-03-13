@@ -24,123 +24,123 @@ object PersianCalendarUtils {
     // Symbol Name Arrays --------------------------------------------------------------------------
 
     internal val monthNames = arrayOf(
-            "فروردین", // Farvardin
-            "اردیبهشت", // Ordibehesht
-            "خرداد", // Khordad
-            "تیر", // Tir
-            "مرداد", // Mordad
-            "شهریور", // Shahrivar
-            "مهر", // Mehr
-            "آبان", // Aban
-            "آذر", // Azar
-            "دی", // Dey
-            "بهمن", // Bahman
-            "اسفند" // Esfand
+        "فروردین", // Farvardin
+        "اردیبهشت", // Ordibehesht
+        "خرداد", // Khordad
+        "تیر", // Tir
+        "مرداد", // Mordad
+        "شهریور", // Shahrivar
+        "مهر", // Mehr
+        "آبان", // Aban
+        "آذر", // Azar
+        "دی", // Dey
+        "بهمن", // Bahman
+        "اسفند" // Esfand
     )
 
     internal val weekDays = arrayOf(
-            "شنبه", // Shanbeh
-            "یکشنبه", // Yekshanbeh
-            "دوشنبه", // Doshanbeh
-            "سه\u200Cشنبه", // Sehshanbeh
-            "چهارشنبه", // Chaharshanbeh
-            "پنجشنبه", // Panjshanbeh
-            "جمعه" // jom'e
+        "شنبه", // Shanbeh
+        "یکشنبه", // Yekshanbeh
+        "دوشنبه", // Doshanbeh
+        "سه\u200Cشنبه", // Sehshanbeh
+        "چهارشنبه", // Chaharshanbeh
+        "پنجشنبه", // Panjshanbeh
+        "جمعه" // jom'e
     )
 
     internal val eras = arrayOf(
-            "قبل از میلاد", // AD
-            "بعد از میلاد" // BC
+        "قبل از میلاد", // AD
+        "بعد از میلاد" // BC
     )
 
     internal val amPm = arrayOf(
-            "قبل از ظهر", // AM
-            "بعد از ظهر" // PM
+        "قبل از ظهر", // AM
+        "بعد از ظهر" // PM
     )
 
     internal val shortMonthNames = arrayOf(
-            "فر", // Farvardin
-            "ارد", // Ordibehesht
-            "خرد", // Khordad
-            "تیر", // Tir
-            "مر", // Mordad
-            "شهر", // Shahrivar
-            "مهر", // Mehr
-            "آب", // Aban
-            "آذر", // Azar
-            "دی", // Dey
-            "به", // Bahman
-            "اس" // Esfand
+        "فر", // Farvardin
+        "ارد", // Ordibehesht
+        "خرد", // Khordad
+        "تیر", // Tir
+        "مر", // Mordad
+        "شهر", // Shahrivar
+        "مهر", // Mehr
+        "آب", // Aban
+        "آذر", // Azar
+        "دی", // Dey
+        "به", // Bahman
+        "اس" // Esfand
     )
 
     internal val shortWeekDays = arrayOf(
-            "ش", // Shanbeh
-            "ی", // Yekshanbeh
-            "د", // Doshanbeh
-            "س", // Sehshanbeh
-            "چ", // Chaharshanbeh
-            "پ", // Panjshanbeh
-            "ج" // jom'e
+        "ش", // Shanbeh
+        "ی", // Yekshanbeh
+        "د", // Doshanbeh
+        "س", // Sehshanbeh
+        "چ", // Chaharshanbeh
+        "پ", // Panjshanbeh
+        "ج" // jom'e
     )
 
     internal val monthNamesEn = arrayOf(
-            "Farvardin", // Farvardin
-            "Ordibehesht", // Ordibehesht
-            "Khordad", // Khordad
-            "Tir", // Tir
-            "Mordad", // Mordad
-            "Shahrivar", // Shahrivar
-            "Mehr", // Mehr
-            "Aban", // Aban
-            "Azar", // Azar
-            "Dey", // Dey
-            "Bahman", // Bahman
-            "Esfand" // Esfand
+        "Farvardin", // Farvardin
+        "Ordibehesht", // Ordibehesht
+        "Khordad", // Khordad
+        "Tir", // Tir
+        "Mordad", // Mordad
+        "Shahrivar", // Shahrivar
+        "Mehr", // Mehr
+        "Aban", // Aban
+        "Azar", // Azar
+        "Dey", // Dey
+        "Bahman", // Bahman
+        "Esfand" // Esfand
     )
 
     internal val weekDaysEn = arrayOf(
-            "Saturday", // Shanbeh
-            "Sunday", // Yekshanbeh
-            "Monday", // Doshanbeh
-            "Tuesday", // Sehshanbeh
-            "Wednesday", // Chaharshanbeh
-            "Thursday", // Panjshanbeh
-            "Friday" // jom'e
+        "Saturday", // Shanbeh
+        "Sunday", // Yekshanbeh
+        "Monday", // Doshanbeh
+        "Tuesday", // Sehshanbeh
+        "Wednesday", // Chaharshanbeh
+        "Thursday", // Panjshanbeh
+        "Friday" // jom'e
     )
 
     internal val erasEn = arrayOf(
-            "AD", // AD
-            "BC" // BC
+        "AD", // AD
+        "BC" // BC
     )
 
     internal val amPmEn = arrayOf(
-            "AM", // AM
-            "PM" // PM
+        "AM", // AM
+        "PM" // PM
     )
 
     internal val shortMonthNamesEn = arrayOf(
-            "Far", // Farvardin
-            "Ord", // Ordibehesht
-            "Kho", // Khordad
-            "Tir", // Tir
-            "Mor", // Mordad
-            "Sha", // Shahrivar
-            "Meh", // Mehr
-            "Aba", // Aban
-            "Aza", // Azar
-            "Dey", // Dey
-            "Bah", // Bahman
-            "Esf" // Esfand
+        "Far", // Farvardin
+        "Ord", // Ordibehesht
+        "Kho", // Khordad
+        "Tir", // Tir
+        "Mor", // Mordad
+        "Sha", // Shahrivar
+        "Meh", // Mehr
+        "Aba", // Aban
+        "Aza", // Azar
+        "Dey", // Dey
+        "Bah", // Bahman
+        "Esf" // Esfand
     )
 
     internal val shortWeekDaysEn = arrayOf(
-            "Sa", // Shanbeh
-            "Su", // Yekshanbeh
-            "Mo", // Doshanbeh
-            "Tu", // Sehshanbeh
-            "We", // Chaharshanbeh
-            "Th", // Panjshanbeh
-            "Fr" // jom'e
+        "Sa", // Shanbeh
+        "Su", // Yekshanbeh
+        "Mo", // Doshanbeh
+        "Tu", // Sehshanbeh
+        "We", // Chaharshanbeh
+        "Th", // Panjshanbeh
+        "Fr" // jom'e
     )
 
     fun monthName(month: Int, locale: Locale): String {
@@ -194,19 +194,19 @@ object PersianCalendarUtils {
     // Internal Calculation Methods ----------------------------------------------------------------
 
     fun monthLength(year: Int, month: Int): Int =
-            if (isPersianLeapYear(year))
-                leapYearMonthLength[month]
-            else normalMonthLength[month]
+        if (isPersianLeapYear(year))
+            leapYearMonthLength[month]
+        else normalMonthLength[month]
 
     fun yearLength(year: Int): Int =
-            if (isPersianLeapYear(year))
-                leapYearMonthLengthAggregated[12]
-            else normalMonthLengthAggregated[12]
+        if (isPersianLeapYear(year))
+            leapYearMonthLengthAggregated[12]
+        else normalMonthLengthAggregated[12]
 
     internal fun dayOfYear(year: Int, month: Int, dayOfMonth: Int): Int =
-            if (isPersianLeapYear(year))
-                leapYearMonthLengthAggregated[month] + dayOfMonth
-            else normalMonthLengthAggregated[month] + dayOfMonth
+        if (isPersianLeapYear(year))
+            leapYearMonthLengthAggregated[month] + dayOfMonth
+        else normalMonthLengthAggregated[month] + dayOfMonth
 
     internal fun dayOfYear(year: Int, dayOfYear: Int): DateHolder {
         val monthLengthAggregated = if (isPersianLeapYear(year))
@@ -224,7 +224,7 @@ object PersianCalendarUtils {
     }
 
     internal fun isPersianLeapYear(persianYear: Int): Boolean =
-            ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
+        ceil((38.0 + (ceil((persianYear - 474L).toDouble(), 2820.0) + 474L)) * 682.0, 2816.0) < 682L
 
     private fun ceil(double1: Double, double2: Double): Long {
         return (double1 - double2 * floor(double1 / double2)).toLong()
