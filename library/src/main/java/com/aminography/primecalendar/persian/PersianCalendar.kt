@@ -44,7 +44,7 @@ class PersianCalendar constructor(
     override val isLeapYear: Boolean
         get() = PersianCalendarUtils.isPersianLeapYear(internalYear)
 
-    override var firstDayOfWeek: Int = SATURDAY
+    override var firstDayOfWeek: Int = DEFAULT_FIRST_DAY_OF_WEEK
         set(value) {
             field = value
             setInternalFirstDayOfWeek(value)
@@ -147,7 +147,8 @@ class PersianCalendar constructor(
         PersianCalendarUtils.dayOfYear(year, dayOfYear)
 
     companion object {
-        internal const val DEFAULT_LOCALE = "fa"
+        const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
+        const val DEFAULT_LOCALE = "fa"
     }
 
 }

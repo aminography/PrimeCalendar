@@ -44,7 +44,7 @@ class CivilCalendar constructor(
     override val isLeapYear: Boolean
         get() = CivilCalendarUtils.isGregorianLeapYear(internalYear)
 
-    override var firstDayOfWeek: Int = SUNDAY
+    override var firstDayOfWeek: Int = DEFAULT_FIRST_DAY_OF_WEEK
         set(value) {
             field = value
             setInternalFirstDayOfWeek(value)
@@ -113,5 +113,10 @@ class CivilCalendar constructor(
 
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
         CivilCalendarUtils.dayOfYear(year, dayOfYear)
+
+    companion object {
+        const val DEFAULT_FIRST_DAY_OF_WEEK = SUNDAY
+        const val DEFAULT_LOCALE = "en"
+    }
 
 }

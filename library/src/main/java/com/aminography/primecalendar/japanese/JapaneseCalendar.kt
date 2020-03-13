@@ -45,7 +45,7 @@ class JapaneseCalendar constructor(
     override val isLeapYear: Boolean
         get() = JapaneseCalendarUtils.isJapaneseLeapYear(internalYear)
 
-    override var firstDayOfWeek: Int = SUNDAY
+    override var firstDayOfWeek: Int = DEFAULT_FIRST_DAY_OF_WEEK
         set(value) {
             field = value
             setInternalFirstDayOfWeek(value)
@@ -148,7 +148,8 @@ class JapaneseCalendar constructor(
         JapaneseCalendarUtils.dayOfYear(year, dayOfYear)
 
     companion object {
-        internal const val DEFAULT_LOCALE = "ja"
+        const val DEFAULT_FIRST_DAY_OF_WEEK = SUNDAY
+        const val DEFAULT_LOCALE = "ja"
     }
 
 }

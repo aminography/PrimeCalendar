@@ -119,7 +119,7 @@ abstract class PrimeCalendar(
     /**
      * A property which returns first day of week based on calendar-type.
      */
-    abstract val firstDayOfWeek: Int
+    abstract var firstDayOfWeek: Int
 
     /**
      * A property which returns current calendar-type.
