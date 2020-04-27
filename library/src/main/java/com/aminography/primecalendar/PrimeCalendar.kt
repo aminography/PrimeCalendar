@@ -829,7 +829,7 @@ abstract class PrimeCalendar(
      * @return a copy of this object.
      */
     fun clone(): PrimeCalendar {
-        return CalendarFactory.newInstance(calendarType).also {
+        return CalendarFactory.newInstance(calendarType, locale).also {
             it.internalCalendar = internalCalendar.clone() as GregorianCalendar
             it.invalidate()
         }
