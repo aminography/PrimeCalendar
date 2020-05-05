@@ -10,21 +10,10 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class PersianCalendar constructor(
+class PersianCalendar @JvmOverloads constructor(
     timeZone: TimeZone = TimeZone.getDefault(),
     locale: Locale = Locale(DEFAULT_LOCALE)
 ) : BaseCalendar(timeZone, locale) {
-
-    constructor(
-        timeZone: TimeZone = TimeZone.getDefault()
-    ) : this(timeZone, Locale(DEFAULT_LOCALE))
-
-    constructor(
-        locale: Locale = Locale(DEFAULT_LOCALE)
-    ) : this(TimeZone.getDefault(), locale)
-
-    constructor(
-    ) : this(TimeZone.getDefault(), Locale(DEFAULT_LOCALE))
 
     override val monthName: String
         get() = PersianCalendarUtils.monthName(internalMonth, locale)

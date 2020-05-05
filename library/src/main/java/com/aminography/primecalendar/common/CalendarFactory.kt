@@ -31,10 +31,10 @@ object CalendarFactory {
     @JvmStatic
     fun newInstance(type: CalendarType, locale: Locale): PrimeCalendar {
         return when (type) {
-            CalendarType.CIVIL -> CivilCalendar(locale)
-            CalendarType.PERSIAN -> PersianCalendar(locale)
-            CalendarType.HIJRI -> HijriCalendar(locale)
-            CalendarType.JAPANESE -> JapaneseCalendar(locale)
+            CalendarType.CIVIL -> CivilCalendar(locale = locale)
+            CalendarType.PERSIAN -> PersianCalendar(locale = locale)
+            CalendarType.HIJRI -> HijriCalendar(locale = locale)
+            CalendarType.JAPANESE -> JapaneseCalendar(locale = locale)
         }
     }
 

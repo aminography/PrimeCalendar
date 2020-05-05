@@ -10,21 +10,10 @@ import java.util.Calendar.*
 /**
  * @author aminography
  */
-class CivilCalendar constructor(
+class CivilCalendar @JvmOverloads constructor(
     timeZone: TimeZone = TimeZone.getDefault(),
     locale: Locale = Locale.getDefault()
 ) : BaseCalendar(timeZone, locale) {
-
-    constructor(
-        timeZone: TimeZone = TimeZone.getDefault()
-    ) : this(timeZone, Locale.getDefault())
-
-    constructor(
-        locale: Locale = Locale.getDefault()
-    ) : this(TimeZone.getDefault(), locale)
-
-    constructor(
-    ) : this(TimeZone.getDefault(), Locale.getDefault())
 
     override val monthName: String
         get() = internalCalendar.getDisplayName(MONTH, LONG, locale)

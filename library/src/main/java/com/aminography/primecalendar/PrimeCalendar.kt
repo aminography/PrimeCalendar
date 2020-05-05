@@ -829,9 +829,9 @@ abstract class PrimeCalendar(
      * @return a copy of this object.
      */
     fun clone(): PrimeCalendar {
-        // TODO: timeZone
-        return CalendarFactory.newInstance(calendarType, locale).also {
+        return CalendarFactory.newInstance(calendarType, internalCalendar.timeZone, locale).also {
             it.internalCalendar = internalCalendar.clone() as GregorianCalendar
+            it.firstDayOfWeek = firstDayOfWeek
             it.invalidate()
         }
     }
