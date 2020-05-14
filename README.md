@@ -30,7 +30,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.20'
+    implementation 'com.aminography:primecalendar:1.2.21'
 }
 ```
 
@@ -49,7 +49,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.2.20</version>
+        <version>1.2.21</version>
     </dependency>
 </dependencies>
 ```
@@ -181,7 +181,7 @@ Third Party Libraries
 
 Change Log
 ----------
-### Version 1.2.20
+### Version 1.2.21
 - Japanese month names and other temporal names are changed.
 - Month constants are added into calendar classes.
 

@@ -2,9 +2,6 @@ package com.aminography.primecalendar.japanese
 
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.japanese.JapaneseCalendar.Companion.DEFAULT_LOCALE
-import org.threeten.bp.LocalDate
-import org.threeten.bp.chrono.JapaneseDate
-import org.threeten.bp.temporal.ChronoField
 import java.util.*
 import java.util.Calendar.*
 
@@ -234,15 +231,17 @@ object JapaneseCalendarUtils {
     // Conversion Methods --------------------------------------------------------------------------
 
     internal fun gregorianToJapanese(gregorian: DateHolder): DateHolder {
-        val gregorianDate = LocalDate.of(gregorian.year, gregorian.month + 1, gregorian.dayOfMonth)
-        val japaneseDate = JapaneseDate.from(gregorianDate)
-        return DateHolder(japaneseDate.get(ChronoField.YEAR), japaneseDate.get(ChronoField.MONTH_OF_YEAR) - 1, japaneseDate.get(ChronoField.DAY_OF_MONTH))
+        return gregorian
+//        val gregorianDate = LocalDate.of(gregorian.year, gregorian.month + 1, gregorian.dayOfMonth)
+//        val japaneseDate = JapaneseDate.from(gregorianDate)
+//        return DateHolder(japaneseDate.get(ChronoField.YEAR), japaneseDate.get(ChronoField.MONTH_OF_YEAR) - 1, japaneseDate.get(ChronoField.DAY_OF_MONTH))
     }
 
     internal fun japaneseToGregorian(japanese: DateHolder): DateHolder {
-        val japaneseDate = JapaneseDate.of(japanese.year, japanese.month + 1, japanese.dayOfMonth)
-        val gregorianDate = LocalDate.from(japaneseDate)
-        return DateHolder(gregorianDate.get(ChronoField.YEAR), gregorianDate.get(ChronoField.MONTH_OF_YEAR) - 1, gregorianDate.get(ChronoField.DAY_OF_MONTH))
+        return japanese
+//        val japaneseDate = JapaneseDate.of(japanese.year, japanese.month + 1, japanese.dayOfMonth)
+//        val gregorianDate = LocalDate.from(japaneseDate)
+//        return DateHolder(gregorianDate.get(ChronoField.YEAR), gregorianDate.get(ChronoField.MONTH_OF_YEAR) - 1, gregorianDate.get(ChronoField.DAY_OF_MONTH))
     }
 
 }
