@@ -135,9 +135,23 @@ class PersianCalendar @JvmOverloads constructor(
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
         PersianCalendarUtils.dayOfYear(year, dayOfYear)
 
+    @Suppress("unused")
     companion object {
         const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
         const val DEFAULT_LOCALE = "fa"
+
+        const val FARVARDIN = 0
+        const val ORDIBEHESHT = 1
+        const val KHORDAD = 2
+        const val TIR = 3
+        const val MORDAD = 4
+        const val SHAHRIVAR = 5
+        const val MEHR = 6
+        const val ABAN = 7
+        const val AZAR = 8
+        const val DEY = 9
+        const val BAHMAN = 10
+        const val ESFAND = 11
     }
 
 }

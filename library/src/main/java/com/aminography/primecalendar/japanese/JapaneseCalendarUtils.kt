@@ -25,63 +25,67 @@ object JapaneseCalendarUtils {
     // Symbol Name Arrays --------------------------------------------------------------------------
 
     internal val monthNames = arrayOf(
-        "1月", // Ichigatsu
-        "2月", // Nigatsu
-        "3月", // Sangatsu
-        "4月", // Shigatsu
-        "5月", // Gogatsu
-        "6月", // Rokugatsu
-        "7月", // Shichigatsu
-        "8月", // Hachigatsu
-        "9月", // Kugatsu
-        "10月", // Jūgatsu
-        "11月", // Jūichigatsu
-        "12月" // Jūnigatsu
+        "いち がつ", // Ichigatsu
+        "に がつ", // Nigatsu
+        "さん がつ", // Sangatsu
+        "し がつ", // Shigatsu
+        "ご がつ", // Gogatsu
+        "ろく がつ", // Rokugatsu
+        "しち がつ", // Shichigatsu
+        "はち がつ", // Hachigatsu
+        "く がつ", // Kugatsu
+        "じゅう がつ", // Jūgatsu
+        "じゅういち がつ", // Jūichigatsu
+        "じゅうに がつ" // Jūnigatsu
     )
 
     internal val weekDays = arrayOf(
-        "土曜日", // Doyōbi
-        "日曜日", // Nichiyōbi
-        "月曜日", // Getsuyōbi
-        "火曜日", // Kayōbi
-        "水曜日", // Suiyōbi
-        "木曜日", // Mokuyōbi
-        "金曜日" // Kin'yōbi
+        "ど ようび", // Doyōbi
+        "にち ようび", // Nichiyōbi
+        "げつ ようび", // Getsuyōbi
+        "か ようび", // Kayōbi
+        "すい ようび", // Suiyōbi
+        "もく ようび", // Mokuyōbi
+        "きん ようび" // Kin'yōbi
     )
 
     internal val eras = arrayOf(
-        "西暦", // AD
-        "紀元前" // BC
+//        "西暦", // AD
+//        "紀元前" // BC
+        "せいれき", // AD
+        "きげんぜん" // BC
     )
 
     internal val amPm = arrayOf(
-        "午前", // AM
-        "午後" // PM
+//        "午前", // AM
+//        "午後" // PM
+        "ごぜん", // AM
+        "ごご" // PM
     )
 
     internal val shortMonthNames = arrayOf(
-        "1月", // Ichigatsu
-        "2月", // Nigatsu
-        "3月", // Sangatsu
-        "4月", // Shigatsu
-        "5月", // Gogatsu
-        "6月", // Rokugatsu
-        "7月", // Shichigatsu
-        "8月", // Hachigatsu
-        "9月", // Kugatsu
-        "10月", // Jūgatsu
-        "11月", // Jūichigatsu
-        "12月" // Jūnigatsu
+        "一月", // Ichigatsu
+        "二月", // Nigatsu
+        "三月", // Sangatsu
+        "四月", // Shigatsu
+        "五月", // Gogatsu
+        "六月", // Rokugatsu
+        "七月", // Shichigatsu
+        "八月", // Hachigatsu
+        "九月", // Kugatsu
+        "十月", // Jūgatsu
+        "十一月", // Jūichigatsu
+        "十二月" // Jūnigatsu
     )
 
     internal val shortWeekDays = arrayOf(
-        "土", // Doyōbi
-        "日", // Nichiyōbi
-        "月", // Getsuyōbi
-        "火", // Kayōbi
-        "水", // Suiyōbi
-        "木", // Mokuyōbi
-        "金" // Kin'yōbi
+        "ど", // Doyōbi
+        "にち", // Nichiyōbi
+        "げつ", // Getsuyōbi
+        "か", // Kayōbi
+        "すい", // Suiyōbi
+        "もく", // Mokuyōbi
+        "きん" // Kin'yōbi
     )
 
     internal val monthNamesEn = arrayOf(

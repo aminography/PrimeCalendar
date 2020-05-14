@@ -30,7 +30,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.19'
+    implementation 'com.aminography:primecalendar:1.2.20'
 }
 ```
 
@@ -49,7 +49,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.2.19</version>
+        <version>1.2.20</version>
     </dependency>
 </dependencies>
 ```
@@ -176,6 +176,14 @@ println(persian.longDateString)
 Third Party Libraries
 ---------------------
 **• ThreeTen-Backport** (https://www.threeten.org/threetenbp)
+
+<br/>
+
+Change Log
+----------
+### Version 1.2.20
+- Japanese month names and other temporal names are changed.
+- Month constants are added into calendar classes.
 
 <br/>
 

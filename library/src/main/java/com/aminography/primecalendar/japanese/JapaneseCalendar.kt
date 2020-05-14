@@ -136,9 +136,23 @@ class JapaneseCalendar @JvmOverloads constructor(
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
         JapaneseCalendarUtils.dayOfYear(year, dayOfYear)
 
+    @Suppress("unused")
     companion object {
         const val DEFAULT_FIRST_DAY_OF_WEEK = SUNDAY
         const val DEFAULT_LOCALE = "ja"
+
+        const val ICHIGATSU = 0
+        const val NIGATSU = 1
+        const val SANGATSU = 2
+        const val SHIGATSU = 3
+        const val GOGATSU = 4
+        const val ROKUGATSU = 5
+        const val SHICHIGATSU = 6
+        const val HACHIGATSU = 7
+        const val KUGATSU = 8
+        const val JUGATSU = 9
+        const val JUICHIGATSU = 10
+        const val JUNIGATSU = 11
     }
 
 }

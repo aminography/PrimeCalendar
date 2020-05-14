@@ -136,9 +136,23 @@ class HijriCalendar @JvmOverloads constructor(
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
         HijriCalendarUtils.dayOfYear(year, dayOfYear)
 
+    @Suppress("unused")
     companion object {
         const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
         const val DEFAULT_LOCALE = "ar"
+
+        const val MUHARRAM = 0
+        const val SAFAR = 1
+        const val RABI_AL_AWWAL = 2
+        const val RABI_ATH_THANI = 3
+        const val JUMADA_AL_ULA = 4
+        const val JUMADA_AL_AKHIRAH = 5
+        const val RAJAB = 6
+        const val SHABAN = 7
+        const val RAMADAN = 8
+        const val SHAWWAL = 9
+        const val DHU_AL_QADAH = 10
+        const val DHU_AL_HIJJAH = 11
     }
 
 }

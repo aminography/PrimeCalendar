@@ -21,6 +21,7 @@ dependencies {
     //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'org.threeten:threetenbp:1.4.0'
+//    implementation 'com.ibm.icu:icu4j:58.2'
 
     testImplementation 'junit:junit:4.13'
 }

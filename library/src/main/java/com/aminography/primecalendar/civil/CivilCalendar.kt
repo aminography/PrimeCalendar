@@ -103,9 +103,23 @@ class CivilCalendar @JvmOverloads constructor(
     override fun dayOfYear(year: Int, dayOfYear: Int): DateHolder =
         CivilCalendarUtils.dayOfYear(year, dayOfYear)
 
+    @Suppress("unused")
     companion object {
         const val DEFAULT_FIRST_DAY_OF_WEEK = SUNDAY
         const val DEFAULT_LOCALE = "en"
+
+        const val JANUARY = 0
+        const val FEBRUARY = 1
+        const val MARCH = 2
+        const val APRIL = 3
+        const val MAY = 4
+        const val JUNE = 5
+        const val JULY = 6
+        const val AUGUST = 7
+        const val SEPTEMBER = 8
+        const val OCTOBER = 9
+        const val NOVEMBER = 10
+        const val DECEMBER = 11
     }
 
 }
