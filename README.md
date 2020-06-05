@@ -129,7 +129,7 @@ import java.util.Calendar
 
 val calendar = Calendar.getInstance()
 
-// Converting PersianCalendar:
+// Converting to PersianCalendar:
 val persian = calendar.toPersian()
 ```
 
