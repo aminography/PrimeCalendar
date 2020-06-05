@@ -1,10 +1,7 @@
 package com.aminography.primecalendar
 
 import com.aminography.primecalendar.civil.CivilCalendar
-import com.aminography.primecalendar.common.operators.Month
-import com.aminography.primecalendar.common.operators.Year
-import com.aminography.primecalendar.common.operators.minusAssign
-import com.aminography.primecalendar.common.operators.plus
+import com.aminography.primecalendar.common.operators.*
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.japanese.JapaneseCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
@@ -293,6 +290,18 @@ class ExampleUnitTest {
 
         val calendar2 = calendar + Year(2)
         println("${calendar < calendar2}")
+    }
+
+    @Test
+    fun fields() {
+        val calendar = PersianCalendar()
+        calendar -= 107.dayOfMonth
+
+        assertEquals(calendar.dayOfMonth, calendar.date)
+
+        calendar.date = 9
+
+        assertEquals(calendar.dayOfMonth, calendar.date)
     }
 
 }

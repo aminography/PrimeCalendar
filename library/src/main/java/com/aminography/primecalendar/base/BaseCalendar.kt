@@ -2,6 +2,7 @@ package com.aminography.primecalendar.base
 
 import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.common.CalendarFactory
+import com.aminography.primecalendar.common.operators.CalendarField
 import java.util.*
 import java.util.Calendar.*
 
@@ -80,6 +81,17 @@ abstract class BaseCalendar(
             }
             else -> super.get(field)
         }
+    }
+
+    /**
+     * Sets the given [calendarField] to the given value in the internal calendar instance.
+     *
+     * @param calendarField the given calendar field.
+     * @throws ArrayIndexOutOfBoundsException if the specified field is out of range ([field &lt; 0 || field &gt;= FIELD_COUNT]).
+     */
+    override fun set(calendarField: CalendarField) {
+        super.set(calendarField)
+        invalidate()
     }
 
     /**

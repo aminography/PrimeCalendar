@@ -2,6 +2,7 @@ package com.aminography.primecalendar
 
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.common.*
+import com.aminography.primecalendar.common.operators.CalendarField
 import com.aminography.primecalendar.hijri.HijriCalendar
 import com.aminography.primecalendar.japanese.JapaneseCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
@@ -60,9 +61,7 @@ abstract class PrimeCalendar(
      */
     var year: Int
         get() = internalYear
-        set(value) {
-            set(value, internalMonth, internalDayOfMonth)
-        }
+        set(value) = set(value, internalMonth, internalDayOfMonth)
 
     /**
      * A property to handle getter and setter for value of month.
@@ -71,9 +70,34 @@ abstract class PrimeCalendar(
      */
     var month: Int
         get() = internalMonth
-        set(value) {
-            set(internalYear, value, internalDayOfMonth)
-        }
+        set(value) = set(internalYear, value, internalDayOfMonth)
+
+    /**
+     * A property to handle getter and setter for value of week of year.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.WEEK_OF_YEAR)`
+     * and `set(Calendar.WEEK_OF_YEAR, value)`.
+     */
+    var weekOfYear: Int
+        get() = get(WEEK_OF_YEAR)
+        set(value) = set(WEEK_OF_YEAR, value)
+
+    /**
+     * A property to handle getter and setter for value of week of month.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.WEEK_OF_MONTH)`
+     * and `set(Calendar.WEEK_OF_MONTH, value)`.
+     */
+    var weekOfMonth: Int
+        get() = get(WEEK_OF_MONTH)
+        set(value) = set(WEEK_OF_MONTH, value)
+
+    /**
+     * A property to handle getter and setter for value of day of month.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.DATE)`
+     * and `set(Calendar.DATE, value)`.
+     */
+    var date: Int
+        get() = internalDayOfMonth
+        set(value) = set(internalYear, internalMonth, value)
 
     /**
      * A property to handle getter and setter for value of day of month.
@@ -82,9 +106,79 @@ abstract class PrimeCalendar(
      */
     var dayOfMonth: Int
         get() = internalDayOfMonth
-        set(value) {
-            set(internalYear, internalMonth, value)
-        }
+        set(value) = set(internalYear, internalMonth, value)
+
+    /**
+     * A property to handle getter and setter for value of day of year.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.DAY_OF_YEAR)`
+     * and `set(Calendar.DAY_OF_YEAR, value)`.
+     */
+    var dayOfYear: Int
+        get() = get(DAY_OF_YEAR)
+        set(value) = set(DAY_OF_YEAR, value)
+
+    /**
+     * A property to handle getter and setter for value of day of week.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.DAY_OF_WEEK)`
+     * and `set(Calendar.DAY_OF_WEEK, value)`.
+     */
+    var dayOfWeek: Int
+        get() = get(DAY_OF_WEEK)
+        set(value) = set(DAY_OF_WEEK, value)
+
+    /**
+     * A property to handle getter and setter for value of day of week in month.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.DAY_OF_WEEK_IN_MONTH)`
+     * and `set(Calendar.DAY_OF_WEEK_IN_MONTH, value)`.
+     */
+    var dayOfWeekInMonth: Int
+        get() = get(DAY_OF_WEEK_IN_MONTH)
+        set(value) = set(DAY_OF_WEEK_IN_MONTH, value)
+
+    /**
+     * A property to handle getter and setter for value of hour.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.HOUR)`
+     * and `set(Calendar.HOUR, value)`.
+     */
+    var hour: Int
+        get() = get(HOUR)
+        set(value) = set(HOUR, value)
+
+    /**
+     * A property to handle getter and setter for value of hour of day.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.HOUR_OF_DAY)`
+     * and `set(Calendar.HOUR_OF_DAY, value)`.
+     */
+    var hourOfDay: Int
+        get() = get(HOUR_OF_DAY)
+        set(value) = set(HOUR_OF_DAY, value)
+
+    /**
+     * A property to handle getter and setter for value of minute.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.MINUTE)`
+     * and `set(Calendar.MINUTE, value)`.
+     */
+    var minute: Int
+        get() = get(MINUTE)
+        set(value) = set(MINUTE, value)
+
+    /**
+     * A property to handle getter and setter for value of second.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.SECOND)`
+     * and `set(Calendar.SECOND, value)`.
+     */
+    var second: Int
+        get() = get(SECOND)
+        set(value) = set(SECOND, value)
+
+    /**
+     * A property to handle getter and setter for value of millisecond.
+     * Using this property to get and set the value is equivalent to call `get(Calendar.MILLISECOND)`
+     * and `set(Calendar.MILLISECOND, value)`.
+     */
+    var millisecond: Int
+        get() = get(MILLISECOND)
+        set(value) = set(MILLISECOND, value)
 
     /**
      * A property which returns name of the current month.
@@ -159,8 +253,7 @@ abstract class PrimeCalendar(
      * `June 14`
      */
     val monthDayString: String
-        get() = "$monthName " +
-            normalize(locale, dayOfMonth)
+        get() = "$monthName ${normalize(locale, dayOfMonth)}"
 
     // Open Functions ------------------------------------------------------------------------------
 
@@ -172,8 +265,17 @@ abstract class PrimeCalendar(
     }
 
     /**
-     * Sets the values for the calendar fields [YEAR], [MONTH], and [DAY_OF_MONTH]
-     * in the internal calendar instance.
+     * Sets the given [calendarField] to the given value in the internal calendar instance.
+     *
+     * @param calendarField the given calendar field.
+     * @throws ArrayIndexOutOfBoundsException if the specified field is out of range ([field &lt; 0 || field &gt;= FIELD_COUNT]).
+     */
+    open fun set(calendarField: CalendarField) {
+        internalCalendar.set(calendarField.field, calendarField.amount)
+    }
+
+    /**
+     * Sets the given calendar field to the given value in the internal calendar instance.
      *
      * @param field the given calendar field.
      * @param value the value to be set for the given calendar field.
@@ -184,7 +286,8 @@ abstract class PrimeCalendar(
     }
 
     /**
-     * Sets the given calendar field to the given value in the internal calendar instance.
+     * Sets the values for the calendar fields [YEAR], [MONTH], and [DAY_OF_MONTH]
+     * in the internal calendar instance.
      *
      * @param year the value used to set the [YEAR] calendar field.
      * @param month the value used to set the [MONTH] calendar field. Month value is 0-based. e.g., 0 for January.
@@ -545,6 +648,12 @@ abstract class PrimeCalendar(
         val dividend = (baseOffset + day) / 7
         val remainder = (baseOffset + day) % 7
         return dividend + if (remainder > 0) 1 else 0
+    }
+
+    internal fun adjustWith(calendar: Calendar) {
+        internalCalendar.timeInMillis = calendar.timeInMillis
+        firstDayOfWeek = calendar.firstDayOfWeek
+        invalidate()
     }
 
     // ---------------------------------------------------------------------------------------------

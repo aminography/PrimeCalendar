@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         //noinspection DifferentKotlinGradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
@@ -41,7 +41,7 @@ ext {
 
     publishedGroupId = 'com.aminography'
     artifact = 'primecalendar'
-    libraryVersion = "1.2.21"
+    libraryVersion = "1.3.0"
 
     libraryName = 'PrimeCalendar'
     libraryDescription = 'PrimeCalendar makes working with dates easier.'

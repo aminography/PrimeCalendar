@@ -30,7 +30,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.2.21'
+    implementation 'com.aminography:primecalendar:1.3.0'
 }
 ```
 
@@ -49,7 +49,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.2.21</version>
+        <version>1.3.0</version>
     </dependency>
 </dependencies>
 ```
@@ -122,6 +122,18 @@ val japanese = calendar.toJapanese()
 
 <br/>
 
+Also, it is possible to convert an instance of `java.util.Calendar` to an instance of `PrimeCalendar`. For example:
+```kotlin
+import java.util.Calendar
+
+val calendar = Calendar.getInstance()
+
+// Converting PersianCalendar:
+val persian = calendar.toPersian()
+```
+
+<br/>
+
 ### • Kotlin Operators
 There is a different way to use `get`, `set`, and `add` methods. Using operators you can do it much simpler.
 Suppose that the `calendar` is an instance of `PrimeCalendar`:
@@ -130,24 +142,30 @@ Suppose that the `calendar` is an instance of `PrimeCalendar`:
 ```kotlin
 val year = calendar.get(Calendar.YEAR)
 
-// equivalent operation:
+// equivalent operations:
 val year = calendar[Calendar.YEAR]
+val year = calendar.year
 ```
 
 > set
 ```kotlin
 calendar.set(Calendar.MONTH, 7)
 
-// equivalent operation:
+// equivalent operations:
 calendar[Calendar.MONTH] = 7
+calendar.set(Month(7))
+calendar.set(7.month)
+calendar.month = 7
 ```
 
 > add
 ```kotlin
 calendar.add(Calendar.DAY_OF_MONTH, 27)
 
-// equivalent operation:
+// equivalent operations:
 calendar[Calendar.DAY_OF_MONTH] += 27
+calendar += DayOfMonth(27)
+calendar += 27.dayOfMonth
 ```
 
 <br/>
@@ -181,6 +199,11 @@ Third Party Libraries
 
 Change Log
 ----------
+### Version 1.3.0
+- Adding getter/setter field for all the calendar fields, such as dayOfWeek, hour, *etc*.
+- Adding date conversion extension functions for `java.util.Calendar` instances.
+- Adding calendar fields extensions for numbers, *e.g.* `calendar += 27.dayOfMonth`
+
 ### Version 1.2.21
 - Japanese month names and other temporal names are changed.
 - Month constants are added into calendar classes.
