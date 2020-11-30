@@ -31,7 +31,7 @@ repositories {
 }
   
 dependencies {
-    implementation 'com.aminography:primecalendar:1.3.0'
+    implementation 'com.aminography:primecalendar:1.3.1'
 }
 ```
 
@@ -50,7 +50,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.3.0</version>
+        <version>1.3.1</version>
     </dependency>
 </dependencies>
 ```
@@ -200,6 +200,9 @@ Third Party Libraries
 
 Change Log
 ----------
+### Version 1.3.1
+- Improving Arabic digits.
+
 ### Version 1.3.0
 - Adding getter/setter field for all the calendar fields, such as dayOfWeek, hour, *etc*.
 - Adding date conversion extension functions for `java.util.Calendar` instances.
