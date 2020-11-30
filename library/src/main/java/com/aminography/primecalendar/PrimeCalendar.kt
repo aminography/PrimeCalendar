@@ -229,9 +229,9 @@ abstract class PrimeCalendar(
     val longDateString: String
         get() = weekDayName +
             "${comma(locale)} " +
-            "${localizeNumber(locale, dayOfMonth)} " +
+            "${dayOfMonth.localizeDigits(locale)} " +
             "$monthName " +
-            localizeNumber(locale, year)
+            year.localizeDigits(locale)
 
     /**
      * A property which returns a short description of the current calendar time.
