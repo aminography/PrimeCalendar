@@ -1,7 +1,9 @@
 package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.common.DateHolder
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.DARI_AF
 import com.aminography.primecalendar.persian.PersianCalendar.Companion.DEFAULT_LOCALE
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.FARSI_AF
 import java.util.*
 import java.util.Calendar.*
 import kotlin.math.floor
@@ -143,9 +145,26 @@ object PersianCalendarUtils {
         "Fr" // jom'e
     )
 
+
+    internal val monthNamesAf = arrayOf(
+        "حمل", // Farvardin
+        "ثور", // Ordibehesht
+        "جوزا", // Khordad
+        "سرطان", // Tir
+        "اسد", // Mordad
+        "سنبله", // Shahrivar
+        "میزان", // Mehr
+        "عقرب", // Aban
+        "قوس", // Azar
+        "جدی", // Dey
+        "دلو", // Bahman
+        "حوت" // Esfand
+    )
+
     fun monthName(month: Int, locale: Locale): String {
         return when (locale.language) {
             DEFAULT_LOCALE -> monthNames[month]
+            FARSI_AF, DARI_AF -> monthNamesAf[month]
             else -> monthNamesEn[month]
         }
     }
@@ -153,13 +172,14 @@ object PersianCalendarUtils {
     fun shortMonthName(month: Int, locale: Locale): String {
         return when (locale.language) {
             DEFAULT_LOCALE -> shortMonthNames[month]
+            FARSI_AF, DARI_AF -> monthNamesAf[month]
             else -> shortMonthNamesEn[month]
         }
     }
 
     fun weekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            DEFAULT_LOCALE -> weekDays
+            DEFAULT_LOCALE, FARSI_AF, DARI_AF -> weekDays
             else -> weekDaysEn
         }
         return when (weekDay) {
@@ -176,7 +196,7 @@ object PersianCalendarUtils {
 
     fun shortWeekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            DEFAULT_LOCALE -> shortWeekDays
+            DEFAULT_LOCALE, FARSI_AF, DARI_AF  -> shortWeekDays
             else -> shortWeekDaysEn
         }
         return when (weekDay) {

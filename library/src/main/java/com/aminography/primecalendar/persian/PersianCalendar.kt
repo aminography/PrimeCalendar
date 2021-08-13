@@ -109,6 +109,14 @@ class PersianCalendar @JvmOverloads constructor(
                     shortWeekdays = PersianCalendarUtils.shortWeekDays
                     amPmStrings = PersianCalendarUtils.amPm
                 }
+                FARSI_AF, DARI_AF -> {
+                    eras = PersianCalendarUtils.eras
+                    months = PersianCalendarUtils.monthNamesAf
+                    shortMonths = PersianCalendarUtils.shortMonthNames
+                    weekdays = PersianCalendarUtils.weekDays
+                    shortWeekdays = PersianCalendarUtils.shortWeekDays
+                    amPmStrings = PersianCalendarUtils.amPm
+                }
                 else -> {
                     eras = PersianCalendarUtils.erasEn
                     months = PersianCalendarUtils.monthNamesEn
@@ -139,7 +147,8 @@ class PersianCalendar @JvmOverloads constructor(
     companion object {
         const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
         const val DEFAULT_LOCALE = "fa"
-
+        const val FARSI_AF = "fa-af"
+        const val DARI_AF = "ps-af"
         const val FARVARDIN = 0
         const val ORDIBEHESHT = 1
         const val KHORDAD = 2
