@@ -109,10 +109,26 @@ class PersianCalendar @JvmOverloads constructor(
                     shortWeekdays = PersianCalendarUtils.shortWeekDays
                     amPmStrings = PersianCalendarUtils.amPm
                 }
-                FARSI_AF, DARI_AF -> {
+                FARSI_AFGHAN_LOCALE -> {
                     eras = PersianCalendarUtils.eras
                     months = PersianCalendarUtils.monthNamesAf
-                    shortMonths = PersianCalendarUtils.shortMonthNames
+                    shortMonths = PersianCalendarUtils.monthNamesAf
+                    weekdays = PersianCalendarUtils.weekDays
+                    shortWeekdays = PersianCalendarUtils.shortWeekDays
+                    amPmStrings = PersianCalendarUtils.amPm
+                }
+                PASHTO_LOCALE -> {
+                    eras = PersianCalendarUtils.eras
+                    months = PersianCalendarUtils.monthNamesPs
+                    shortMonths = PersianCalendarUtils.monthNamesPs
+                    weekdays = PersianCalendarUtils.weekDays
+                    shortWeekdays = PersianCalendarUtils.shortWeekDays
+                    amPmStrings = PersianCalendarUtils.amPm
+                }
+                KURDISH_LOCALE -> {
+                    eras = PersianCalendarUtils.eras
+                    months = PersianCalendarUtils.monthNamesKu
+                    shortMonths = PersianCalendarUtils.monthNamesKu
                     weekdays = PersianCalendarUtils.weekDays
                     shortWeekdays = PersianCalendarUtils.shortWeekDays
                     amPmStrings = PersianCalendarUtils.amPm
