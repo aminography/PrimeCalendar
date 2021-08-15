@@ -12,7 +12,7 @@ import java.util.Calendar.*
  */
 class PersianCalendar @JvmOverloads constructor(
     timeZone: TimeZone = TimeZone.getDefault(),
-    locale: Locale = Locale(DEFAULT_LOCALE)
+    locale: Locale = Locale(FARSI_IRANIAN_LOCALE)
 ) : BaseCalendar(timeZone, locale) {
 
     override val monthName: String
@@ -101,7 +101,7 @@ class PersianCalendar @JvmOverloads constructor(
     override fun configSymbols(symbols: DateFormatSymbols) {
         symbols.apply {
             when (locale.language) {
-                DEFAULT_LOCALE -> {
+                FARSI_IRANIAN_LOCALE -> {
                     eras = PersianCalendarUtils.eras
                     months = PersianCalendarUtils.monthNames
                     shortMonths = PersianCalendarUtils.shortMonthNames
@@ -146,9 +146,10 @@ class PersianCalendar @JvmOverloads constructor(
     @Suppress("unused")
     companion object {
         const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
-        const val DEFAULT_LOCALE = "fa"
-        const val FARSI_AF = "fa-af"
-        const val DARI_AF = "ps-af"
+        const val FARSI_IRANIAN_LOCALE = "fa"
+        const val FARSI_AFGHAN_LOCALE = "fa-af"
+        const val PASHTO_LOCALE = "ps"
+        const val KURDISH_LOCALE = "ku"
 
         const val FARVARDIN = 0
         const val ORDIBEHESHT = 1
