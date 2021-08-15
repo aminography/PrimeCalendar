@@ -2,7 +2,7 @@ package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.persian.PersianCalendar.Companion.PASHTO_LOCALE
-import com.aminography.primecalendar.persian.PersianCalendar.Companion.FARSI_IRANIAN_LOCALE
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.DEFAULT_LOCALE
 import com.aminography.primecalendar.persian.PersianCalendar.Companion.FARSI_AFGHAN_LOCALE
 import com.aminography.primecalendar.persian.PersianCalendar.Companion.KURDISH_LOCALE
 import java.util.*
@@ -194,7 +194,7 @@ object PersianCalendarUtils {
 
     fun monthName(month: Int, locale: Locale): String {
         return when (locale.language) {
-            FARSI_IRANIAN_LOCALE -> monthNames[month]
+            DEFAULT_LOCALE -> monthNames[month]
             FARSI_AFGHAN_LOCALE-> monthNamesAf[month]
             PASHTO_LOCALE -> monthNamesPs[month]
             KURDISH_LOCALE -> monthNamesKu[month]
@@ -204,7 +204,7 @@ object PersianCalendarUtils {
 
     fun shortMonthName(month: Int, locale: Locale): String {
         return when (locale.language) {
-            FARSI_IRANIAN_LOCALE -> shortMonthNames[month]
+            DEFAULT_LOCALE -> shortMonthNames[month]
             FARSI_AFGHAN_LOCALE -> monthNamesAf[month]
             PASHTO_LOCALE -> monthNamesPs[month]
             KURDISH_LOCALE -> monthNamesKu[month]
@@ -214,7 +214,7 @@ object PersianCalendarUtils {
 
     fun weekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            FARSI_IRANIAN_LOCALE, FARSI_AFGHAN_LOCALE, PASHTO_LOCALE, KURDISH_LOCALE -> weekDays
+            DEFAULT_LOCALE, FARSI_AFGHAN_LOCALE, PASHTO_LOCALE, KURDISH_LOCALE -> weekDays
             else -> weekDaysEn
         }
         return when (weekDay) {
@@ -231,7 +231,7 @@ object PersianCalendarUtils {
 
     fun shortWeekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            FARSI_IRANIAN_LOCALE, FARSI_AFGHAN_LOCALE, PASHTO_LOCALE, KURDISH_LOCALE -> shortWeekDays
+            DEFAULT_LOCALE, FARSI_AFGHAN_LOCALE, PASHTO_LOCALE, KURDISH_LOCALE -> shortWeekDays
             else -> shortWeekDaysEn
         }
         return when (weekDay) {
