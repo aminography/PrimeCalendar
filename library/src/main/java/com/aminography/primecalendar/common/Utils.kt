@@ -11,13 +11,16 @@ import java.util.*
 internal const val delimiter = "/"
 
 internal fun normalize(locale: Locale, number: Int): String = when (locale.language) {
-    PersianCalendar.DEFAULT_LOCALE -> (if (number <= 9) "0$number" else "$number").withPersianDigits
+    PersianCalendar.DEFAULT_LOCALE, PersianCalendar.FARSI_AFGHAN_LOCALE,
+        PersianCalendar.PASHTO_LOCALE, PersianCalendar.KURDISH_LOCALE ->
+        (if (number <= 9) "0$number" else "$number").withPersianDigits
     HijriCalendar.DEFAULT_LOCALE -> (if (number <= 9) "0$number" else "$number").withArabicDigits
     else -> if (number <= 9) "0$number" else "$number"
 }
 
 internal fun comma(locale: Locale): String = when (locale.language) {
-    PersianCalendar.DEFAULT_LOCALE -> "،"
+    PersianCalendar.DEFAULT_LOCALE, PersianCalendar.FARSI_AFGHAN_LOCALE,
+        PersianCalendar.PASHTO_LOCALE, PersianCalendar.KURDISH_LOCALE -> "،"
     HijriCalendar.DEFAULT_LOCALE -> "،"
     else -> ","
 }
@@ -27,7 +30,8 @@ fun Number.localizeDigits(locale: Locale): String =
 
 fun String.localizeDigits(locale: Locale): String =
     when (locale.language) {
-        PersianCalendar.DEFAULT_LOCALE -> withPersianDigits
+        PersianCalendar.DEFAULT_LOCALE, PersianCalendar.FARSI_AFGHAN_LOCALE,
+            PersianCalendar.PASHTO_LOCALE, PersianCalendar.KURDISH_LOCALE -> withPersianDigits
         HijriCalendar.DEFAULT_LOCALE -> withArabicDigits
         else -> this
     }

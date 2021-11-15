@@ -1,7 +1,10 @@
 package com.aminography.primecalendar.persian
 
 import com.aminography.primecalendar.common.DateHolder
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.PASHTO_LOCALE
 import com.aminography.primecalendar.persian.PersianCalendar.Companion.DEFAULT_LOCALE
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.FARSI_AFGHAN_LOCALE
+import com.aminography.primecalendar.persian.PersianCalendar.Companion.KURDISH_LOCALE
 import java.util.*
 import java.util.Calendar.*
 import kotlin.math.floor
@@ -143,9 +146,58 @@ object PersianCalendarUtils {
         "Fr" // jom'e
     )
 
+
+    internal val monthNamesAf = arrayOf(
+        "حمل", // Farvardin
+        "ثور", // Ordibehesht
+        "جوزا", // Khordad
+        "سرطان", // Tir
+        "اسد", // Mordad
+        "سنبله", // Shahrivar
+        "میزان", // Mehr
+        "عقرب", // Aban
+        "قوس", // Azar
+        "جدی", // Dey
+        "دلو", // Bahman
+        "حوت" // Esfand
+    )
+
+    internal val monthNamesPs = arrayOf(
+        "وری", // Wray (Aries)
+        "غويی", // Ǧwayáy (Taurus)
+        "غبرګولی", // Ǧbargoláy (Gemini)
+        "چنګاښ", // Čungā́x̌ (Cancer)
+        "زمری", // Zmaráy (Leo)
+        "وږی", // Wáǵay (Virgo)
+        "تله", // Tә́la (Libra)
+        "لړم", // Laṛám (Scorpio)
+        "ليندۍ", // Lindә́i (Sagittarius)
+        "مرغومی", // Marǧúmay (Capricorn)
+        "سلواغه", // Salwāǧá (Aquarius)
+        "كب" // Kab (Pisces)
+    )
+
+    internal val monthNamesKu = arrayOf(
+        "خاکەلێوە\u200E", // Xakelêwe
+        "گوڵان\u200E", // Gullan (Banemer)
+        "جۆزەردان\u200E", // Cozerdan
+        "پووشپەڕ\u200E", // Pûşper
+        "گەلاوێژ\u200E", // Gelawêj
+        "خەرمانان\u200E", // Xermanan
+        "ڕەزبەر\u200E", // Rezber
+        "لگەڵاڕێزان\u200Eړم", // Xezellwer (Gelarêzan)
+        "سەرماوەز\u200E", // Sermawez
+        "بەفرانبار\u200E", // Befranbar
+        "ڕێبەندان\u200E", // Rêbendan
+        "ڕەشەمە\u200E" // Reşeme
+    )
+
     fun monthName(month: Int, locale: Locale): String {
         return when (locale.language) {
             DEFAULT_LOCALE -> monthNames[month]
+            FARSI_AFGHAN_LOCALE-> monthNamesAf[month]
+            PASHTO_LOCALE -> monthNamesPs[month]
+            KURDISH_LOCALE -> monthNamesKu[month]
             else -> monthNamesEn[month]
         }
     }
@@ -153,13 +205,16 @@ object PersianCalendarUtils {
     fun shortMonthName(month: Int, locale: Locale): String {
         return when (locale.language) {
             DEFAULT_LOCALE -> shortMonthNames[month]
+            FARSI_AFGHAN_LOCALE -> monthNamesAf[month]
+            PASHTO_LOCALE -> monthNamesPs[month]
+            KURDISH_LOCALE -> monthNamesKu[month]
             else -> shortMonthNamesEn[month]
         }
     }
 
     fun weekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            DEFAULT_LOCALE -> weekDays
+            DEFAULT_LOCALE, FARSI_AFGHAN_LOCALE, PASHTO_LOCALE, KURDISH_LOCALE -> weekDays
             else -> weekDaysEn
         }
         return when (weekDay) {
@@ -176,7 +231,7 @@ object PersianCalendarUtils {
 
     fun shortWeekDayName(weekDay: Int, locale: Locale): String {
         val array = when (locale.language) {
-            DEFAULT_LOCALE -> shortWeekDays
+            DEFAULT_LOCALE, FARSI_AFGHAN_LOCALE, PASHTO_LOCALE, KURDISH_LOCALE -> shortWeekDays
             else -> shortWeekDaysEn
         }
         return when (weekDay) {
