@@ -1,0 +1,18 @@
+android {
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
+
+        versionCode libVersion.code
+        versionName libVersion.name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility versions.javaTarget
+        targetCompatibility versions.javaTarget
+    }
+}

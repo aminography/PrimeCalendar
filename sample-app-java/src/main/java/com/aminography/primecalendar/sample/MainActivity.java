@@ -1,4 +1,4 @@
-package com.aminography.primecalendar.sample.view;
+package com.aminography.primecalendar.sample;
 
 import android.os.Bundle;
 
@@ -17,5 +17,4 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 }

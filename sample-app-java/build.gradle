@@ -1,13 +1,12 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
 }
 
 apply from: rootProject.file('scripts/android.gradle')
 
 android {
     defaultConfig {
-        applicationId "com.aminography.primecalendar.sample"
+        applicationId "com.aminography.primecalendar.sample_java"
     }
 
     buildTypes {

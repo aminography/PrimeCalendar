@@ -1,29 +1,28 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
-repositories {
-    mavenCentral()
-}
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+java {
+    sourceCompatibility = versions.javaTarget
+    targetCompatibility = versions.javaTarget
 }
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = versions.kotlinJvmTarget
     }
 }
 
 dependencies {
-    //noinspection DifferentStdlibGradleVersion
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'org.threeten:threetenbp:1.4.0'
-
-    testImplementation 'junit:junit:4.13'
+    implementation dep.threetenbp
+    testImplementation dep.junit.core
 }
 
-apply from: rootProject.file('gradle/install.gradle')
-apply from: rootProject.file('gradle/bintray-java.gradle')
+ext.publishInfo = [
+        groupId    : 'com.aminography',
+        artifactId : 'primecalendar',
+        version    : libVersion.name,
+        description: 'PrimeCalendar makes working with dates easier.',
+        githubRepo : 'PrimeCalendar' /* https://github.com/aminography/# */
+]
+
+apply from: rootProject.file('scripts/publish-module.gradle')

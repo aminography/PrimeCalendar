@@ -1,59 +1,23 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: rootProject.file('scripts/publish-root.gradle')
 
 buildscript {
-    ext.kotlin_version = '1.3.72'
+    apply from: rootProject.file('scripts/versions.gradle')
 
     repositories {
         google()
-        jcenter()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
-        //noinspection DifferentKotlinGradleVersion
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
+        classpath plugin.android.gradle
+        classpath plugin.jetbrains.kotlin
+        classpath plugin.jetbrains.dokka
+        classpath plugin.nexus.publish
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'PrimeCalendar'
-    orgName = 'aminography'
-
-    publishedGroupId = 'com.aminography'
-    artifact = 'primecalendar'
-    libraryVersion = "1.3.3"
-
-    libraryName = 'PrimeCalendar'
-    libraryDescription = 'PrimeCalendar makes working with dates easier.'
-
-    siteUrl = 'https://github.com/aminography/PrimeCalendar'
-    gitUrl = 'https://github.com/aminography/PrimeCalendar.git'
-
-    developerId = 'aminography'
-    developerName = 'Mohammad Amin Hassani'
-    developerEmail = 'aminography@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
 }

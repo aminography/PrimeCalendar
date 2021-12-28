@@ -1,9 +1,8 @@
-package com.aminography.primecalendar.sample.view
+package com.aminography.primecalendar.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.aminography.primecalendar.sample.R
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,5 +10,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
 }
