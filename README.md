@@ -1,6 +1,6 @@
 # `PrimeCalendar` :zap:
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PrimeCalendar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7744)
-[![Bintray](https://img.shields.io/bintray/v/aminography/maven/PrimeCalendar?label=Bintray)](https://bintray.com/aminography/maven/PrimeCalendar/_latestVersion)
+![mavenCentral](https://img.shields.io/maven-central/v/com.aminography/secure-shared-preferences?color=blue)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7bba3b163d4444c4a8913f82386ad379)](https://www.codacy.com/manual/aminography/PrimeCalendar?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aminography/PrimeCalendar&amp;utm_campaign=Badge_Grade)
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 
@@ -20,18 +20,14 @@ This library contains three types of calendar systems as well as their conversio
   
 Download
 --------
-**`PrimeCalendar`** is available on [bintray](https://bintray.com/aminography/maven/PrimeCalendar) to download using build tools systems.
+**`PrimeCalendar`** is available on `mavenCentral` to download using build tools systems.
 
 ### • Gradle
 Add the following lines to your `build.gradle` file:
 
 ```gradle
-repositories {
-    jcenter()
-}
-  
 dependencies {
-    implementation 'com.aminography:primecalendar:1.3.2'
+    implementation 'com.aminography:primecalendar:1.4.0'
 }
 ```
 
@@ -39,18 +35,11 @@ dependencies {
 Add the following lines to your `pom.xml` file:
 
 ```xml
-<repositories>
-    <repository>
-        <id>jcenter</id>
-        <url>https://jcenter.bintray.com/</url>
-    </repository>
-</repositories>
-
 <dependencies>
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.3.2</version>
+        <version>1.4.0</version>
     </dependency>
 </dependencies>
 ```
