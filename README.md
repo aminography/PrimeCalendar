@@ -1,6 +1,6 @@
 # `PrimeCalendar` :zap:
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PrimeCalendar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7744)
-![mavenCentral](https://img.shields.io/maven-central/v/com.aminography/secure-shared-preferences?color=blue)
+![mavenCentral](https://img.shields.io/maven-central/v/com.aminography/primecalendar?color=blue)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7bba3b163d4444c4a8913f82386ad379)](https://www.codacy.com/manual/aminography/PrimeCalendar?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aminography/PrimeCalendar&amp;utm_campaign=Badge_Grade)
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 
@@ -20,7 +20,7 @@ This library contains three types of calendar systems as well as their conversio
   
 Download
 --------
-**`PrimeCalendar`** is available on `mavenCentral` to download using build tools systems.
+**`PrimeCalendar`** is available on `MavenCentral` to download using build tools systems.
 
 ### • Gradle
 Add the following lines to your `build.gradle` file:
@@ -189,6 +189,9 @@ Third Party Libraries
 
 Change Log
 ----------
+### Version 1.4.0
+- Migrating to MavenCentral.
+
 ### Version 1.3.2
 - Improving Arabic digits.
 
