@@ -1,7 +1,5 @@
 rootProject.name = "PrimeCalendar"
 include ':library'
-include ':sample-app'
-include ':sample-app-java'
 
 enableFeaturePreview('VERSION_CATALOGS')
 dependencyResolutionManagement {
