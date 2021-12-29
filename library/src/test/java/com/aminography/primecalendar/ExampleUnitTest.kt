@@ -274,7 +274,7 @@ class ExampleUnitTest {
         val persian = PersianCalendar()
         println(persian.longDateString)
 
-        HijriCalendar.shiftDate = 1
+        HijriCalendar.dateAdjustingOffset = 1
 
         val hijri = HijriCalendar()
         println(hijri.longDateString)

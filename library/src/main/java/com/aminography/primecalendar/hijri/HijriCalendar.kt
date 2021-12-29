@@ -148,7 +148,7 @@ class HijriCalendar @JvmOverloads constructor(
     @Suppress("unused")
     companion object {
         @JvmStatic
-        var shiftDate: Int = 0
+        var dateAdjustingOffset: Int = 1
 
         const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
         const val DEFAULT_LOCALE = "ar"
