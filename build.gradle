@@ -11,7 +11,6 @@ buildscript {
     }
 
     dependencies {
-        classpath plugin.android.gradle
         classpath plugin.jetbrains.kotlin
         classpath plugin.jetbrains.dokka
         classpath plugin.nexus.publish

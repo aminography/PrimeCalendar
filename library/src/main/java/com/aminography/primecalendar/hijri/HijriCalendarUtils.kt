@@ -2,9 +2,9 @@ package com.aminography.primecalendar.hijri
 
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.hijri.HijriCalendar.Companion.DEFAULT_LOCALE
-import org.threeten.bp.LocalDate
-import org.threeten.bp.chrono.HijrahDate
-import org.threeten.bp.temporal.ChronoField
+import java.time.LocalDate
+import java.time.chrono.HijrahDate
+import java.time.temporal.ChronoField
 import java.util.*
 import java.util.Calendar.*
 
