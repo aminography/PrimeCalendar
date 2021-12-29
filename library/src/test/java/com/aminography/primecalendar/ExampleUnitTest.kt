@@ -275,7 +275,7 @@ class ExampleUnitTest {
         println(persian.longDateString)
 
         val hijri = HijriCalendar()
-        println(persian.longDateString)
+        println(hijri.longDateString)
 
         println("${persian < hijri}")
     }

@@ -1,8 +1,8 @@
 // semantic versioning
 def semantic = [
         'major': 1,
-        'minor': 4,
-        'patch': 1,
+        'minor': 5,
+        'patch': 0,
 ]
 ext.libVersion = [
         'code': semantic.major * 1000000 + semantic.minor * 1000 + semantic.patch,
@@ -13,7 +13,4 @@ ext.libVersion = [
 ext.versions = [
         'javaTarget'     : JavaVersion.VERSION_1_8,
         'kotlinJvmTarget': '1.8',
-        'compileSdk'     : 31,
-        'targetSdk'      : 31,
-        'minSdk'         : 15,
 ]

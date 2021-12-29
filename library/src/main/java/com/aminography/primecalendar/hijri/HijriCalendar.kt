@@ -154,5 +154,4 @@ class HijriCalendar @JvmOverloads constructor(
         const val DHU_AL_QADAH = 10
         const val DHU_AL_HIJJAH = 11
     }
-
 }
