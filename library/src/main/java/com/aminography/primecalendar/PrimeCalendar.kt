@@ -521,25 +521,25 @@ abstract class PrimeCalendar(
      * Returns an instance of [CivilCalendar] which is equivalent to the time of the current calendar.
      */
     fun toCivil(): CivilCalendar =
-        CivilCalendar().also { it.timeInMillis = timeInMillis }
+        CivilCalendar(internalCalendar.timeZone, locale).also { it.timeInMillis = timeInMillis }
 
     /**
      * Returns an instance of [PersianCalendar] which is equivalent to the time of the current calendar.
      */
     fun toPersian(): PersianCalendar =
-        PersianCalendar().also { it.timeInMillis = timeInMillis }
+        PersianCalendar(internalCalendar.timeZone, locale).also { it.timeInMillis = timeInMillis }
 
     /**
      * Returns an instance of [HijriCalendar] which is equivalent to the time of the current calendar.
      */
     fun toHijri(): HijriCalendar =
-        HijriCalendar().also { it.timeInMillis = timeInMillis }
+        HijriCalendar(internalCalendar.timeZone, locale).also { it.timeInMillis = timeInMillis }
 
     /**
      * Returns an instance of [JapaneseCalendar] which is equivalent to the time of the current calendar.
      */
     fun toJapanese(): JapaneseCalendar =
-        JapaneseCalendar().also { it.timeInMillis = timeInMillis }
+        JapaneseCalendar(internalCalendar.timeZone, locale).also { it.timeInMillis = timeInMillis }
 
     // ---------------------------------------------------------------------------------------------
 
@@ -854,7 +854,14 @@ abstract class PrimeCalendar(
         }
     }
 
-    private fun checkDisplayNameParams(field: Int, style: Int, minStyle: Int, maxStyle: Int, locale: Locale?, vararg fields: Int): Boolean {
+    private fun checkDisplayNameParams(
+        field: Int,
+        style: Int,
+        minStyle: Int,
+        maxStyle: Int,
+        locale: Locale?,
+        vararg fields: Int
+    ): Boolean {
         if (field < 0 || field >= FIELD_COUNT || style < minStyle || style > maxStyle) {
             throw IllegalArgumentException()
         }
