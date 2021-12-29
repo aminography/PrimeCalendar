@@ -2,11 +2,18 @@ package com.aminography.primecalendar.hijri
 
 import com.aminography.primecalendar.common.DateHolder
 import com.aminography.primecalendar.hijri.HijriCalendar.Companion.DEFAULT_LOCALE
-import java.time.LocalDate
-import java.time.chrono.HijrahDate
-import java.time.temporal.ChronoField
-import java.util.*
-import java.util.Calendar.*
+import com.aminography.primecalendar.hijri.HijriCalendar.Companion.shiftDate
+import org.threeten.bp.LocalDate
+import org.threeten.bp.chrono.HijrahDate
+import org.threeten.bp.temporal.ChronoField
+import java.util.Calendar.FRIDAY
+import java.util.Calendar.MONDAY
+import java.util.Calendar.SATURDAY
+import java.util.Calendar.SUNDAY
+import java.util.Calendar.THURSDAY
+import java.util.Calendar.TUESDAY
+import java.util.Calendar.WEDNESDAY
+import java.util.Locale
 
 /**
  * @author aminography
@@ -231,6 +238,7 @@ object HijriCalendarUtils {
 
     internal fun gregorianToHijri(gregorian: DateHolder): DateHolder {
         val gregorianDate = LocalDate.of(gregorian.year, gregorian.month + 1, gregorian.dayOfMonth)
+            .run { plusDays(shiftDate.toLong()) }
         val hijriDate = HijrahDate.from(gregorianDate)
         return DateHolder(hijriDate.get(ChronoField.YEAR), hijriDate.get(ChronoField.MONTH_OF_YEAR) - 1, hijriDate.get(ChronoField.DAY_OF_MONTH))
     }
@@ -238,7 +246,7 @@ object HijriCalendarUtils {
     internal fun hijriToGregorian(hijri: DateHolder): DateHolder {
         val hijriDate = HijrahDate.of(hijri.year, hijri.month + 1, hijri.dayOfMonth)
         val gregorianDate = LocalDate.from(hijriDate)
+            .run { minusDays(shiftDate.toLong()) }
         return DateHolder(gregorianDate.get(ChronoField.YEAR), gregorianDate.get(ChronoField.MONTH_OF_YEAR) - 1, gregorianDate.get(ChronoField.DAY_OF_MONTH))
     }
-
 }

@@ -4,8 +4,17 @@ import com.aminography.primecalendar.base.BaseCalendar
 import com.aminography.primecalendar.common.CalendarType
 import com.aminography.primecalendar.common.DateHolder
 import java.text.DateFormatSymbols
-import java.util.*
-import java.util.Calendar.*
+import java.util.Calendar.DAY_OF_MONTH
+import java.util.Calendar.DAY_OF_WEEK
+import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
+import java.util.Calendar.DAY_OF_YEAR
+import java.util.Calendar.MONTH
+import java.util.Calendar.SATURDAY
+import java.util.Calendar.WEEK_OF_MONTH
+import java.util.Calendar.WEEK_OF_YEAR
+import java.util.Calendar.YEAR
+import java.util.Locale
+import java.util.TimeZone
 
 
 /**
@@ -138,6 +147,9 @@ class HijriCalendar @JvmOverloads constructor(
 
     @Suppress("unused")
     companion object {
+        @JvmStatic
+        var shiftDate: Int = 0
+
         const val DEFAULT_FIRST_DAY_OF_WEEK = SATURDAY
         const val DEFAULT_LOCALE = "ar"
 

@@ -5,6 +5,7 @@ enableFeaturePreview('VERSION_CATALOGS')
 dependencyResolutionManagement {
     versionCatalogs {
         dep {
+            alias('threetenbp').to('org.threeten:threetenbp:1.5.2')
             alias('junit-core').to('junit:junit:4.13.2')
         }
 
