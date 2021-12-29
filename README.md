@@ -27,7 +27,7 @@ Add the following lines to your `build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation 'com.aminography:primecalendar:1.4.0'
+    implementation 'com.aminography:primecalendar:1.4.1'
 }
 ```
 
@@ -39,7 +39,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.aminography</groupId>
         <artifactId>primecalendar</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
     </dependency>
 </dependencies>
 ```
